@@ -8,16 +8,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Main Table View Controller-->
         <scene sceneID="IJi-2c-xdJ">
             <objects>
-                <tableViewController id="V71-ru-WZV" sceneMemberID="viewController">
+                <tableViewController id="V71-ru-WZV" customClass="MainTableViewController" customModule="Jago_002" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="mainTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="XQc-iy-q6Z">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="286" id="Fki-DD-UAg">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FirstTableCell" rowHeight="286" id="Fki-DD-UAg" customClass="FirstTableViewCell" customModule="Jago_002" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="393" height="286"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Fki-DD-UAg" id="69a-te-XeR">
@@ -28,6 +28,9 @@
                                             <rect key="frame" x="95" y="40" width="202" height="189"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <gestureRecognizers/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="Y68-NF-6i7" appends="YES" id="Nwb-76-lap"/>
+                                            </connections>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eK9-cb-GDC">
                                             <rect key="frame" x="222" y="240" width="75" height="35"/>
@@ -44,8 +47,18 @@
                             <outlet property="delegate" destination="V71-ru-WZV" id="P5p-EA-A6g"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="personImage" destination="O5M-y3-tAB" id="ONL-4C-qh7"/>
+                        <outlet property="personImageTapped" destination="Y68-NF-6i7" id="Ch6-zU-GX8"/>
+                        <outlet property="personPhoto" destination="O5M-y3-tAB" id="kUN-QG-7vG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TXK-Zc-dDx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Y68-NF-6i7">
+                    <connections>
+                        <action selector="personPhotoTapped:" destination="V71-ru-WZV" id="G68-7w-yQH"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-660.30534351145036" y="-2.1126760563380285"/>
         </scene>
@@ -58,8 +71,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="スクリーンショット 2023-09-09 21.13.18" translatesAutoresizingMaskIntoConstraints="NO" id="6lQ-Lv-77I">
-                                <rect key="frame" x="76" y="169" width="264" height="539"/>
+                                <rect key="frame" x="32" y="120" width="326" height="588"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="bSu-dA-ikm" appends="YES" id="eHD-bV-gOd"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -67,19 +84,20 @@
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="bSu-dA-ikm"/>
             </objects>
             <point key="canvasLocation" x="14.503816793893129" y="-2.1126760563380285"/>
         </scene>
-        <!--Recorded-->
+        <!--Recorded Text View Controller-->
         <scene sceneID="4Xw-VX-Zcl">
             <objects>
-                <viewController id="NdS-xe-luD" customClass="Recorded" sceneMemberID="viewController">
+                <viewController id="NdS-xe-luD" customClass="RecordedTextViewController" customModule="Jago_002" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JbL-bi-0N6">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tka-BB-hDF">
-                                <rect key="frame" x="46" y="159" width="240" height="128"/>
+                                <rect key="frame" x="40" y="109" width="326" height="565"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -94,7 +112,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Jl-w4-TfG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="711" y="-2"/>
+            <point key="canvasLocation" x="709.16030534351137" y="-2.1126760563380285"/>
         </scene>
     </scenes>
     <resources>
