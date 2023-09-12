@@ -8,9 +8,8 @@
 import UIKit
 
 class MainTableViewController: UITableViewController {
+    
 
-    @IBOutlet weak var personImage: UIImageView!
-    @IBOutlet var personImageTapped: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,14 +19,14 @@ class MainTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return persons.count
     }
 
-    /*
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
@@ -35,7 +34,7 @@ class MainTableViewController: UITableViewController {
 
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.

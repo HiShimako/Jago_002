@@ -9,6 +9,10 @@ import UIKit
 
 class FirstTableViewCell: UITableViewCell {
     
+    var personImageData = Data()
+    var personImage = UIImage()
+    
+    var contentsArray = [Contents]()
     
 
     override func awakeFromNib() {

@@ -13,9 +13,15 @@
 		CE2753972AAEDF43006D8DD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2753952AAEDF43006D8DD2 /* Main.storyboard */; };
 		CE2753992AAEDF45006D8DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE2753982AAEDF45006D8DD2 /* Assets.xcassets */; };
 		CE27539C2AAEDF45006D8DD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE27539A2AAEDF45006D8DD2 /* LaunchScreen.storyboard */; };
-		CE2753AA2AAEEC3B006D8DD2 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2753A92AAEEC3B006D8DD2 /* MainTableViewController.swift */; };
 		CE2753AC2AAEEC77006D8DD2 /* RecordedTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2753AB2AAEEC77006D8DD2 /* RecordedTextViewController.swift */; };
-		CE2753B02AAEF5EA006D8DD2 /* FirstTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2753AF2AAEF5EA006D8DD2 /* FirstTableViewCell.swift */; };
+		CE2753B32AAEFDD4006D8DD2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753B22AAEFDD4006D8DD2 /* Kingfisher */; };
+		CE2753B62AAEFDF7006D8DD2 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753B52AAEFDF7006D8DD2 /* ProgressHUD */; };
+		CE2753B92AAEFE91006D8DD2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753B82AAEFE91006D8DD2 /* FirebaseAuth */; };
+		CE2753BB2AAEFE91006D8DD2 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753BA2AAEFE91006D8DD2 /* FirebaseDatabase */; };
+		CE2753BD2AAEFE91006D8DD2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753BC2AAEFE91006D8DD2 /* FirebaseStorage */; };
+		CEC987C92AAF1D95006B9820 /* GoogleService-Info (1).plist in Resources */ = {isa = PBXBuildFile; fileRef = CEC987C82AAF1D95006B9820 /* GoogleService-Info (1).plist */; };
+		CEC987CB2AAFF773006B9820 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC987CA2AAFF773006B9820 /* InputViewController.swift */; };
+		CEC987CD2AB02394006B9820 /* Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC987CC2AB02394006B9820 /* Contents.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,9 +33,10 @@
 		CE2753982AAEDF45006D8DD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE27539B2AAEDF45006D8DD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE27539D2AAEDF45006D8DD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE2753A92AAEEC3B006D8DD2 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		CE2753AB2AAEEC77006D8DD2 /* RecordedTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordedTextViewController.swift; sourceTree = "<group>"; };
-		CE2753AF2AAEF5EA006D8DD2 /* FirstTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTableViewCell.swift; sourceTree = "<group>"; };
+		CEC987C82AAF1D95006B9820 /* GoogleService-Info (1).plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info (1).plist"; sourceTree = "<group>"; };
+		CEC987CA2AAFF773006B9820 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
+		CEC987CC2AB02394006B9820 /* Contents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +44,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2753B32AAEFDD4006D8DD2 /* Kingfisher in Frameworks */,
+				CE2753B92AAEFE91006D8DD2 /* FirebaseAuth in Frameworks */,
+				CE2753BB2AAEFE91006D8DD2 /* FirebaseDatabase in Frameworks */,
+				CE2753BD2AAEFE91006D8DD2 /* FirebaseStorage in Frameworks */,
+				CE2753B62AAEFDF7006D8DD2 /* ProgressHUD in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,13 +77,14 @@
 				CE27538F2AAEDF43006D8DD2 /* AppDelegate.swift */,
 				CE2753912AAEDF43006D8DD2 /* SceneDelegate.swift */,
 				CE2753932AAEDF43006D8DD2 /* ViewController.swift */,
-				CE2753A92AAEEC3B006D8DD2 /* MainTableViewController.swift */,
-				CE2753AF2AAEF5EA006D8DD2 /* FirstTableViewCell.swift */,
+				CEC987CC2AB02394006B9820 /* Contents.swift */,
 				CE2753AB2AAEEC77006D8DD2 /* RecordedTextViewController.swift */,
+				CEC987CA2AAFF773006B9820 /* InputViewController.swift */,
 				CE2753952AAEDF43006D8DD2 /* Main.storyboard */,
 				CE2753982AAEDF45006D8DD2 /* Assets.xcassets */,
 				CE27539A2AAEDF45006D8DD2 /* LaunchScreen.storyboard */,
 				CE27539D2AAEDF45006D8DD2 /* Info.plist */,
+				CEC987C82AAF1D95006B9820 /* GoogleService-Info (1).plist */,
 			);
 			path = Jago_002;
 			sourceTree = "<group>";
@@ -92,6 +105,13 @@
 			dependencies = (
 			);
 			name = Jago_002;
+			packageProductDependencies = (
+				CE2753B22AAEFDD4006D8DD2 /* Kingfisher */,
+				CE2753B52AAEFDF7006D8DD2 /* ProgressHUD */,
+				CE2753B82AAEFE91006D8DD2 /* FirebaseAuth */,
+				CE2753BA2AAEFE91006D8DD2 /* FirebaseDatabase */,
+				CE2753BC2AAEFE91006D8DD2 /* FirebaseStorage */,
+			);
 			productName = Jago_002;
 			productReference = CE27538C2AAEDF43006D8DD2 /* Jago_002.app */;
 			productType = "com.apple.product-type.application";
@@ -120,6 +140,11 @@
 				Base,
 			);
 			mainGroup = CE2753832AAEDF43006D8DD2;
+			packageReferences = (
+				CE2753B12AAEFDD4006D8DD2 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				CE2753B42AAEFDF7006D8DD2 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+				CE2753B72AAEFE91006D8DD2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = CE27538D2AAEDF43006D8DD2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -135,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE27539C2AAEDF45006D8DD2 /* LaunchScreen.storyboard in Resources */,
+				CEC987C92AAF1D95006B9820 /* GoogleService-Info (1).plist in Resources */,
 				CE2753992AAEDF45006D8DD2 /* Assets.xcassets in Resources */,
 				CE2753972AAEDF43006D8DD2 /* Main.storyboard in Resources */,
 			);
@@ -147,9 +173,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE2753B02AAEF5EA006D8DD2 /* FirstTableViewCell.swift in Sources */,
-				CE2753AA2AAEEC3B006D8DD2 /* MainTableViewController.swift in Sources */,
 				CE2753AC2AAEEC77006D8DD2 /* RecordedTextViewController.swift in Sources */,
+				CEC987CD2AB02394006B9820 /* Contents.swift in Sources */,
+				CEC987CB2AAFF773006B9820 /* InputViewController.swift in Sources */,
 				CE2753942AAEDF43006D8DD2 /* ViewController.swift in Sources */,
 				CE2753902AAEDF43006D8DD2 /* AppDelegate.swift in Sources */,
 				CE2753922AAEDF43006D8DD2 /* SceneDelegate.swift in Sources */,
@@ -370,6 +396,61 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CE2753B12AAEFDD4006D8DD2 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		CE2753B42AAEFDF7006D8DD2 /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.0;
+			};
+		};
+		CE2753B72AAEFE91006D8DD2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CE2753B22AAEFDD4006D8DD2 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE2753B12AAEFDD4006D8DD2 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		CE2753B52AAEFDF7006D8DD2 /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE2753B42AAEFDF7006D8DD2 /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
+		};
+		CE2753B82AAEFE91006D8DD2 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE2753B72AAEFE91006D8DD2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		CE2753BA2AAEFE91006D8DD2 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE2753B72AAEFE91006D8DD2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		CE2753BC2AAEFE91006D8DD2 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE2753B72AAEFE91006D8DD2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE2753842AAEDF43006D8DD2 /* Project object */;
 }
