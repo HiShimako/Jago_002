@@ -6,9 +6,9 @@
 //
 
 import UIKit
-import Kingfisher//urlから画像を読み込んできて表示してくれるライブラリ
-import FirebaseDatabase
-import Firebase
+//import Kingfisher//urlから画像を読み込んできて表示してくれるライブラリ
+//import FirebaseDatabase
+//import Firebase
 import Photos
 
 class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
@@ -43,20 +43,20 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         //        コンテンツ
         //        タグで管理
         //        投稿画像
-        let contentImageView = cell.viewWithTag(4) as! UIImageView
-        contentImageView.kf.setImage(with: URL(string: contentsArray[indexPath.row].contentImageString))
+//        let contentImageView = cell.viewWithTag(4) as! UIImageView
+//        contentImageView.kf.setImage(with: URL(string: contentsArray[indexPath.row].contentImageString))
         
-        return cell
-    }
+         return cell
+     }
     @IBAction func addPerson(_ sender: Any) {
         showAlert()
         
-        Auth.auth().signInAnonymously{(authResult,error) in
-            let user = authResult?.user
-            print(user)
+//        Auth.auth().signInAnonymously{(authResult,error) in
+//            let user = authResult?.user
+//            print(user)
             
         }
-    }
+    
         
         //    カメラ立ち上げメソッド
         func checkCamera(){
