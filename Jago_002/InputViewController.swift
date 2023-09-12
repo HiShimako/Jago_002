@@ -13,10 +13,12 @@ class InputViewController: UIViewController {
     
     var smallImage: UIImage?
     var bigImage: UIImage?
+    var personName: String?
     
     @IBOutlet weak var personNameTextField: UITextField!
     @IBOutlet weak var personsPhotoImageView: UIImageView!
     @IBOutlet weak var personsBigPhotoImageView: UIImageView!
+    
     
     
     override func viewDidLoad() {
@@ -33,7 +35,7 @@ class InputViewController: UIViewController {
         let timeLineDB = Database.database().reference().child("timeLine").childByAutoId()
         
         //                ストレージサーバーのURLを取得
-        let storage = Storage.storage().reference(forURL: "gs://photoapp-849ee.appspot.com/")
+        let storage = Storage.storage().reference(forURL: "gs://jagoapp-5f1be.appspot.com")
         
         /*** 投稿コンテンツ一連 ***/
         //        投稿コンテンツ用のフォルダを作成
