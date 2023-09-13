@@ -16,14 +16,36 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     @IBOutlet weak var personListTableView: UITableView!
     
+    var personImageData = Data()
+    var personImage = UIImage()
     var contentImageString = String()
     var contentsArray = [Contents]()
     
     
     override func viewDidLoad() {
-        super.viewDidLoad()      /* self追加 */
+        super.viewDidLoad()
         personListTableView.delegate = self
         personListTableView.dataSource = self
+        
+        if let data = UserDefaults.standard.object(forKey: "smallImage") as? Data {
+            personImageData = data
+            personImage = UIImage(data: personImageData)!
+        }
+        if let imageView = view.viewWithTag(4) as? UIImageView {
+            imageView.image = personImage
+        }
+        
+//        if UserDefaults.standard.object(forKey: "smallImage") != nil{
+//            personImageData = UserDefaults.standard.object(forKey: "smallImage") as! Data
+//            personImage = UIImage(data: personImageData)!
+//
+//
+//
+//            if let imageView = view.viewWithTag(4) as? UIImageView {
+//                imageView.image = personImage
+//            }
+//
+//        }
         
     }
     /* Fixで自動的に追加 */
@@ -34,11 +56,20 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1//セクションそのものの数
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
+        if let imageView = cell.viewWithTag(4) as? UIImageView {
+            if let data = UserDefaults.standard.object(forKey: "smallImage") as? Data {
+                let image = UIImage(data: data)
+                imageView.image = image
+            } else {
+                imageView.image = nil // もしくはデフォルトの画像
+            }
+        }
         
-        let cell = personListTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = personListTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
         //        コンテンツ
         //        タグで管理
@@ -57,7 +88,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             
         }
     
-        
+    
         //    カメラ立ち上げメソッド
         func checkCamera(){
             let sourceType:UIImagePickerController.SourceType = .camera
