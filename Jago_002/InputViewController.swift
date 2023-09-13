@@ -71,6 +71,8 @@ class InputViewController: UIViewController {
             
             // 更新された配列をUserDefaultsに保存
             UserDefaults.standard.setValue(personsArray, forKey: "personsArray")
+        
+        self.navigationController?.popViewController(animated: true)
 
     
     }

@@ -58,7 +58,20 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBAction func addPerson(_ sender: Any) {
         showAlert()
     }
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            
+            //taskArray内のindexPathのrow番目をremove（消去）する
+            personsArray.remove(at: indexPath.row)
+            
+            //再びアプリ内に消去した配列を保存
+            UserDefaults.standard.set(personsArray, forKey: "add")
+            
+            //tableViewを更新
+            tableView.reloadData()
+        }
+    }
     
     //    カメラ立ち上げメソッド
     func checkCamera(){
