@@ -28,6 +28,17 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let userDefaults = UserDefaults.standard
+
+        if let perArray = userDefaults.object(forKey: "personsArray") as? [[String: Any]] {
+            personsArray = perArray
+        }
+          //tableViewを更新
+        personListTableView.reloadData()
+    }
     /* Fixで自動的に追加 */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return personsArray.count//セクションの行の数
@@ -52,7 +63,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.height * 2 / 3
+        return self.view.frame.height * 1 / 3
     }
     
     @IBAction func addPerson(_ sender: Any) {
@@ -66,7 +77,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             personsArray.remove(at: indexPath.row)
             
             //再びアプリ内に消去した配列を保存
-            UserDefaults.standard.set(personsArray, forKey: "add")
+            UserDefaults.standard.set(personsArray, forKey: "personsArray")
             
             //tableViewを更新
             tableView.reloadData()
