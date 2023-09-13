@@ -13,12 +13,12 @@
 		CE2753972AAEDF43006D8DD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2753952AAEDF43006D8DD2 /* Main.storyboard */; };
 		CE2753992AAEDF45006D8DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE2753982AAEDF45006D8DD2 /* Assets.xcassets */; };
 		CE27539C2AAEDF45006D8DD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE27539A2AAEDF45006D8DD2 /* LaunchScreen.storyboard */; };
-		CE2753AC2AAEEC77006D8DD2 /* RecordedTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2753AB2AAEEC77006D8DD2 /* RecordedTextViewController.swift */; };
 		CE2753B32AAEFDD4006D8DD2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753B22AAEFDD4006D8DD2 /* Kingfisher */; };
 		CE2753B62AAEFDF7006D8DD2 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753B52AAEFDF7006D8DD2 /* ProgressHUD */; };
 		CE2753B92AAEFE91006D8DD2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753B82AAEFE91006D8DD2 /* FirebaseAuth */; };
 		CE2753BB2AAEFE91006D8DD2 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753BA2AAEFE91006D8DD2 /* FirebaseDatabase */; };
 		CE2753BD2AAEFE91006D8DD2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753BC2AAEFE91006D8DD2 /* FirebaseStorage */; };
+		CE88DBAF2AB1522900409880 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE88DBAE2AB1522900409880 /* RecordingViewController.swift */; };
 		CEC987C92AAF1D95006B9820 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEC987C82AAF1D95006B9820 /* GoogleService-Info.plist */; };
 		CEC987CB2AAFF773006B9820 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC987CA2AAFF773006B9820 /* InputViewController.swift */; };
 		CEC987CD2AB02394006B9820 /* Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC987CC2AB02394006B9820 /* Contents.swift */; };
@@ -33,7 +33,7 @@
 		CE2753982AAEDF45006D8DD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE27539B2AAEDF45006D8DD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE27539D2AAEDF45006D8DD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE2753AB2AAEEC77006D8DD2 /* RecordedTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordedTextViewController.swift; sourceTree = "<group>"; };
+		CE88DBAE2AB1522900409880 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
 		CEC987C82AAF1D95006B9820 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CEC987CA2AAFF773006B9820 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		CEC987CC2AB02394006B9820 /* Contents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contents.swift; sourceTree = "<group>"; };
@@ -78,8 +78,8 @@
 				CE2753912AAEDF43006D8DD2 /* SceneDelegate.swift */,
 				CE2753932AAEDF43006D8DD2 /* ViewController.swift */,
 				CEC987CC2AB02394006B9820 /* Contents.swift */,
-				CE2753AB2AAEEC77006D8DD2 /* RecordedTextViewController.swift */,
 				CEC987CA2AAFF773006B9820 /* InputViewController.swift */,
+				CE88DBAE2AB1522900409880 /* RecordingViewController.swift */,
 				CE2753952AAEDF43006D8DD2 /* Main.storyboard */,
 				CE2753982AAEDF45006D8DD2 /* Assets.xcassets */,
 				CE27539A2AAEDF45006D8DD2 /* LaunchScreen.storyboard */,
@@ -173,11 +173,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE2753AC2AAEEC77006D8DD2 /* RecordedTextViewController.swift in Sources */,
 				CEC987CD2AB02394006B9820 /* Contents.swift in Sources */,
 				CEC987CB2AAFF773006B9820 /* InputViewController.swift in Sources */,
 				CE2753942AAEDF43006D8DD2 /* ViewController.swift in Sources */,
 				CE2753902AAEDF43006D8DD2 /* AppDelegate.swift in Sources */,
+				CE88DBAF2AB1522900409880 /* RecordingViewController.swift in Sources */,
 				CE2753922AAEDF43006D8DD2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,12 +11,14 @@ import UIKit
 
 class InputViewController: UIViewController {
     
+    
+    var personName: String?
     var smallImage: UIImage?
     var bigImage: UIImage?
-    var personName: String?
+    
     
     @IBOutlet weak var personNameTextField: UITextField!
-    @IBOutlet weak var personsPhotoImageView: UIImageView!
+    @IBOutlet weak var personsSmallPhotoImageView: UIImageView!
     @IBOutlet weak var personsBigPhotoImageView: UIImageView!
     
     
@@ -24,69 +26,53 @@ class InputViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        personsPhotoImageView.image = smallImage!
+        personsSmallPhotoImageView.image = smallImage!
         personsBigPhotoImageView.image = bigImage!
         
     }
     
-    @IBAction func postAction(_ sender: Any) {
-        
-        //UserDefaults.standardに保存
-        UserDefaults.standard.set(personNameTextField.text, forKey: "personName")
-        if let savedPersonName = UserDefaults.standard.object(forKey: "personName") as? String {
-            print(savedPersonName)
+    func personDictionary(personName: String, smallImage: UIImage, bigImage: UIImage) -> [String: Any]? {
+        guard let smallImageData = smallImage.jpegData(compressionQuality: 0.1),
+              let bigImageData = bigImage.jpegData(compressionQuality: 0.5) else {
+            return nil
         }
-        
-        let smalldata = smallImage?.jpegData(compressionQuality: 0.1)
-        UserDefaults.standard.set(smalldata, forKey: "smallImage")
-        if let savedSmallImageData = UserDefaults.standard.object(forKey: "smallImage") as? Data {
-            print("smallImage is saved with size: \(savedSmallImageData.count) bytes.")
-        } else {
-            print("smallImage data is not saved in UserDefaults.")
-        }
-        
-        
-        let bigdata = bigImage?.jpegData(compressionQuality: 0.1)
-        UserDefaults.standard.set(bigdata, forKey: "bigImage")
-        if let savedBigImageData = UserDefaults.standard.object(forKey: "bigImage") as? Data {
-            print("bigImage is saved with size: \(savedBigImageData.count) bytes.")
-        } else {
-            print("bigImage data is not saved in UserDefaults.")
-        }
-        
+        return [
+            "personName": personName,
+            "smallImage": smallImageData,
+            "bigImage": bigImageData
+        ]
     }
-        
-//        let personListDB = Database.database().reference().child("personList").childByAutoId()
-//
-//        //                ストレージサーバーのURLを取得
-//        let storage = Storage.storage().reference(forURL: "gs://jagoapp-5f1be.appspot.com")
-//
-//
-//        /*** 投稿コンテンツ一連 ***/
-//        //        投稿コンテンツ用のフォルダを作成
-//        let contentsKey = personListDB.child("Contents").childByAutoId().key
-//        let contentsImageRef = storage.child("Contents").child("\(String(describing: contentsKey!)).jpg")
-//
-//        //        データ型の変数を用意しておく
-//        var personImageData:Data = Data()
-//
-//        //        画像があったら用意した変数（データ型）にサイズ1/100でいれる
-//        if personsPhotoImageView.image != nil{
-//            personImageData = (personsPhotoImageView.image?.jpegData(compressionQuality: 0.01))!
-//        }
-//
-        //        uploadTask.resume()
-        
     
+    @IBAction func postAction(_ sender: Any) {
+            
+            guard let personName = personNameTextField.text,
+                  let smallImageData = personsSmallPhotoImageView.image?.jpegData(compressionQuality: 0.01),
+                  let bigImageData = personsBigPhotoImageView.image?.jpegData(compressionQuality: 0.01) else {
+                return
+            }
+
+            // 保存するディクショナリを作成
+            let personDict: [String: Any] = [
+                "personName": personName,
+                "smallImage": smallImageData,
+                "bigImage": bigImageData
+            ]
+            
+            // 既存の配列を取得または新しい配列を初期化
+            var personsArray: [[String: Any]]
+        if let savedPersonsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
+                personsArray = savedPersonsArray
+            } else {
+                personsArray = []
+            }
+            
+            // ディクショナリを配列に追加
+            personsArray.append(personDict)
+            
+            // 更新された配列をUserDefaultsに保存
+            UserDefaults.standard.setValue(personsArray, forKey: "personsArray")
+
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    }
     
 }

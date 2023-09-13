@@ -7,6 +7,6 @@ class Contents {
     init(contentImageString:String) {
 
         self.contentImageString = contentImageString
-        
+
     }
 }
