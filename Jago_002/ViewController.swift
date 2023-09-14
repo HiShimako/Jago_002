@@ -8,96 +8,54 @@
 import UIKit
 import Photos
 import Speech
+import Foundation
 
 class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSpeechRecognizerDelegate {
     
-    private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP")) // 日本語設定
+    private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
     
     var personsArray: [[String: Any]] = []
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let cellData = personsArray[indexPath.row]
-            if let imageData = cellData["bigImage"] as? Data, let image = UIImage(data: imageData) {
-                performSegue(withIdentifier: "showRecordingViewController", sender: (image, indexPath))
-            }
-        }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         if segue.identifier == "showRecordingViewController", let vc = segue.destination as? RecordingViewController, let (image, indexPath) = sender as? (UIImage, IndexPath) {
-             vc.selectedImage = image
-             vc.selectedCellIndexPath = indexPath
-         }
-     }
-
+        if segue.identifier == "showRecordingViewController", let vc = segue.destination as? RecordingViewController, let (image, indexPath) = sender as? (UIImage, IndexPath) {
+            vc.selectedImage = image
+            vc.selectedCellIndexPath = indexPath
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupSpeechRecognition()
+        setupTableView()
+        loadSavedPersons()
+    }
+
+    func setupSpeechRecognition() {
         speechRecognizer?.delegate = self
-        // 最初に音声認識の権限を求める
         SFSpeechRecognizer.requestAuthorization { (status) in
             switch status {
             case .authorized: break // 権限がある場合、何もしない
-            default: print("Speech recognition authorization not granted") // 権限がない場合、エラーメッセージを表示
+            default: print("Speech recognition authorization not granted")
             }
         }
-        
-        
-        
+    }
+
+    func setupTableView() {
         personListTableView.delegate = self
         personListTableView.dataSource = self
-        
+    }
+
+    func loadSavedPersons() {
         if let savedPersonsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
             personsArray = savedPersonsArray
         } else {
             personsArray = []
         }
-        
     }
-    
-    @IBAction func tappedSmallImage(_ sender: Any) {
-        
-        print("tappedSmallImage was called")
-        
-        // sender（ここではジェスチャー）をUITapGestureRecognizer型にダウンキャスト
-        guard let gesture = sender as? UITapGestureRecognizer,
-              // ジェスチャーのターゲットとなったビュー（UIImageView）を取得
-              let tappedImageView = gesture.view as? UIImageView,
-              // UIImageViewの親ビュー（ここではUITableViewCell）を取得
-              let cell = tappedImageView.superview?.superview as? UITableViewCell,
-              // そのセルのインデックスパスを取得
-              let indexPath = personListTableView.indexPath(for: cell) else { return }
-
-        // 対応するインデックスパスのデータから、大きな画像のデータを取得
-        let selectedImageData = personsArray[indexPath.row]["bigImage"] as? Data
-
-        // Main.storyboardを取得
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        // "RecordingVC"というIDを持つビューコントローラを取得し、RecordingViewControllerとしてダウンキャスト
-        if let RecordingVC = storyboard.instantiateViewController(withIdentifier: "RecordingVC") as? RecordingViewController {
-            // 画像データをRecordingViewControllerに渡す
-            RecordingVC.receivedImageData = selectedImageData
-            
-            // ViewControllerのaudioEngineをRecordingViewControllerに渡す
-            RecordingVC.audioEngine = self.audioEngine
-            
-            // RecordingViewControllerをモーダル表示
-            self.present(RecordingVC, animated: true, completion: nil)
-        }
-    }
-    
-    func startRecording() {
-        if recognitionTask != nil {
-            recognitionTask?.cancel()
-            recognitionTask = nil
-        }
-        
-    }
-    
-    @IBOutlet weak var personListTableView: UITableView!
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,14 +68,19 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         //tableViewを更新
         personListTableView.reloadData()
     }
-    /* Fixで自動的に追加 */
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return personsArray.count//セクションの行の数
-    }
-    
+
+    @IBOutlet weak var personListTableView: UITableView!
+
+    // MARK: テーブルビューデータ系
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1//セクションそのものの数
+        return 1
     }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return personsArray.count
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
@@ -126,36 +89,119 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                 let image = UIImage(data: data)
                 imageView.image = image
             } else {
-                imageView.image = nil // もしくはデフォルトの画像
+                imageView.image = nil // Optionally set to a default image
             }
         }
-        
         return cell
     }
-    
+
+    // MARK: テーブルビュー動作系
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.view.frame.height * 1 / 3
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cellData = personsArray[indexPath.row]
+        if let imageData = cellData["bigImage"] as? Data, let image = UIImage(data: imageData) {
+            performSegue(withIdentifier: "showRecordingViewController", sender: (image, indexPath))
+        }
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            personsArray.remove(at: indexPath.row)
+            UserDefaults.standard.set(personsArray, forKey: "personsArray")
+            tableView.reloadData()
+        }
+    }
+
+    // MARK: 録音開始ボタンですること
+    @IBAction func tappedSmallImage(_ sender: Any) {
+
+        startRecording()
+        
+   
+        guard let tappedImageView = gestureToImageView(sender: sender),
+              let indexPath = findIndexPathFromImageView(tappedImageView),
+              let selectedImageData = personsArray[indexPath.row]["bigImage"] as? Data else { return }
+    
+        instantiateAndPresentRecordingVC(with: selectedImageData, at: indexPath)
+    }
+
+    func gestureToImageView(sender: Any) -> UIImageView? {
+        guard let gesture = sender as? UITapGestureRecognizer,
+              let tappedImageView = gesture.view as? UIImageView else { return nil }
+        return tappedImageView
+    }
+
+    func findIndexPathFromImageView(_ imageView: UIImageView) -> IndexPath? {
+        guard let cell = imageView.superview?.superview as? UITableViewCell,
+              let indexPath = personListTableView.indexPath(for: cell) else { return nil }
+        print("Cell number is: \(indexPath.row)")
+        return indexPath
+    }
+
+    func instantiateAndPresentRecordingVC(with imageData: Data?, at indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let RecordingVC = storyboard.instantiateViewController(withIdentifier: "RecordingVC") as? RecordingViewController {
+            RecordingVC.audioEngine = self.audioEngine
+            RecordingVC.receivedIndexPath = indexPath // Pass the indexPath to RecordingVC
+            self.present(RecordingVC, animated: true, completion: nil)
+        }
+    }
+    func startRecording() {
+        if recognitionTask != nil {
+            recognitionTask?.cancel()
+            recognitionTask = nil
+        }
+    }
+    
+    func saveTextData(personName: String, textData: String) {
+        let textDict: [String: Any] = [
+            "personName": personName,
+            "text": textData
+        ]
+        
+        var textsArray = UserDefaults.standard.array(forKey: "textsArray") as? [[String: Any]] ?? []
+        textsArray.append(textDict)
+        UserDefaults.standard.set(textsArray, forKey: "textsArray")
+    }
+    
+    func getCurrentTimeAsString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return dateFormatter.string(from: Date())
+    }
+    
+
     
     
-    
+    // MARK: 初期設定関係
     
     @IBAction func addPerson(_ sender: Any) {
         showAlert()
     }
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    
+    
+    func showAlert(){
+        let alertController = UIAlertController(title: "選択", message: "どちらを使用しますか", preferredStyle: .actionSheet)
         
-        if editingStyle == .delete {
-            
-            //taskArray内のindexPathのrow番目をremove（消去）する
-            personsArray.remove(at: indexPath.row)
-            
-            //再びアプリ内に消去した配列を保存
-            UserDefaults.standard.set(personsArray, forKey: "personsArray")
-            
-            //tableViewを更新
-            tableView.reloadData()
+        let cameraAction = UIAlertAction(title: "カメラ", style: .default) { (alert) in
+            self.checkCamera()
         }
+        
+        let albamAction = UIAlertAction(title: "アルバム", style: .default) { (alert) in
+            self.checkAlbam()
+        }
+        
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+        
+        
+        alertController.addAction(cameraAction)
+        alertController.addAction(albamAction)
+        alertController.addAction(cancelAction)
+        present(alertController,animated: true,completion: nil)
     }
     
     //    カメラ立ち上げメソッド
@@ -187,27 +233,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             present(cameraPicker, animated: true,completion: nil)
         }
     }
-    
-    //    アラートでカメラorアルバムの選択をさせる
-    func showAlert(){
-        let alertController = UIAlertController(title: "選択", message: "どちらを使用しますか", preferredStyle: .actionSheet)
-        
-        let cameraAction = UIAlertAction(title: "カメラ", style: .default) { (alert) in
-            self.checkCamera()
-        }
-        
-        let albamAction = UIAlertAction(title: "アルバム", style: .default) { (alert) in
-            self.checkAlbam()
-        }
-        
-        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
-        
-        
-        alertController.addAction(cameraAction)
-        alertController.addAction(albamAction)
-        alertController.addAction(cancelAction)
-        present(alertController,animated: true,completion: nil)
-    }
+   
     
     //    キャンセル時の処理
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

@@ -29,50 +29,49 @@ class InputViewController: UIViewController {
         
     }
     
-    func personDictionary(personName: String, smallImage: UIImage, bigImage: UIImage) -> [String: Any]? {
-        guard let smallImageData = smallImage.jpegData(compressionQuality: 0.1),
-              let bigImageData = bigImage.jpegData(compressionQuality: 0.5) else {
+    @IBAction func postAction(_ sender: Any) {
+        guard let personDict = createPersonDict() else {
+            return
+        }
+        
+        var personsArray = fetchPersonsArray()
+        personsArray.append(personDict)
+        
+        savePersonsArray(personsArray)
+        
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    // ユーザー入力からデータを取得する関数
+    func createPersonDict() -> [String: Any]? {
+        guard let personName = personNameTextField.text,
+              let smallImageData = personsSmallPhotoImageView.image?.jpegData(compressionQuality: 0.01),
+              let bigImageData = personsBigPhotoImageView.image?.jpegData(compressionQuality: 0.01) else {
             return nil
         }
-        return [
+        
+        let personDict: [String: Any] = [
             "personName": personName,
             "smallImage": smallImageData,
             "bigImage": bigImageData
         ]
-    }
-    
-    @IBAction func postAction(_ sender: Any) {
-            
-            guard let personName = personNameTextField.text,
-                  let smallImageData = personsSmallPhotoImageView.image?.jpegData(compressionQuality: 0.01),
-                  let bigImageData = personsBigPhotoImageView.image?.jpegData(compressionQuality: 0.01) else {
-                return
-            }
-
-            // 保存するディクショナリを作成
-            let personDict: [String: Any] = [
-                "personName": personName,
-                "smallImage": smallImageData,
-                "bigImage": bigImageData
-            ]
-            
-            // 既存の配列を取得または新しい配列を初期化
-            var personsArray: [[String: Any]]
-        if let savedPersonsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
-                personsArray = savedPersonsArray
-            } else {
-                personsArray = []
-            }
-            
-            // ディクショナリを配列に追加
-            personsArray.append(personDict)
-            
-            // 更新された配列をUserDefaultsに保存
-            UserDefaults.standard.setValue(personsArray, forKey: "personsArray")
         
-        self.navigationController?.popViewController(animated: true)
-
-    
+        return personDict
     }
+
+    // UserDefaultsからpersonsArrayを取得する関数
+    func fetchPersonsArray() -> [[String: Any]] {
+        if let savedPersonsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
+            return savedPersonsArray
+        } else {
+            return []
+        }
+    }
+
+    // personsArrayに新しいデータを追加し、再び保存する関数
+    func savePersonsArray(_ personsArray: [[String: Any]]) {
+        UserDefaults.standard.setValue(personsArray, forKey: "personsArray")
+    }
+
     
 }

@@ -21,7 +21,6 @@
 		CE88DBAF2AB1522900409880 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE88DBAE2AB1522900409880 /* RecordingViewController.swift */; };
 		CEC987C92AAF1D95006B9820 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEC987C82AAF1D95006B9820 /* GoogleService-Info.plist */; };
 		CEC987CB2AAFF773006B9820 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC987CA2AAFF773006B9820 /* InputViewController.swift */; };
-		CEC987CD2AB02394006B9820 /* Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC987CC2AB02394006B9820 /* Contents.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +35,6 @@
 		CE88DBAE2AB1522900409880 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
 		CEC987C82AAF1D95006B9820 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CEC987CA2AAFF773006B9820 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
-		CEC987CC2AB02394006B9820 /* Contents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +75,6 @@
 				CE27538F2AAEDF43006D8DD2 /* AppDelegate.swift */,
 				CE2753912AAEDF43006D8DD2 /* SceneDelegate.swift */,
 				CE2753932AAEDF43006D8DD2 /* ViewController.swift */,
-				CEC987CC2AB02394006B9820 /* Contents.swift */,
 				CEC987CA2AAFF773006B9820 /* InputViewController.swift */,
 				CE88DBAE2AB1522900409880 /* RecordingViewController.swift */,
 				CE2753952AAEDF43006D8DD2 /* Main.storyboard */,
@@ -173,7 +170,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEC987CD2AB02394006B9820 /* Contents.swift in Sources */,
 				CEC987CB2AAFF773006B9820 /* InputViewController.swift in Sources */,
 				CE2753942AAEDF43006D8DD2 /* ViewController.swift in Sources */,
 				CE2753902AAEDF43006D8DD2 /* AppDelegate.swift in Sources */,
