@@ -98,16 +98,16 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     // MARK: テーブルビュー動作系
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.height * 1 / 2
+        return self.view.frame.height * 1 / 3
     }
 
 
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let cellData = personsArray[indexPath.row]
-//        if let imageData = cellData["bigImage"] as? Data, let image = UIImage(data: imageData) {
-//            performSegue(withIdentifier: "showRecordingViewController", sender: (image, indexPath))
-//        }
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cellData = personsArray[indexPath.row]
+        if let imageData = cellData["bigImage"] as? Data, let image = UIImage(data: imageData) {
+            performSegue(withIdentifier: "showRecordingViewController", sender: (image, indexPath))
+        }
+    }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             personsArray.remove(at: indexPath.row)
@@ -117,46 +117,71 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
 
     // MARK: 録音開始ボタンですること
+    
+    
+    
+    
+    
     @IBAction func tappedSmallImage(_ sender: Any) {
-
-        startRecording()
         
-   
-        guard let tappedImageView = gestureToImageView(sender: sender),
-              let indexPath = findIndexPathFromImageView(tappedImageView),
-              let selectedImageData = personsArray[indexPath.row]["bigImage"] as? Data else { return }
-    
-        instantiateAndPresentRecordingVC(with: selectedImageData, at: indexPath)
+        
+//        @IBAction func tappedSmallImage
+//        で発生するアクション
+//        タップされたtappedSmallImageのcell番号を取得
+//        タップされた時刻を取得
+//        音声入力とテキスト変換を開始する
+//        タップされた時刻と変換されたテキストがタップされたcell番号のarrayに保存されるuserdefaltstandardに保存を開始する
+//        cell番号をRecordingViewControllerに渡す
+//        cell番号をRecordedViewControllerに渡す
+        
+        
+        
+        
+//        let tappedRow = sender.self
+//           let tappedIndexPath = IndexPath(row: tappedRow, section: 0) //       }
+//
+//        startRecording()
+//        instantiateAndPresentRecordingVC(with: selectedImageData, at: indexPath)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "YourCellIdentifier", for: indexPath) as! YourCustomCellClass
+//
+//        cell.smallImageButton.tag = indexPath.row
+//        cell.smallImageButton.addTarget(self, action: #selector(tappedSmallImage(_:)), for: .touchUpInside)
+//        return cell
     }
-
-    func gestureToImageView(sender: Any) -> UIImageView? {
-        guard let gesture = sender as? UITapGestureRecognizer,
-              let tappedImageView = gesture.view as? UIImageView else { return nil }
-        return tappedImageView
-    }
-
-    func findIndexPathFromImageView(_ imageView: UIImageView) -> IndexPath? {
-        guard let cell = imageView.superview?.superview as? UITableViewCell,
-              let indexPath = personListTableView.indexPath(for: cell) else { return nil }
-        print("Cell number is: \(indexPath.row)")
-        return indexPath
-    }
-
-    func instantiateAndPresentRecordingVC(with imageData: Data?, at indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let RecordingVC = storyboard.instantiateViewController(withIdentifier: "RecordingVC") as? RecordingViewController {
-            RecordingVC.audioEngine = self.audioEngine
-            RecordingVC.receivedIndexPath = indexPath // Pass the indexPath to RecordingVC
-            self.present(RecordingVC, animated: true, completion: nil)
-        }
-    }
-    func startRecording() {
-        if recognitionTask != nil {
-            recognitionTask?.cancel()
-            recognitionTask = nil
-        }
-    }
-    
+//
+//
+//
+////    func gestureToImageView(sender: Any) -> UIImageView? {
+////        guard let gesture = sender as? UITapGestureRecognizer,
+////              let tappedImageView = gesture.view as? UIImageView else { return nil }
+////        return tappedImageView
+////    }
+//
+//    func findIndexPathFromImageView(_ imageView: UIImageView) -> IndexPath? {
+//        guard let cell = imageView.superview?.superview as? UITableViewCell,
+//              let indexPath = personListTableView.indexPath(for: cell) else { return nil }
+//        print("Cell number is: \(indexPath.row)")
+//        return indexPath
+//    }
+//
+//    func instantiateAndPresentRecordingVC(with imageData: Data?, at indexPath: IndexPath) {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        if let RecordingVC = storyboard.instantiateViewController(withIdentifier: "RecordingVC") as? RecordingViewController {
+//            RecordingVC.audioEngine = self.audioEngine
+//            RecordingVC.receivedIndexPath = indexPath // Pass the indexPath to RecordingVC
+//            self.present(RecordingVC, animated: true, completion: nil)
+//        }
+//    }
+//    func startRecording() {
+//        if recognitionTask != nil {
+//            recognitionTask?.cancel()
+//            recognitionTask = nil
+//        }
+//    }
+//
     func saveTextData(personName: String, textData: String) {
         let textDict: [String: Any] = [
             "personName": personName,
