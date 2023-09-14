@@ -98,16 +98,16 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     // MARK: テーブルビュー動作系
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.height * 1 / 3
+        return self.view.frame.height * 1 / 2
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cellData = personsArray[indexPath.row]
-        if let imageData = cellData["bigImage"] as? Data, let image = UIImage(data: imageData) {
-            performSegue(withIdentifier: "showRecordingViewController", sender: (image, indexPath))
-        }
-    }
 
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let cellData = personsArray[indexPath.row]
+//        if let imageData = cellData["bigImage"] as? Data, let image = UIImage(data: imageData) {
+//            performSegue(withIdentifier: "showRecordingViewController", sender: (image, indexPath))
+//        }
+//    }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             personsArray.remove(at: indexPath.row)

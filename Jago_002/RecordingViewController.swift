@@ -11,8 +11,9 @@ import Speech
 
 class RecordingViewController: UIViewController {
     
-    var personsArray: [[String: Any]] = []
-    var receivedIndexPath: IndexPath?
+    var personsArray: [[String: Any]]!
+    var receivedIndexPath: IndexPath!
+    var receivedImageData: Data?
     
     @IBOutlet weak var recordingView: UIImageView!
     var audioEngine: AVAudioEngine!
@@ -21,9 +22,24 @@ class RecordingViewController: UIViewController {
     var selectedCellIndexPath: IndexPath?
     
     
+    func instantiateAndPresentRecordingVC(with imageData: Data?, at indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let RecordingVC = storyboard.instantiateViewController(withIdentifier: "RecordingVC") as? RecordingViewController {
+            RecordingVC.receivedImageData = imageData
+            RecordingVC.receivedIndexPath = indexPath // ここでindexPathを渡す
+            RecordingVC.audioEngine = self.audioEngine
+            self.present(RecordingVC, animated: true, completion: nil)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        recordingView.image = selectedImage
+        
+        if let savedPersonsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
+               self.personsArray = savedPersonsArray
+           } else {
+               print("No personsArray found in UserDefaults.")
+           }
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -44,7 +60,6 @@ class RecordingViewController: UIViewController {
             audioEngine.stop()
             recognitionRequest?.endAudio()
         }
-        print("stopRecording was called")
         self.dismiss(animated: true, completion: nil)
 
     }
