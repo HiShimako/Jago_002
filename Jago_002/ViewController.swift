@@ -7,17 +7,45 @@
 
 import UIKit
 import Photos
+import Speech
 
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSpeechRecognizerDelegate {
     
-    
-    @IBOutlet weak var personListTableView: UITableView!
+    private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP")) // 日本語設定
+    private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
+    private var recognitionTask: SFSpeechRecognitionTask?
+    private let audioEngine = AVAudioEngine()
     
     var personsArray: [[String: Any]] = []
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            let cellData = personsArray[indexPath.row]
+            if let imageData = cellData["bigImage"] as? Data, let image = UIImage(data: imageData) {
+                performSegue(withIdentifier: "showRecordingViewController", sender: (image, indexPath))
+            }
+        }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         if segue.identifier == "showRecordingViewController", let vc = segue.destination as? RecordingViewController, let (image, indexPath) = sender as? (UIImage, IndexPath) {
+             vc.selectedImage = image
+             vc.selectedCellIndexPath = indexPath
+         }
+     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        speechRecognizer?.delegate = self
+        // 最初に音声認識の権限を求める
+        SFSpeechRecognizer.requestAuthorization { (status) in
+            switch status {
+            case .authorized: break // 権限がある場合、何もしない
+            default: print("Speech recognition authorization not granted") // 権限がない場合、エラーメッセージを表示
+            }
+        }
+        
+        
+        
         personListTableView.delegate = self
         personListTableView.dataSource = self
         
@@ -29,14 +57,57 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
     }
     
+    @IBAction func tappedSmallImage(_ sender: Any) {
+        
+        print("tappedSmallImage was called")
+        
+        // sender（ここではジェスチャー）をUITapGestureRecognizer型にダウンキャスト
+        guard let gesture = sender as? UITapGestureRecognizer,
+              // ジェスチャーのターゲットとなったビュー（UIImageView）を取得
+              let tappedImageView = gesture.view as? UIImageView,
+              // UIImageViewの親ビュー（ここではUITableViewCell）を取得
+              let cell = tappedImageView.superview?.superview as? UITableViewCell,
+              // そのセルのインデックスパスを取得
+              let indexPath = personListTableView.indexPath(for: cell) else { return }
+
+        // 対応するインデックスパスのデータから、大きな画像のデータを取得
+        let selectedImageData = personsArray[indexPath.row]["bigImage"] as? Data
+
+        // Main.storyboardを取得
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        // "RecordingVC"というIDを持つビューコントローラを取得し、RecordingViewControllerとしてダウンキャスト
+        if let RecordingVC = storyboard.instantiateViewController(withIdentifier: "RecordingVC") as? RecordingViewController {
+            // 画像データをRecordingViewControllerに渡す
+            RecordingVC.receivedImageData = selectedImageData
+            
+            // ViewControllerのaudioEngineをRecordingViewControllerに渡す
+            RecordingVC.audioEngine = self.audioEngine
+            
+            // RecordingViewControllerをモーダル表示
+            self.present(RecordingVC, animated: true, completion: nil)
+        }
+    }
+    
+    func startRecording() {
+        if recognitionTask != nil {
+            recognitionTask?.cancel()
+            recognitionTask = nil
+        }
+        
+    }
+    
+    @IBOutlet weak var personListTableView: UITableView!
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let userDefaults = UserDefaults.standard
-
+        
         if let perArray = userDefaults.object(forKey: "personsArray") as? [[String: Any]] {
             personsArray = perArray
         }
-          //tableViewを更新
+        //tableViewを更新
         personListTableView.reloadData()
     }
     /* Fixで自動的に追加 */
@@ -65,6 +136,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.view.frame.height * 1 / 3
     }
+    
+    
+    
     
     @IBAction func addPerson(_ sender: Any) {
         showAlert()
