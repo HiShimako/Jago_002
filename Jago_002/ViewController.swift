@@ -91,9 +91,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             cell.personImageView.tag = indexPath.row
         }
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: Selector("tappedSmallImage:"))
-        cell.commentButton.tag = indexPath.row
-        cell.commentButton.addGestureRecognizer(tapGesture)
+//        let tapGesture = UITapGestureRecognizer(target: self, action: Selector("tappedSmallImage:"))
+//        cell.commentButton.tag = indexPath.row
+//        cell.commentButton.addGestureRecognizer(tapGesture)
         
         return cell
     }
@@ -130,12 +130,12 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             print(sender)
     }
     
-    func tappedSmallImage(sender: UITapGestureRecognizer) {
+//    func tappedSmallImage(sender: UITapGestureRecognizer) {
 //        let tableView = self.personListTableView as! UITableView //UITableViewを取得
 //        let tappedIndexPath = tableView.indexPathForCell(self) //自分のIndexPathを取得
 //        let tappedRow = tappedIndexPath?.row //IndexPathから行を取得
-        print("☺️☺️☺️☺️☺️☺️☺️☺️☺️")
-        debugPrint(sender)
+//        print("☺️☺️☺️☺️☺️☺️☺️☺️☺️")
+//        debugPrint(sender)
         
 
         
@@ -152,7 +152,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 //        cell.smallImageButton.tag = indexPath.row
 //        cell.smallImageButton.addTarget(self, action: #selector(tappedSmallImage(_:)), for: .touchUpInside)
 //        return cell
-    }
+//    }
 //
 //
 //

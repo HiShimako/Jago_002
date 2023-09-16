@@ -10,6 +10,7 @@ import UIKit
 class RecordedViewController: UIViewController {
     
     var receivedIndexPath: IndexPath! = [0]
+    var receivedRow: Int! 
 
     @IBOutlet weak var commentView: UITextView!
     @IBOutlet weak var personName: UITextField!

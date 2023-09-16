@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PersonsTableViewCell: UITableViewCell {
+class PersonsTableViewCell: UITableViewCell, UINavigationControllerDelegate {
 
     @IBOutlet weak var personImageView: UIImageView!
     @IBOutlet weak var commentButton: UIButton!
@@ -20,7 +20,13 @@ class PersonsTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
+
         // Configure the view for the selected state
     }
 
+    // MARK: - Action
+    @objc    func testAction(){
+        print(commentButton.tag)
+        
+    }
 }
