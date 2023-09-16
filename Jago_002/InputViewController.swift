@@ -50,10 +50,11 @@ class InputViewController: UIViewController {
             return nil
         }
         
-        let personDict: [String: Any] = [
+        var personDict: [String: Any] = [
             "personName": personName,
             "smallImage": smallImageData,
-            "bigImage": bigImageData
+            "bigImage": bigImageData,
+            "comments": []
         ]
         
         return personDict

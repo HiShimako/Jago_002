@@ -10,7 +10,7 @@ import Photos
 import Speech
 import Foundation
 
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSpeechRecognizerDelegate {
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSpeechRecognizerDelegate, UIGestureRecognizerDelegate  {
     
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -82,19 +82,25 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PersonsTableViewCell
         
-        if let imageView = cell.viewWithTag(4) as? UIImageView {
-            if let data = personsArray[indexPath.row]["smallImage"] as? Data {
-                let image = UIImage(data: data)
-                imageView.image = image
-            } else {
-                imageView.image = nil // Optionally set to a default image
-            }
+        if let data = personsArray[indexPath.row]["smallImage"] as? Data {
+            let image = UIImage(data: data)
+            cell.personImageView.image = image
+
+            cell.personImageView.tag = indexPath.row
         }
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: Selector("tappedSmallImage:"))
+        cell.commentButton.tag = indexPath.row
+        cell.commentButton.addGestureRecognizer(tapGesture)
+        
         return cell
     }
 
+    @IBAction func tapComment(_ sender: UIButton) {
+        debugPrint(sender)
+    }
     // MARK: テーブルビュー動作系
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -120,10 +126,16 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     
     
+    func tappedCommentButton(sender: UIButton) {
+            pritn(sender)
+    }
     
-    
-    @IBAction func tappedSmallImage(_ sender: Any) {
-        
+    func tappedSmallImage(sender: UITapGestureRecognizer) {
+//        let tableView = self.personListTableView as! UITableView //UITableViewを取得
+//        let tappedIndexPath = tableView.indexPathForCell(self) //自分のIndexPathを取得
+//        let tappedRow = tappedIndexPath?.row //IndexPathから行を取得
+        print("☺️☺️☺️☺️☺️☺️☺️☺️☺️")
+        debugPrint(sender)
         
 
         

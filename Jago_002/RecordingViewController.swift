@@ -23,6 +23,7 @@ class RecordingViewController: UIViewController {
     var recognitionTask: SFSpeechRecognitionTask?
     @IBOutlet weak var textView: UITextView!
     
+    var comment:[String:String]!
     var personsArray: [[String: Any]]!
     var receivedIndexPath: IndexPath!
     var receivedImageData: Data?
@@ -32,7 +33,7 @@ class RecordingViewController: UIViewController {
     //    var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     var selectedImage: UIImage?
     var selectedCellIndexPath: IndexPath?
-    
+    var comments: [[String:Any]] = []
     
     //    func instantiateAndPresentRecordingVC(with imageData: Data?, at indexPath: IndexPath) {
     //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -53,6 +54,9 @@ class RecordingViewController: UIViewController {
         //下記関数は不要だけど参照されているから消せない状態
         if let savedPersonsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
             self.personsArray = savedPersonsArray
+            self.comments = self.personsArray[selectedCellIndexPath!.row]["comments"] as! [[String : Any]]
+            print("☺️☺️☺️☺️☺️☺️")
+            debugPrint(comments)
         } else {
             print("No personsArray found in UserDefaults.")
         }
@@ -61,13 +65,12 @@ class RecordingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        
         if let imageData = personsArray[selectedCellIndexPath!.row]["bigImage"] as? Data,
            let image = UIImage(data: imageData) {
             recordingView.image = image
-            print("Image was set successfully")
-        } else {
-            print("receivedImageData is nil")
         }
+        try! startLiveTranscription()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -129,6 +132,7 @@ class RecordingViewController: UIViewController {
             } else {
                 DispatchQueue.main.async {
                     self.textView.text = result?.bestTranscription.formattedString
+                    //                    let textData = textView.text,
                 }
             }
         })
@@ -140,50 +144,66 @@ class RecordingViewController: UIViewController {
     //    }
     
     @IBAction func stopRecording(_ sender: Any) {
+        stopLiveTranscription()
         
-        if isRecording {
-            UIView.animate(withDuration: 0.2) {
-                //                self.showStartButton()
-            }
-            stopLiveTranscription()
-        } else {
-            UIView.animate(withDuration: 0.2) {
-                //                self.showStopButton()
-            }
-            try! startLiveTranscription()
-        }
-        isRecording = !isRecording
+        comments.append(createCommentDict())
+        personsArray[selectedCellIndexPath!.row].updateValue(comments, forKey: "comments")
         
+        // 保存したい
+        UserDefaults.standard.set(personsArray, forKey: "personsArray")
         
-        //        func initRoundCorners(){
-        //          recordButton.layer.masksToBounds = true
-        //
-        //          baseView.layer.masksToBounds = true
-        //          baseView.layer.cornerRadius = 10
-        //          baseView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        //
-        //          outerCircle.layer.masksToBounds = true
-        //          outerCircle.layer.cornerRadius = 31
-        //          outerCircle.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        //
-        //          innerCircle.layer.masksToBounds = true
-        //          innerCircle.layer.cornerRadius = 29
-        //          innerCircle.backgroundColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
-        //        }
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    // ユーザー入力からデータを取得する関数
+    func createCommentDict() -> [String: Any] {
+        // 現在の日時を取得
+        let currentDate = Date()
         
-        //        func showStartButton() {
-        //          recordButton.frame = CGRect(x:(w-d)/2,y:(h-d)/2,width:d,height:d)
-        //          recordButton.layer.cornerRadius = d/2
-        //        }
-        //
-        //        func showStopButton() {
-        //          recordButton.frame = CGRect(x:(w-l)/2,y:(h-l)/2,width:l,height:l)
-        //          recordButton.layer.cornerRadius = 3.0
-        //        }
+        // 日時を文字列に変換するためのフォーマッターを設定
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         
-//        self.navigationController?.popViewController(animated: true)
+        // 日時を文字列に変換
+        let currentDateString = formatter.string(from: currentDate)
+        
+        let commentDict: [String: Any] = [
+            "time": currentDateString,
+            "comment": textView.text!,
+        ]
+        
+        return commentDict
     }
     
 }
 
+
+//import Foundation
+//
+//// コメントを設定
+//let comment = "これはコメントです"
+//
+//// 辞書型の配列に現在の日時とコメントを追加
+//var array: [[String: String]] = []
+//let dictionary = ["time": currentDateString, "comment": comment]
+//array.append(dictionary)
+//
+//print(array)
+
+
+
+
+// UserDefaultsからcommentsArrayを取得する関数
+func fetchCommentsArray() -> [[String: Any]] {
+    if let savedCommentsArray = UserDefaults.standard.array(forKey: "commentsArray") as? [[String: Any]] {
+        return savedCommentsArray
+    } else {
+        return []
+    }
+}
+
+// commentsArrayに新しいデータを追加し、再び保存する関数
+func saveCommentsArray(_ commentsArray: [[String: Any]]) {
+    UserDefaults.standard.setValue(commentsArray, forKey: "commentsArray")
+}
 
