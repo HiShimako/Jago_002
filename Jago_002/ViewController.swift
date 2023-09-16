@@ -125,17 +125,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBAction func tappedSmallImage(_ sender: Any) {
         
         
-//        @IBAction func tappedSmallImage
-//        で発生するアクション
-//        タップされたtappedSmallImageのcell番号を取得
-//        タップされた時刻を取得
-//        音声入力とテキスト変換を開始する
-//        タップされた時刻と変換されたテキストがタップされたcell番号のarrayに保存されるuserdefaltstandardに保存を開始する
-//        cell番号をRecordingViewControllerに渡す
-//        cell番号をRecordedViewControllerに渡す
-        
-        
-        
+
         
 //        let tappedRow = sender.self
 //           let tappedIndexPath = IndexPath(row: tappedRow, section: 0) //       }
