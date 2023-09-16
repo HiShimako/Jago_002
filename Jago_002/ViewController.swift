@@ -127,7 +127,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     
     func tappedCommentButton(sender: UIButton) {
-            pritn(sender)
+            print(sender)
     }
     
     func tappedSmallImage(sender: UITapGestureRecognizer) {

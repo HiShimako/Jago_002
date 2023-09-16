@@ -8,22 +8,46 @@
 import UIKit
 
 class RecordedViewController: UIViewController {
+    
+    var receivedIndexPath: IndexPath! = [0]
 
+    @IBOutlet weak var commentView: UITextView!
+    @IBOutlet weak var personName: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        // UserDefaultsからpersonsArrayを取得
+        guard let personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] else {
+            print("Could not retrieve personsArray.")
+            return
+        }
+        
+//        let person = personsArray[receivedIndexPath.row]
+        let person = personsArray[0]
+        
+        if let personNameString = person["personName"] as? String {
+            personName.text = personNameString
+        }
+        
+        guard let comments = person["comments"] as? [[String: Any]] else {
+            commentView.text = ""
+            return
+        }
+        
+        if comments.isEmpty {
+            commentView.text = ""
+            return
+        }
+        
+        var displayText = ""
+        for comment in comments {
+            if let time = comment["time"] as? String, let commentText = comment["comment"] as? String {
+                displayText += "時間: \(time)\nコメント: \(commentText)\n\n"
+            }
+        }
+        
+        commentView.text = displayText
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
