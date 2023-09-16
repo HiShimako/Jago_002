@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bhb-hV-3XI">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,7 +13,7 @@
             <objects>
                 <viewController storyboardIdentifier="EditAndPost" automaticallyAdjustsScrollViewInsets="NO" id="oqg-At-So7" customClass="InputViewController" customModule="Jago_002" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pwd-uw-CfO">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cie-9B-2a9">
@@ -26,26 +26,40 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="inF-f8-Cgx">
-                                <rect key="frame" x="17" y="127" width="361" height="692"/>
+                                <rect key="frame" x="7" y="127" width="361" height="651"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QEr-Ng-7NB">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QEr-Ng-7NB">
                                         <rect key="frame" x="55" y="50" width="251" height="230"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="QEr-Ng-7NB" secondAttribute="height" multiplier="251:230" id="wyV-RN-zLR"/>
+                                        </constraints>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NFf-eO-xmu">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NFf-eO-xmu">
                                         <rect key="frame" x="26" y="8" width="308" height="34"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DpI-18-3yg">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DpI-18-3yg">
                                         <rect key="frame" x="26" y="299" width="308" height="589"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="DpI-18-3yg" secondAttribute="height" multiplier="308:589" id="CTN-pJ-f8b"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="QEr-Ng-7NB" firstAttribute="top" secondItem="NFf-eO-xmu" secondAttribute="bottom" constant="8" id="PDm-ok-6uH"/>
+                                    <constraint firstItem="NFf-eO-xmu" firstAttribute="leading" secondItem="bcc-04-sTz" secondAttribute="leading" constant="26" id="WkQ-0z-d1h"/>
+                                    <constraint firstItem="bcc-04-sTz" firstAttribute="trailing" secondItem="QEr-Ng-7NB" secondAttribute="trailing" constant="55" id="Zez-2H-9Km"/>
+                                    <constraint firstItem="bcc-04-sTz" firstAttribute="trailing" secondItem="NFf-eO-xmu" secondAttribute="trailing" constant="27" id="hnI-Th-FB9"/>
+                                    <constraint firstItem="QEr-Ng-7NB" firstAttribute="leading" secondItem="bcc-04-sTz" secondAttribute="leading" constant="55" id="jh2-Mz-pCm"/>
+                                    <constraint firstItem="NFf-eO-xmu" firstAttribute="top" secondItem="bcc-04-sTz" secondAttribute="top" constant="8" id="qSK-6F-9k6"/>
+                                    <constraint firstItem="DpI-18-3yg" firstAttribute="top" secondItem="QEr-Ng-7NB" secondAttribute="bottom" constant="19" id="qd3-e0-K9N"/>
+                                    <constraint firstItem="bcc-04-sTz" firstAttribute="trailing" secondItem="DpI-18-3yg" secondAttribute="trailing" constant="27" id="sti-4U-WLR"/>
+                                    <constraint firstItem="DpI-18-3yg" firstAttribute="leading" secondItem="bcc-04-sTz" secondAttribute="leading" constant="26" id="z3R-0M-TFk"/>
+                                </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="io0-FH-1JJ"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="bcc-04-sTz"/>
                             </scrollView>
@@ -61,14 +75,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3yf-l0-HGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="14.503816793893129" y="703.52112676056345"/>
+            <point key="canvasLocation" x="13.6" y="703.44827586206895"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Z3Q-Ml-JJp">
             <objects>
                 <viewController id="KJw-RF-WnR" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FUC-24-ud4">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yeA-Mg-y2v">
@@ -94,7 +108,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Jago_002" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Z73-AC-VXx">
@@ -129,7 +143,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vw-ti-ah6">
-                                <rect key="frame" x="142.66666666666666" y="763" width="108" height="35"/>
+                                <rect key="frame" x="133.66666666666666" y="723" width="108" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="AddPerson"/>
                                 <connections>
@@ -147,6 +161,7 @@
                     <navigationItem key="navigationItem" id="xDt-eq-lzO"/>
                     <connections>
                         <outlet property="personListTableView" destination="Z73-AC-VXx" id="ad4-of-LL7"/>
+                        <segue destination="Z9V-qS-bNx" kind="show" identifier="showRecordingViewController" id="MXg-O6-8pR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -163,11 +178,11 @@
             <objects>
                 <viewController storyboardIdentifier="RecordingVC" id="Z9V-qS-bNx" customClass="RecordingViewController" customModule="Jago_002" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b0p-QB-S9F">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="recordingView" translatesAutoresizingMaskIntoConstraints="NO" id="HcM-vb-Ekp">
-                                <rect key="frame" x="39" y="156" width="315" height="540"/>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="recordingView" translatesAutoresizingMaskIntoConstraints="NO" id="HcM-vb-Ekp">
+                                <rect key="frame" x="39" y="115" width="315" height="644"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -178,6 +193,7 @@
                         <viewLayoutGuide key="safeArea" id="8zu-hb-OsP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="kGY-2F-ndG"/>
                     <connections>
                         <outlet property="recordingView" destination="HcM-vb-Ekp" id="Xfa-4P-Bvx"/>
                     </connections>
@@ -197,7 +213,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bhb-hV-3XI" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NcQ-UE-qgF">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <rect key="frame" x="0.0" y="50" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

@@ -45,8 +45,7 @@ class RecordingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let indexPath = receivedIndexPath,
-               let imageData = personsArray[indexPath.row]["bigImage"] as? Data,
+        if let imageData = personsArray[selectedCellIndexPath!.row]["bigImage"] as? Data,
                let image = UIImage(data: imageData) {
                 recordingView.image = image
             print("Image was set successfully")
@@ -56,11 +55,13 @@ class RecordingViewController: UIViewController {
         
     }
     @IBAction func stopRecording(_ sender: Any) {
-        if audioEngine.isRunning {
-            audioEngine.stop()
-            recognitionRequest?.endAudio()
-        }
-        self.dismiss(animated: true, completion: nil)
+//        if audioEngine.isRunning {
+//            audioEngine.stop()
+//            recognitionRequest?.endAudio()
+//        }
+//        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+
 
     }
     
