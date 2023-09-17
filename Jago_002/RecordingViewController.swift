@@ -50,7 +50,11 @@ class RecordingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//
+//        UIView.animate(withDuration: 1, delay: 0, animations: { [weak self] in
+//            // ここでViewの色の変更を行う
+//            self?.view.backgroundColor = UIColor.green
+//        })
         audioEngine = AVAudioEngine()
         textView.text = ""
         
