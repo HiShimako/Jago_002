@@ -9,8 +9,8 @@ import UIKit
 
 class RecordedViewController: UIViewController {
     
-    var receivedIndexPath: IndexPath! = [0]
-    var receivedRow: Int! 
+//    var receivedIndexPath: IndexPath! = [0]
+    var receivedRow: Int!
 
     @IBOutlet weak var commentView: UITextView!
     @IBOutlet weak var personName: UITextField!
@@ -24,8 +24,8 @@ class RecordedViewController: UIViewController {
             return
         }
         
-//        let person = personsArray[receivedIndexPath.row]
-        let person = personsArray[0]
+        let person = personsArray[receivedRow]
+//        let person = personsArray[0]
         
         if let personNameString = person["personName"] as? String {
             personName.text = personNameString

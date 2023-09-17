@@ -136,11 +136,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="313"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Yq-Ek-Mvu">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Yq-Ek-Mvu">
                                                     <rect key="frame" x="69" y="11" width="248" height="236"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <gestureRecognizers/>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVE-0j-XMs">
+                                                    <rect key="frame" x="69" y="11" width="248" height="236"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain"/>
+                                                    <connections>
+                                                        <action selector="smallImageButton:" destination="cgi-8x-LHR" eventType="touchUpInside" id="GaK-bp-9Y2"/>
+                                                    </connections>
+                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lTT-sJ-ToV">
                                                     <rect key="frame" x="264" y="11" width="53" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -148,12 +157,16 @@
                                                     <buttonConfiguration key="configuration" style="plain" image="ellipsis.message.fill" catalog="system" title="">
                                                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="commentButton:" destination="cgi-8x-LHR" eventType="touchUpInside" id="zqP-K5-C8R"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="commentButton" destination="lTT-sJ-ToV" id="kGy-eK-zWo"/>
+                                            <outlet property="commentButton" destination="lTT-sJ-ToV" id="lS6-3Y-g9n"/>
                                             <outlet property="personImageView" destination="3Yq-Ek-Mvu" id="nUH-m3-UZI"/>
+                                            <outlet property="smallImageButton" destination="xVE-0j-XMs" id="PYS-so-oVv"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

@@ -25,14 +25,17 @@ class RecordingViewController: UIViewController {
     
     var comment:[String:String]!
     var personsArray: [[String: Any]]!
-    var receivedIndexPath: IndexPath!
+    
+    var receivedRow: Int!
+    
     var receivedImageData: Data?
+
     
     @IBOutlet weak var recordingView: UIImageView!
     //    var audioEngine: AVAudioEngine!
     //    var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     var selectedImage: UIImage?
-    var selectedCellIndexPath: IndexPath?
+//    var selectedCellIndexPath: IndexPath?
     var comments: [[String:Any]] = []
     
     //    func instantiateAndPresentRecordingVC(with imageData: Data?, at indexPath: IndexPath) {
@@ -54,11 +57,9 @@ class RecordingViewController: UIViewController {
         //下記関数は不要だけど参照されているから消せない状態
         if let savedPersonsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
             self.personsArray = savedPersonsArray
-            self.comments = self.personsArray[selectedCellIndexPath!.row]["comments"] as! [[String : Any]]
+            self.comments = self.personsArray[receivedRow]["comments"] as! [[String : Any]]
             print("☺️☺️☺️☺️☺️☺️")
             debugPrint(comments)
-        } else {
-            print("No personsArray found in UserDefaults.")
         }
         
     }
@@ -66,7 +67,7 @@ class RecordingViewController: UIViewController {
         super.viewWillAppear(animated)
         
         
-        if let imageData = personsArray[selectedCellIndexPath!.row]["bigImage"] as? Data,
+        if let imageData = personsArray[receivedRow]["bigImage"] as? Data,
            let image = UIImage(data: imageData) {
             recordingView.image = image
         }
@@ -74,18 +75,11 @@ class RecordingViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        //      w = baseView.frame.size.width
-        //      h = baseView.frame.size.height
-        
-        //        initRoundCorners()
-        //        showStartButton()
-        
+     
         SFSpeechRecognizer.requestAuthorization { (authStatus) in
             DispatchQueue.main.async {
                 if authStatus != SFSpeechRecognizerAuthorizationStatus.authorized {
-                    //                    self.recordButton.isEnabled = false
-                    //                    self.recordButton.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+     
                 }
             }
         }
@@ -147,7 +141,7 @@ class RecordingViewController: UIViewController {
         stopLiveTranscription()
         
         comments.append(createCommentDict())
-        personsArray[selectedCellIndexPath!.row].updateValue(comments, forKey: "comments")
+        personsArray[receivedRow].updateValue(comments, forKey: "comments")
         
         // 保存したい
         UserDefaults.standard.set(personsArray, forKey: "personsArray")

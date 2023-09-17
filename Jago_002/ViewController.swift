@@ -10,7 +10,12 @@ import Photos
 import Speech
 import Foundation
 
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSpeechRecognizerDelegate, UIGestureRecognizerDelegate  {
+
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSpeechRecognizerDelegate, UIGestureRecognizerDelegate, CatchProtocol  {
+    
+    
+
+    
     
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -19,12 +24,12 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     var personsArray: [[String: Any]] = []
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showRecordingViewController", let vc = segue.destination as? RecordingViewController, let (image, indexPath) = sender as? (UIImage, IndexPath) {
-            vc.selectedImage = image
-            vc.selectedCellIndexPath = indexPath
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "showRecordingViewController", let vc = segue.destination as? RecordingViewController, let (image, indexPath) = sender as? (UIImage, IndexPath) {
+//            vc.selectedImage = image
+//            vc.selectedCellIndexPath = indexPath
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,8 +93,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             let image = UIImage(data: data)
             cell.personImageView.image = image
 
-            cell.personImageView.tag = indexPath.row
         }
+        cell.delegate = self
+        cell.smallImageButton.tag = indexPath.row
+        cell.commentButton.tag = indexPath.row
 
 //        let tapGesture = UITapGestureRecognizer(target: self, action: Selector("tappedSmallImage:"))
 //        cell.commentButton.tag = indexPath.row
@@ -98,6 +105,24 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         return cell
     }
 
+    func tapSmallImage(id: Int) {
+//        let cellData = personsArray[id]
+//        if let imageData = cellData["bigImage"] as? Data, let image = UIImage(data: imageData) {
+//            performSegue(withIdentifier: "showRecordingViewController", sender: (image, id))
+//        }
+        let VC = self.storyboard?.instantiateViewController(identifier: "RecordingVC") as! RecordingViewController
+        VC.receivedRow = id
+        self.navigationController?.pushViewController(VC, animated: true)
+    }
+    
+    func tapCommentButton(id: Int) {
+        // RecordedViewControllerに移動する
+        let VC = self.storyboard?.instantiateViewController(identifier: "RecordedViewController") as! RecordedViewController
+        VC.receivedRow = id
+        self.navigationController?.pushViewController(VC, animated: true)
+    }
+    
+    
     @IBAction func tapComment(_ sender: UIButton) {
         debugPrint(sender)
     }
