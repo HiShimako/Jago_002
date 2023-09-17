@@ -121,7 +121,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QbQ-dl-kcy">
-                                <rect key="frame" x="262" y="55" width="97" height="34"/>
+                                <rect key="frame" x="139" y="55" width="97" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -229,9 +229,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7hK-12-XPK">
-                                <rect key="frame" x="0.0" y="94" width="375" height="665"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7hK-12-XPK">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lDu-ns-fyw">
                                 <rect key="frame" x="135" y="391" width="132" height="48"/>
@@ -242,7 +241,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="recordingView" translatesAutoresizingMaskIntoConstraints="NO" id="HcM-vb-Ekp">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="recordingView" translatesAutoresizingMaskIntoConstraints="NO" id="HcM-vb-Ekp">
                                 <rect key="frame" x="30" y="137" width="315" height="579"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
@@ -253,9 +252,16 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="8zu-hb-OsP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="7hK-12-XPK" firstAttribute="top" secondItem="b0p-QB-S9F" secondAttribute="top" id="63P-Rr-BfD"/>
+                            <constraint firstAttribute="trailing" secondItem="7hK-12-XPK" secondAttribute="trailing" id="Uvn-qH-3LN"/>
+                            <constraint firstAttribute="bottom" secondItem="7hK-12-XPK" secondAttribute="bottom" id="X8Z-24-wVk"/>
+                            <constraint firstItem="7hK-12-XPK" firstAttribute="leading" secondItem="b0p-QB-S9F" secondAttribute="leading" id="bEJ-Fy-By1"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="kGY-2F-ndG"/>
                     <connections>
+                        <outlet property="backGroundView" destination="7hK-12-XPK" id="8XR-yM-b9X"/>
                         <outlet property="recordingView" destination="HcM-vb-Ekp" id="Xfa-4P-Bvx"/>
                         <outlet property="textView" destination="lDu-ns-fyw" id="EP3-fp-ZUj"/>
                     </connections>

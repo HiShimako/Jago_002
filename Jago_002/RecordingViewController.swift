@@ -29,6 +29,8 @@ class RecordingViewController: UIViewController {
     var receivedRow: Int!
     
     var receivedImageData: Data?
+    
+    var backGroundImageArray : [UIImage] = []
 
     
     @IBOutlet weak var recordingView: UIImageView!
@@ -47,9 +49,23 @@ class RecordingViewController: UIViewController {
     //            self.present(RecordingVC, animated: true, completion: nil)
     //        }
     //    }
+
+    @IBOutlet weak var backGroundView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        while let backGoundImage = UIImage(named: "2_out00\(backGroundImageArray.count+1)") {
+            backGroundImageArray.append(backGoundImage)
+        }
+        // 配列を使ったアニメーションの配置
+        backGroundView.animationImages = backGroundImageArray
+        // イメージを切り替える間隔
+        backGroundView.animationDuration = 1.5
+        // アニメーションの繰り返し回数
+        backGroundView.animationRepeatCount = 20
+        // アニメーションを開始
+        backGroundView.startAnimating()
 //
 //        UIView.animate(withDuration: 1, delay: 0, animations: { [weak self] in
 //            // ここでViewの色の変更を行う
