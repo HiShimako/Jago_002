@@ -111,7 +111,7 @@ class RecordingViewController: UIViewController {
     //アニメーションを選択できるようにするぞ
     enum AnimationSet: String {
         case setOne = "2_out00"
-        case setTwo = "3_out00" // 他のセット名とアセット名を追加できます
+        case setTwo = "4_out00" 
     }
     
     @IBOutlet weak var animationSetSelector: UISegmentedControl!
