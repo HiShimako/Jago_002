@@ -31,48 +31,50 @@ class RecordingViewController: UIViewController {
     var receivedImageData: Data?
     
     var backGroundImageArray : [UIImage] = []
-
+    
+    var selectedSegment: Int = 0
     
     @IBOutlet weak var recordingView: UIImageView!
-    //    var audioEngine: AVAudioEngine!
-    //    var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     var selectedImage: UIImage?
-//    var selectedCellIndexPath: IndexPath?
     var comments: [[String:Any]] = []
     
-    //    func instantiateAndPresentRecordingVC(with imageData: Data?, at indexPath: IndexPath) {
-    //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //        if let RecordingVC = storyboard.instantiateViewController(withIdentifier: "RecordingVC") as? RecordingViewController {
-    ////            RecordingVC.receivedImageData = imageData
-    //            RecordingVC.receivedIndexPath = indexPath // ここでindexPathを渡す
-    //            RecordingVC.audioEngine = self.audioEngine
-    //            self.present(RecordingVC, animated: true, completion: nil)
-    //        }
-    //    }
-
+    
     @IBOutlet weak var backGroundView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        while let backGoundImage = UIImage(named: "2_out00\(backGroundImageArray.count+1)") {
-            backGroundImageArray.append(backGoundImage)
+        loadAnimationImages(for: .setOne)
+        
+        // 初期状態のセグメントに基づいてアニメーションセットをロード
+        guard let segmentTitle = animationSetSelector.titleForSegment(at: animationSetSelector.selectedSegmentIndex),
+              let animationSet = AnimationSet(rawValue: segmentTitle) else {
+            return
         }
-        // 配列を使ったアニメーションの配置
+ 
+        loadAnimationImages(for: animationSet)
         backGroundView.animationImages = backGroundImageArray
-        // イメージを切り替える間隔
         backGroundView.animationDuration = 1.5
-        // アニメーションの繰り返し回数※0は無限
         backGroundView.animationRepeatCount = 0
-        // アニメーションを開始
         backGroundView.startAnimating()
-//
-//        UIView.animate(withDuration: 1, delay: 0, animations: { [weak self] in
-//            // ここでViewの色の変更を行う
-//            self?.view.backgroundColor = UIColor.green
-//        })
-        audioEngine = AVAudioEngine()
-        textView.text = ""
+        
+        
+        //        loadAnimationImages(for: .setOne)
+        //
+        //        while let backGoundImage = UIImage(named: "2_out00\(backGroundImageArray.count+1)") {
+        //            backGroundImageArray.append(backGoundImage)
+        //        }
+        //        // 配列を使ったアニメーションの配置
+        //        backGroundView.animationImages = backGroundImageArray
+        //        // イメージを切り替える間隔
+        //        backGroundView.animationDuration = 1.5
+        //        // アニメーションの繰り返し回数※0は無限
+        //        backGroundView.animationRepeatCount = 0
+        //        // アニメーションを開始
+        //        backGroundView.startAnimating()
+        ////
+        //        audioEngine = AVAudioEngine()
+        //        textView.text = ""
         
         //下記関数は不要だけど参照されているから消せない状態
         if let savedPersonsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
@@ -95,15 +97,54 @@ class RecordingViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-     
+        
         SFSpeechRecognizer.requestAuthorization { (authStatus) in
             DispatchQueue.main.async {
                 if authStatus != SFSpeechRecognizerAuthorizationStatus.authorized {
-     
+                    
                 }
             }
         }
+        
     }
+    
+    //アニメーションを選択できるようにするぞ
+    enum AnimationSet: String {
+        case setOne = "2_out00"
+        case setTwo = "3_out00" // 他のセット名とアセット名を追加できます
+    }
+    
+    @IBOutlet weak var animationSetSelector: UISegmentedControl!
+    
+    @IBAction func animationSetChanged(_ sender: UISegmentedControl) {
+        
+        selectedSegment = sender.selectedSegmentIndex // 選択インデックスをプロパティにセット
+        loadAnimationImages(for: AnimationSet(rawValue: sender.titleForSegment(at: selectedSegment)!)!)
+        
+    }
+    
+    func loadAnimationImages(for set: AnimationSet) {
+        backGroundImageArray.removeAll()
+        while let backGoundImage = UIImage(named: "\(set.rawValue)\(backGroundImageArray.count+1)") {
+            backGroundImageArray.append(backGoundImage)
+        }
+        backGroundView.animationImages = backGroundImageArray
+        backGroundView.startAnimating()
+    }
+    
+    //    func loadAnimationImages(for set: AnimationSet) {
+    //        backGroundImageArray.removeAll()
+    //        while let backGoundImage = UIImage(named: "\(set.rawValue)\(backGroundImageArray.count+1)") {
+    //            backGroundImageArray.append(backGoundImage)
+    //        }
+    //        backGroundView.animationImages = backGroundImageArray
+    //        backGroundView.startAnimating()
+    //    }
+    
+    
+    
+    
+    
     func stopLiveTranscription() {
         audioEngine.stop()
         audioEngine.inputNode.removeTap(onBus: 0)
@@ -112,7 +153,6 @@ class RecordingViewController: UIViewController {
     
     func startLiveTranscription() throws {
         
-        // もし前回の音声認識タスクが実行中ならキャンセル
         if let recognitionTask = self.recognitionTask {
             recognitionTask.cancel()
             self.recognitionTask = nil
@@ -151,11 +191,7 @@ class RecordingViewController: UIViewController {
             }
         })
     }
-    //    func stopLiveTranscription() {
-    //        audioEngine.stop()
-    //        audioEngine.inputNode.removeTap(onBus: 0)
-    //        recognitionReq?.endAudio()
-    //    }
+    
     
     @IBAction func stopRecording(_ sender: Any) {
         stopLiveTranscription()
@@ -190,22 +226,6 @@ class RecordingViewController: UIViewController {
     }
     
 }
-
-
-//import Foundation
-//
-//// コメントを設定
-//let comment = "これはコメントです"
-//
-//// 辞書型の配列に現在の日時とコメントを追加
-//var array: [[String: String]] = []
-//let dictionary = ["time": currentDateString, "comment": comment]
-//array.append(dictionary)
-//
-//print(array)
-
-
-
 
 // UserDefaultsからcommentsArrayを取得する関数
 func fetchCommentsArray() -> [[String: Any]] {

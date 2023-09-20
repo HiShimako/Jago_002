@@ -98,18 +98,11 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         cell.smallImageButton.tag = indexPath.row
         cell.commentButton.tag = indexPath.row
 
-//        let tapGesture = UITapGestureRecognizer(target: self, action: Selector("tappedSmallImage:"))
-//        cell.commentButton.tag = indexPath.row
-//        cell.commentButton.addGestureRecognizer(tapGesture)
         
         return cell
     }
 
     func tapSmallImage(id: Int) {
-//        let cellData = personsArray[id]
-//        if let imageData = cellData["bigImage"] as? Data, let image = UIImage(data: imageData) {
-//            performSegue(withIdentifier: "showRecordingViewController", sender: (image, id))
-//        }
         let VC = self.storyboard?.instantiateViewController(identifier: "RecordingVC") as! RecordingViewController
         VC.receivedRow = id
         self.navigationController?.pushViewController(VC, animated: true)
@@ -155,60 +148,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             print(sender)
     }
     
-//    func tappedSmallImage(sender: UITapGestureRecognizer) {
-//        let tableView = self.personListTableView as! UITableView //UITableViewを取得
-//        let tappedIndexPath = tableView.indexPathForCell(self) //自分のIndexPathを取得
-//        let tappedRow = tappedIndexPath?.row //IndexPathから行を取得
-//        print("☺️☺️☺️☺️☺️☺️☺️☺️☺️")
-//        debugPrint(sender)
-        
-
-        
-//        let tappedRow = sender.self
-//           let tappedIndexPath = IndexPath(row: tappedRow, section: 0) //       }
-//
-//        startRecording()
-//        instantiateAndPresentRecordingVC(with: selectedImageData, at: indexPath)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "YourCellIdentifier", for: indexPath) as! YourCustomCellClass
-//
-//        cell.smallImageButton.tag = indexPath.row
-//        cell.smallImageButton.addTarget(self, action: #selector(tappedSmallImage(_:)), for: .touchUpInside)
-//        return cell
-//    }
-//
-//
-//
-////    func gestureToImageView(sender: Any) -> UIImageView? {
-////        guard let gesture = sender as? UITapGestureRecognizer,
-////              let tappedImageView = gesture.view as? UIImageView else { return nil }
-////        return tappedImageView
-////    }
-//
-//    func findIndexPathFromImageView(_ imageView: UIImageView) -> IndexPath? {
-//        guard let cell = imageView.superview?.superview as? UITableViewCell,
-//              let indexPath = personListTableView.indexPath(for: cell) else { return nil }
-//        print("Cell number is: \(indexPath.row)")
-//        return indexPath
-//    }
-//
-//    func instantiateAndPresentRecordingVC(with imageData: Data?, at indexPath: IndexPath) {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        if let RecordingVC = storyboard.instantiateViewController(withIdentifier: "RecordingVC") as? RecordingViewController {
-//            RecordingVC.audioEngine = self.audioEngine
-//            RecordingVC.receivedIndexPath = indexPath // Pass the indexPath to RecordingVC
-//            self.present(RecordingVC, animated: true, completion: nil)
-//        }
-//    }
-//    func startRecording() {
-//        if recognitionTask != nil {
-//            recognitionTask?.cancel()
-//            recognitionTask = nil
-//        }
-//    }
-//
     func saveTextData(personName: String, textData: String) {
         let textDict: [String: Any] = [
             "personName": personName,
@@ -225,17 +164,12 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return dateFormatter.string(from: Date())
     }
-    
 
-    
-    
-    // MARK: 初期設定関係
-    
     @IBAction func addPerson(_ sender: Any) {
         showAlert()
     }
     
-    
+    //　写真追加の関数
     func showAlert(){
         let alertController = UIAlertController(title: "選択", message: "どちらを使用しますか", preferredStyle: .actionSheet)
         

@@ -22,17 +22,7 @@ class PersonsTableViewCell: UITableViewCell, UINavigationControllerDelegate {
     @IBOutlet weak var smallImageButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
     
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
-//
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//
-//        // Configure the view for the selected state
-//    }
+
 
     var delegate : CatchProtocol?
     override func awakeFromNib() {
@@ -44,10 +34,7 @@ class PersonsTableViewCell: UITableViewCell, UINavigationControllerDelegate {
     }
     
     // MARK: - Action
-//    @objc    func testAction(){
-//        print(commentButton.tag)
-//
-//    }
+
     
     
     @IBAction func smallImageButton(_ sender: UIButton) {

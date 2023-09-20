@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="inF-f8-Cgx">
-                                <rect key="frame" x="0.0" y="105" width="375" height="673"/>
+                                <rect key="frame" x="0.0" y="165" width="375" height="613"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EoI-It-hru">
                                         <rect key="frame" x="0.0" y="50" width="375" height="1000"/>
@@ -77,6 +77,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AEP-UJ-U3x">
+                                <rect key="frame" x="122" y="112" width="131" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                                <connections>
+                                    <action selector="animationSetSelector:" destination="oqg-At-So7" eventType="valueChanged" id="ssO-Md-M2P"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GpJ-vn-8vo"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -86,7 +97,7 @@
                             <constraint firstItem="GpJ-vn-8vo" firstAttribute="trailing" secondItem="Cie-9B-2a9" secondAttribute="trailing" constant="20" id="AhI-se-LYn"/>
                             <constraint firstItem="inF-f8-Cgx" firstAttribute="leading" secondItem="GpJ-vn-8vo" secondAttribute="leading" id="G9A-FW-qp9"/>
                             <constraint firstItem="Cie-9B-2a9" firstAttribute="bottom" secondItem="NFf-eO-xmu" secondAttribute="bottom" id="S3o-ru-Bkd"/>
-                            <constraint firstItem="inF-f8-Cgx" firstAttribute="top" secondItem="NFf-eO-xmu" secondAttribute="bottom" constant="10" id="bWX-ni-UXE"/>
+                            <constraint firstItem="inF-f8-Cgx" firstAttribute="top" secondItem="NFf-eO-xmu" secondAttribute="bottom" constant="70" id="bWX-ni-UXE"/>
                             <constraint firstItem="inF-f8-Cgx" firstAttribute="trailing" secondItem="GpJ-vn-8vo" secondAttribute="trailing" id="k2J-2C-YJ9"/>
                             <constraint firstItem="Cie-9B-2a9" firstAttribute="leading" secondItem="NFf-eO-xmu" secondAttribute="trailing" constant="10" id="oTJ-6D-0rS"/>
                             <constraint firstItem="NFf-eO-xmu" firstAttribute="top" secondItem="GpJ-vn-8vo" secondAttribute="top" constant="10" id="sVc-5V-QGu"/>
@@ -138,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="haf-eW-9zU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1212" y="691"/>
+            <point key="canvasLocation" x="934" y="691"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -249,6 +260,17 @@
                                     <outletCollection property="gestureRecognizers" destination="JIj-fe-nkn" appends="YES" id="RLG-4W-2XI"/>
                                 </connections>
                             </imageView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Za0-Wv-oRN">
+                                <rect key="frame" x="124" y="88" width="127" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="setOne"/>
+                                    <segment title="setTwo"/>
+                                </segments>
+                                <connections>
+                                    <action selector="animationSetChanged:" destination="Z9V-qS-bNx" eventType="valueChanged" id="S5l-nG-VYv"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="8zu-hb-OsP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -261,6 +283,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="kGY-2F-ndG"/>
                     <connections>
+                        <outlet property="animationSetSelector" destination="Za0-Wv-oRN" id="3MU-X5-BzP"/>
                         <outlet property="backGroundView" destination="7hK-12-XPK" id="8XR-yM-b9X"/>
                         <outlet property="recordingView" destination="HcM-vb-Ekp" id="Xfa-4P-Bvx"/>
                         <outlet property="textView" destination="lDu-ns-fyw" id="EP3-fp-ZUj"/>
