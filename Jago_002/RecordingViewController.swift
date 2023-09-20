@@ -35,16 +35,17 @@ class RecordingViewController: UIViewController {
     var selectedSegment: Int = 0
     
     @IBOutlet weak var recordingView: UIImageView!
-    var selectedImage: UIImage?
+//    var selectedImage: UIImage?
     var comments: [[String:Any]] = []
     
     
     @IBOutlet weak var backGroundView: UIImageView!
     
     override func viewDidLoad() {
+        print("viewDidLoad called")
         super.viewDidLoad()
         
-        loadAnimationImages(for: .setOne)
+//        loadAnimationImages(for: .setOne)
         
         // 初期状態のセグメントに基づいてアニメーションセットをロード
         guard let segmentTitle = animationSetSelector.titleForSegment(at: animationSetSelector.selectedSegmentIndex),
@@ -86,32 +87,40 @@ class RecordingViewController: UIViewController {
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear called")
         super.viewWillAppear(animated)
-        
-        
-        if let imageData = personsArray[receivedRow]["bigImage"] as? Data,
-           let image = UIImage(data: imageData) {
-            recordingView.image = image
+        // Imageデータの確認
+        if let imageData = personsArray[receivedRow]["bigImage"] as? Data {
+            if let image = UIImage(data: imageData) {
+                recordingView.image = image
+            }
         }
-        try! startLiveTranscription()
+        
+        // startLiveTranscription()のエラーハンドリング
+            try! startLiveTranscription()
+        
     }
     
+
+    
+    
+    
+    
     override func viewDidAppear(_ animated: Bool) {
+        
         
         SFSpeechRecognizer.requestAuthorization { (authStatus) in
             DispatchQueue.main.async {
                 if authStatus != SFSpeechRecognizerAuthorizationStatus.authorized {
-                    
                 }
             }
         }
-        
     }
     
     //アニメーションを選択できるようにするぞ
     enum AnimationSet: String {
         case setOne = "2_out00"
-        case setTwo = "4_out00" 
+        case setTwo = "4_out00"
     }
     
     @IBOutlet weak var animationSetSelector: UISegmentedControl!
@@ -140,9 +149,6 @@ class RecordingViewController: UIViewController {
     //        backGroundView.animationImages = backGroundImageArray
     //        backGroundView.startAnimating()
     //    }
-    
-    
-    
     
     
     func stopLiveTranscription() {

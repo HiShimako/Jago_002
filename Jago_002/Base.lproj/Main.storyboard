@@ -285,7 +285,7 @@
                     <connections>
                         <outlet property="animationSetSelector" destination="Za0-Wv-oRN" id="3MU-X5-BzP"/>
                         <outlet property="backGroundView" destination="7hK-12-XPK" id="8XR-yM-b9X"/>
-                        <outlet property="recordingView" destination="HcM-vb-Ekp" id="Xfa-4P-Bvx"/>
+                        <outlet property="recordingView" destination="HcM-vb-Ekp" id="GBA-gJ-t9n"/>
                         <outlet property="textView" destination="lDu-ns-fyw" id="EP3-fp-ZUj"/>
                     </connections>
                 </viewController>
