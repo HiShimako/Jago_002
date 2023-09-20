@@ -62,8 +62,8 @@ class RecordingViewController: UIViewController {
         backGroundView.animationImages = backGroundImageArray
         // イメージを切り替える間隔
         backGroundView.animationDuration = 1.5
-        // アニメーションの繰り返し回数
-        backGroundView.animationRepeatCount = 20
+        // アニメーションの繰り返し回数※0は無限
+        backGroundView.animationRepeatCount = 0
         // アニメーションを開始
         backGroundView.startAnimating()
 //
