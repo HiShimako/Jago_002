@@ -44,6 +44,13 @@ class RecordingViewController: UIViewController {
     override func viewDidLoad() {
         print("viewDidLoad called")
         super.viewDidLoad()
+        if let savedPersonsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
+            self.personsArray = savedPersonsArray
+        } else {
+            // 初期化されていない場合は、空の配列で初期化
+            self.personsArray = []
+        }
+        audioEngine = AVAudioEngine()
         
 //        loadAnimationImages(for: .setOne)
         
@@ -59,24 +66,7 @@ class RecordingViewController: UIViewController {
         backGroundView.animationRepeatCount = 0
         backGroundView.startAnimating()
         
-        
-        //        loadAnimationImages(for: .setOne)
-        //
-        //        while let backGoundImage = UIImage(named: "2_out00\(backGroundImageArray.count+1)") {
-        //            backGroundImageArray.append(backGoundImage)
-        //        }
-        //        // 配列を使ったアニメーションの配置
-        //        backGroundView.animationImages = backGroundImageArray
-        //        // イメージを切り替える間隔
-        //        backGroundView.animationDuration = 1.5
-        //        // アニメーションの繰り返し回数※0は無限
-        //        backGroundView.animationRepeatCount = 0
-        //        // アニメーションを開始
-        //        backGroundView.startAnimating()
-        ////
-        //        audioEngine = AVAudioEngine()
-        //        textView.text = ""
-        
+ 
         //下記関数は不要だけど参照されているから消せない状態
         if let savedPersonsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
             self.personsArray = savedPersonsArray
@@ -88,6 +78,44 @@ class RecordingViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         print("viewWillAppear called")
+        print(receivedRow!)
+        guard let validPersonsArray = personsArray else {
+            print("personsArray is nil!")
+            return
+        }
+
+        print("validPersonsArray count: \(validPersonsArray.count)")
+        if receivedRow < validPersonsArray.count {
+            if let _ = validPersonsArray[receivedRow]["bigImage"] {
+                //...
+            }
+        } else {
+            print("receivedRow is out of range!")
+        }
+        print("personsArray count: \(personsArray.count)")
+        if receivedRow < personsArray.count {
+            if let _ = personsArray[receivedRow]["bigImage"] {
+                //...
+            }
+        } else {
+            print("receivedRow is out of range!")
+        }
+        
+    
+        if let _ = personsArray[receivedRow]["bigImage"] {
+            print("bigImage exists!")
+        } else {
+            print("bigImage does not exist!")
+        }
+        if let bigImageData = personsArray[receivedRow]["bigImage"] {
+            print("Type of bigImage: \(type(of: bigImageData))")
+            
+            if bigImageData is Data {
+                print("bigImage is of type Data.")
+            } else {
+                print("bigImage is NOT of type Data.")
+            }
+        }
         super.viewWillAppear(animated)
         // Imageデータの確認
         if let imageData = personsArray[receivedRow]["bigImage"] as? Data {
@@ -101,13 +129,8 @@ class RecordingViewController: UIViewController {
         
     }
     
-
-    
-    
-    
-    
     override func viewDidAppear(_ animated: Bool) {
-        
+        print("viewDidAppear called")
         
         SFSpeechRecognizer.requestAuthorization { (authStatus) in
             DispatchQueue.main.async {
