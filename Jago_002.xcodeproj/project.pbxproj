@@ -26,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE17BBBD2ABC0D7800A0119D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		CE27538C2AAEDF43006D8DD2 /* Jago_002.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jago_002.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE27538F2AAEDF43006D8DD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE2753912AAEDF43006D8DD2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -193,6 +194,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				CE2753962AAEDF43006D8DD2 /* Base */,
+				CE17BBBD2ABC0D7800A0119D /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

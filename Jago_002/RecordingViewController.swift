@@ -14,7 +14,7 @@ class RecordingViewController: UIViewController {
     @IBOutlet weak var animationSetSelector: UISegmentedControl!
 
     var personsArray: [[String: Any]]!
-    var receivedRow: Int!
+    var receivedRow: Int?
     var backGroundImageArray: [UIImage] = []
     var selectedSegment: Int = 0
     var comments: [[String: Any]] = []
@@ -22,7 +22,7 @@ class RecordingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let image = UIImage(named: "3_out001") {
+        if let image = UIImage(named: "2_out001") {
             animationSetSelector.setImage(image, forSegmentAt: 0)
         }
 
@@ -45,10 +45,12 @@ class RecordingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        guard receivedRow < personsArray.count,
-              let _ = personsArray[receivedRow]["bigImage"] as? Data else {
-            return
-        }
+        guard let receivedRow = receivedRow, receivedRow < personsArray.count,
+                let _ = personsArray[receivedRow]["bigImage"] as? Data else {
+              return
+          }
+        
+
         
         recordingView.image = UIImage(data: personsArray[receivedRow]["bigImage"] as! Data)
 
@@ -125,18 +127,21 @@ class RecordingViewController: UIViewController {
 
     @IBAction func stopRecording(_ sender: Any) {
         stopLiveTranscription()
+        // receivedRowを安全にアンラップ
+        if let receivedRow = receivedRow {
+            comments.append(createCommentDict())
+            personsArray[receivedRow].updateValue(comments, forKey: "comments")
+            
+            UserDefaults.standard.set(personsArray, forKey: "personsArray")
+            self.navigationController?.popViewController(animated: true)
+        }
 
-        comments.append(createCommentDict())
-        personsArray[receivedRow].updateValue(comments, forKey: "comments")
-
-        UserDefaults.standard.set(personsArray, forKey: "personsArray")
-        self.navigationController?.popViewController(animated: true)
     }
 
     func createCommentDict() -> [String: Any] {
         let currentDate = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
         let currentDateString = formatter.string(from: currentDate)
 
         return [

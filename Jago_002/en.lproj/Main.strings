@@ -1,0 +1,33 @@
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "0vw-ti-ah6"; */
+"0vw-ti-ah6.normalTitle" = "Button";
+
+/* Class = "UISegmentedControl"; AEP-UJ-U3x.segmentTitles[0] = "First"; ObjectID = "AEP-UJ-U3x"; */
+"AEP-UJ-U3x.segmentTitles[0]" = "First";
+
+/* Class = "UISegmentedControl"; AEP-UJ-U3x.segmentTitles[1] = "Second"; ObjectID = "AEP-UJ-U3x"; */
+"AEP-UJ-U3x.segmentTitles[1]" = "Second";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Cie-9B-2a9"; */
+"Cie-9B-2a9.normalTitle" = "Button";
+
+/* Class = "UITextField"; placeholder = "name"; ObjectID = "NFf-eO-xmu"; */
+"NFf-eO-xmu.placeholder" = "name";
+
+/* Class = "UISegmentedControl"; Za0-Wv-oRN.segmentTitles[0] = " "; ObjectID = "Za0-Wv-oRN"; */
+"Za0-Wv-oRN.segmentTitles[0]" = " ";
+
+/* Class = "UISegmentedControl"; Za0-Wv-oRN.segmentTitles[1] = " "; ObjectID = "Za0-Wv-oRN"; */
+"Za0-Wv-oRN.segmentTitles[1]" = " ";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "lDu-ns-fyw"; */
+"lDu-ns-fyw.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "lTT-sJ-ToV"; */
+"lTT-sJ-ToV.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "xVE-0j-XMs"; */
+"xVE-0j-XMs.normalTitle" = "Button";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "yeA-Mg-y2v"; */
+"yeA-Mg-y2v.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
