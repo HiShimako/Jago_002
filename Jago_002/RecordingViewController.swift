@@ -34,8 +34,7 @@ class RecordingViewController: UIViewController {
         animationSetSelector.setTitle(" ", forSegmentAt: 1)
         animationSetSelector.setImage(AnimationSet.setOne.firstImage, forSegmentAt: 0)
         animationSetSelector.setImage(AnimationSet.setTwo.firstImage, forSegmentAt: 1)
-        animationSetSelector.setWidth(100, forSegmentAt: 0)
-        animationSetSelector.setWidth(100, forSegmentAt: 1)
+ 
 
         if let segmentTitle = animationSetSelector.titleForSegment(at: animationSetSelector.selectedSegmentIndex),
            let animationSet = AnimationSet(rawValue: segmentTitle) {
