@@ -261,11 +261,11 @@
                                 </connections>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Za0-Wv-oRN">
-                                <rect key="frame" x="124" y="88" width="127" height="32"/>
+                                <rect key="frame" x="63" y="88" width="250" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="setOne"/>
-                                    <segment title="setTwo"/>
+                                    <segment title=" "/>
+                                    <segment title=" "/>
                                 </segments>
                                 <connections>
                                     <action selector="animationSetChanged:" destination="Z9V-qS-bNx" eventType="valueChanged" id="S5l-nG-VYv"/>
@@ -296,7 +296,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="934" y="-2"/>
+            <point key="canvasLocation" x="933.60000000000002" y="-2.2167487684729066"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Nor-YH-MPp">

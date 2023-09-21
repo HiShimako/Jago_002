@@ -1,272 +1,148 @@
-//
-//  RecordingViewController.swift
-//  Jago_002
-//
-//  Created by user on 2023/09/13.
-//
-
 import UIKit
 import AVFoundation
 import Speech
 
 class RecordingViewController: UIViewController {
-    
     var isRecording = false
-    var w: CGFloat = 0
-    var h: CGFloat = 0
-    let d: CGFloat = 50
-    let l: CGFloat = 28
-    
-    let recognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "ja_JP"))!
+    let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja_JP"))!
     var audioEngine: AVAudioEngine!
     var recognitionReq: SFSpeechAudioBufferRecognitionRequest?
     var recognitionTask: SFSpeechRecognitionTask?
     @IBOutlet weak var textView: UITextView!
-    
-    var comment:[String:String]!
-    var personsArray: [[String: Any]]!
-    
-    var receivedRow: Int!
-    
-    var receivedImageData: Data?
-    
-    var backGroundImageArray : [UIImage] = []
-    
-    var selectedSegment: Int = 0
-    
     @IBOutlet weak var recordingView: UIImageView!
-//    var selectedImage: UIImage?
-    var comments: [[String:Any]] = []
-    
-    
     @IBOutlet weak var backGroundView: UIImageView!
-    
+    @IBOutlet weak var animationSetSelector: UISegmentedControl!
+
+    var personsArray: [[String: Any]]!
+    var receivedRow: Int!
+    var backGroundImageArray: [UIImage] = []
+    var selectedSegment: Int = 0
+    var comments: [[String: Any]] = []
+
     override func viewDidLoad() {
-        print("viewDidLoad called")
         super.viewDidLoad()
-        if let savedPersonsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
-            self.personsArray = savedPersonsArray
-        } else {
-            // 初期化されていない場合は、空の配列で初期化
-            self.personsArray = []
-        }
-        audioEngine = AVAudioEngine()
         
-//        loadAnimationImages(for: .setOne)
-        
-        // 初期状態のセグメントに基づいてアニメーションセットをロード
-        guard let segmentTitle = animationSetSelector.titleForSegment(at: animationSetSelector.selectedSegmentIndex),
-              let animationSet = AnimationSet(rawValue: segmentTitle) else {
-            return
-        }
- 
-        loadAnimationImages(for: animationSet)
-        backGroundView.animationImages = backGroundImageArray
-        backGroundView.animationDuration = 1.5
-        backGroundView.animationRepeatCount = 0
-        backGroundView.startAnimating()
-        
- 
-        //下記関数は不要だけど参照されているから消せない状態
-        if let savedPersonsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
-            self.personsArray = savedPersonsArray
-            self.comments = self.personsArray[receivedRow]["comments"] as! [[String : Any]]
-            print("☺️☺️☺️☺️☺️☺️")
-            debugPrint(comments)
-        }
-        
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        print("viewWillAppear called")
-        print(receivedRow!)
-        guard let validPersonsArray = personsArray else {
-            print("personsArray is nil!")
-            return
+        if let image = UIImage(named: "3_out001") {
+            animationSetSelector.setImage(image, forSegmentAt: 0)
         }
 
-        print("validPersonsArray count: \(validPersonsArray.count)")
-        if receivedRow < validPersonsArray.count {
-            if let _ = validPersonsArray[receivedRow]["bigImage"] {
-                //...
-            }
-        } else {
-            print("receivedRow is out of range!")
+        personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] ?? []
+        audioEngine = AVAudioEngine()
+
+        // Initialize segments
+        animationSetSelector.setTitle(" ", forSegmentAt: 0)
+        animationSetSelector.setTitle(" ", forSegmentAt: 1)
+        animationSetSelector.setImage(AnimationSet.setOne.firstImage, forSegmentAt: 0)
+        animationSetSelector.setImage(AnimationSet.setTwo.firstImage, forSegmentAt: 1)
+        animationSetSelector.setWidth(100, forSegmentAt: 0)
+        animationSetSelector.setWidth(100, forSegmentAt: 1)
+
+        if let segmentTitle = animationSetSelector.titleForSegment(at: animationSetSelector.selectedSegmentIndex),
+           let animationSet = AnimationSet(rawValue: segmentTitle) {
+            loadAnimationImages(for: animationSet)
         }
-        print("personsArray count: \(personsArray.count)")
-        if receivedRow < personsArray.count {
-            if let _ = personsArray[receivedRow]["bigImage"] {
-                //...
-            }
-        } else {
-            print("receivedRow is out of range!")
-        }
-        
-    
-        if let _ = personsArray[receivedRow]["bigImage"] {
-            print("bigImage exists!")
-        } else {
-            print("bigImage does not exist!")
-        }
-        if let bigImageData = personsArray[receivedRow]["bigImage"] {
-            print("Type of bigImage: \(type(of: bigImageData))")
-            
-            if bigImageData is Data {
-                print("bigImage is of type Data.")
-            } else {
-                print("bigImage is NOT of type Data.")
-            }
-        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Imageデータの確認
-        if let imageData = personsArray[receivedRow]["bigImage"] as? Data {
-            if let image = UIImage(data: imageData) {
-                recordingView.image = image
-            }
+        
+        guard receivedRow < personsArray.count,
+              let _ = personsArray[receivedRow]["bigImage"] as? Data else {
+            return
         }
         
-        // startLiveTranscription()のエラーハンドリング
-            try! startLiveTranscription()
-        
+        recordingView.image = UIImage(data: personsArray[receivedRow]["bigImage"] as! Data)
+
+        try? startLiveTranscription()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
-        print("viewDidAppear called")
+        super.viewDidAppear(animated)
         
-        SFSpeechRecognizer.requestAuthorization { (authStatus) in
-            DispatchQueue.main.async {
-                if authStatus != SFSpeechRecognizerAuthorizationStatus.authorized {
-                }
-            }
-        }
+        SFSpeechRecognizer.requestAuthorization { _ in }
     }
-    
-    //アニメーションを選択できるようにするぞ
+
     enum AnimationSet: String {
         case setOne = "2_out00"
         case setTwo = "4_out00"
+
+        var firstImage: UIImage? {
+            return UIImage(named: "\(self.rawValue)1")
+        }
     }
-    
-    @IBOutlet weak var animationSetSelector: UISegmentedControl!
-    
+
     @IBAction func animationSetChanged(_ sender: UISegmentedControl) {
-        
-        selectedSegment = sender.selectedSegmentIndex // 選択インデックスをプロパティにセット
-        loadAnimationImages(for: AnimationSet(rawValue: sender.titleForSegment(at: selectedSegment)!)!)
-        
+        guard let segmentTitle = sender.titleForSegment(at: sender.selectedSegmentIndex),
+              let animationSet = AnimationSet(rawValue: segmentTitle) else {
+            return
+        }
+        loadAnimationImages(for: animationSet)
     }
-    
+
     func loadAnimationImages(for set: AnimationSet) {
-        backGroundImageArray.removeAll()
-        while let backGoundImage = UIImage(named: "\(set.rawValue)\(backGroundImageArray.count+1)") {
-            backGroundImageArray.append(backGoundImage)
+        backGroundImageArray = []
+        while let backgroundImage = UIImage(named: "\(set.rawValue)\(backGroundImageArray.count+1)") {
+            backGroundImageArray.append(backgroundImage)
         }
         backGroundView.animationImages = backGroundImageArray
         backGroundView.startAnimating()
     }
-    
-    //    func loadAnimationImages(for set: AnimationSet) {
-    //        backGroundImageArray.removeAll()
-    //        while let backGoundImage = UIImage(named: "\(set.rawValue)\(backGroundImageArray.count+1)") {
-    //            backGroundImageArray.append(backGoundImage)
-    //        }
-    //        backGroundView.animationImages = backGroundImageArray
-    //        backGroundView.startAnimating()
-    //    }
-    
-    
+
     func stopLiveTranscription() {
         audioEngine.stop()
         audioEngine.inputNode.removeTap(onBus: 0)
         recognitionReq?.endAudio()
     }
-    
+
     func startLiveTranscription() throws {
-        
         if let recognitionTask = self.recognitionTask {
             recognitionTask.cancel()
             self.recognitionTask = nil
         }
+        
         textView.text = ""
-        
-        // 音声認識リクエストの作成
         recognitionReq = SFSpeechAudioBufferRecognitionRequest()
-        guard let recognitionReq = recognitionReq else {
-            return
-        }
+        guard let recognitionReq = recognitionReq else { return }
         recognitionReq.shouldReportPartialResults = true
-        
-        // オーディオセッションの設定
+
         let audioSession = AVAudioSession.sharedInstance()
         try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
         try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+
         let inputNode = audioEngine.inputNode
-        
-        // マイク入力の設定
         let recordingFormat = inputNode.outputFormat(forBus: 0)
-        inputNode.installTap(onBus: 0, bufferSize: 2048, format: recordingFormat) { (buffer, time) in
+        inputNode.installTap(onBus: 0, bufferSize: 2048, format: recordingFormat) { (buffer, _) in
             recognitionReq.append(buffer)
         }
-        audioEngine.prepare()
-        try audioEngine.start()
         
-        recognitionTask = recognizer.recognitionTask(with: recognitionReq, resultHandler: { (result, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                DispatchQueue.main.async {
-                    self.textView.text = result?.bestTranscription.formattedString
-                    //                    let textData = textView.text,
-                }
+        try audioEngine.start()
+        recognizer.recognitionTask(with: recognitionReq) { (result, error) in
+            if let _ = error { return }
+            DispatchQueue.main.async {
+                self.textView.text = result?.bestTranscription.formattedString
             }
-        })
+        }
     }
-    
-    
+
     @IBAction func stopRecording(_ sender: Any) {
         stopLiveTranscription()
-        
+
         comments.append(createCommentDict())
         personsArray[receivedRow].updateValue(comments, forKey: "comments")
-        
-        // 保存したい
+
         UserDefaults.standard.set(personsArray, forKey: "personsArray")
-        
         self.navigationController?.popViewController(animated: true)
     }
-    
-    // ユーザー入力からデータを取得する関数
+
     func createCommentDict() -> [String: Any] {
-        // 現在の日時を取得
         let currentDate = Date()
-        
-        // 日時を文字列に変換するためのフォーマッターを設定
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
-        
-        // 日時を文字列に変換
         let currentDateString = formatter.string(from: currentDate)
-        
-        let commentDict: [String: Any] = [
+
+        return [
             "time": currentDateString,
-            "comment": textView.text!,
+            "comment": textView.text ?? ""
         ]
-        
-        return commentDict
-    }
-    
-}
-
-// UserDefaultsからcommentsArrayを取得する関数
-func fetchCommentsArray() -> [[String: Any]] {
-    if let savedCommentsArray = UserDefaults.standard.array(forKey: "commentsArray") as? [[String: Any]] {
-        return savedCommentsArray
-    } else {
-        return []
     }
 }
-
-// commentsArrayに新しいデータを追加し、再び保存する関数
-func saveCommentsArray(_ commentsArray: [[String: Any]]) {
-    UserDefaults.standard.setValue(commentsArray, forKey: "commentsArray")
-}
-
