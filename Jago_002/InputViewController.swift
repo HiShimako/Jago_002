@@ -24,6 +24,7 @@ class InputViewController: UIViewController {
     @IBOutlet weak var personsBigPhotoImageView: UIImageView!
     @IBOutlet weak var selectBackGroundViewSegment: UISegmentedControl!
     @IBOutlet weak var backGroundView: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     
     
