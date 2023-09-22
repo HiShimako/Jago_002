@@ -84,6 +84,9 @@
                                     <segment title="First"/>
                                     <segment title="Second"/>
                                 </segments>
+                                <connections>
+                                    <action selector="selectBackGroundViewAction:" destination="oqg-At-So7" eventType="valueChanged" id="NxX-WE-9aa"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GpJ-vn-8vo"/>
@@ -105,6 +108,7 @@
                         <outlet property="personNameTextField" destination="NFf-eO-xmu" id="8yr-M9-ceb"/>
                         <outlet property="personsBigPhotoImageView" destination="DpI-18-3yg" id="8Eb-CQ-X94"/>
                         <outlet property="personsSmallPhotoImageView" destination="QEr-Ng-7NB" id="3xt-bb-jlT"/>
+                        <outlet property="selectBackGroundViewSegment" destination="AEP-UJ-U3x" id="iko-xm-4zP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3yf-l0-HGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

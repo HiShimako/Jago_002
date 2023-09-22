@@ -17,6 +17,9 @@ class InputViewController: UIViewController {
     @IBOutlet weak var personNameTextField: UITextField!
     @IBOutlet weak var personsSmallPhotoImageView: UIImageView!
     @IBOutlet weak var personsBigPhotoImageView: UIImageView!
+    @IBOutlet weak var selectBackGroundViewSegment: UISegmentedControl!
+    @IBAction func selectBackGroundViewAction(_ sender: Any) {
+    }
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
