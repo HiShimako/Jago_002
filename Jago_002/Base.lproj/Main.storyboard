@@ -16,10 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OtQ-HQ-af8">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="inF-f8-Cgx">
                                 <rect key="frame" x="0.0" y="165" width="375" height="613"/>
                                 <subviews>
@@ -89,33 +85,34 @@
                                     <action selector="selectBackGroundViewAction:" destination="oqg-At-So7" eventType="valueChanged" id="NxX-WE-9aa"/>
                                 </connections>
                             </segmentedControl>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UpN-Cr-dJZ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GpJ-vn-8vo"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="OtQ-HQ-af8" firstAttribute="leading" secondItem="Pwd-uw-CfO" secondAttribute="leading" id="440-Jn-OsM"/>
-                            <constraint firstAttribute="trailing" secondItem="OtQ-HQ-af8" secondAttribute="trailing" id="5g9-mE-4Nz"/>
+                            <constraint firstAttribute="bottom" secondItem="UpN-Cr-dJZ" secondAttribute="bottom" id="9P8-BA-fc4"/>
                             <constraint firstItem="Cie-9B-2a9" firstAttribute="top" secondItem="NFf-eO-xmu" secondAttribute="top" id="9bO-eA-aNC"/>
                             <constraint firstItem="inF-f8-Cgx" firstAttribute="bottom" secondItem="GpJ-vn-8vo" secondAttribute="bottom" id="9t6-p3-vRa"/>
                             <constraint firstItem="GpJ-vn-8vo" firstAttribute="trailing" secondItem="Cie-9B-2a9" secondAttribute="trailing" constant="20" id="AhI-se-LYn"/>
                             <constraint firstItem="inF-f8-Cgx" firstAttribute="leading" secondItem="GpJ-vn-8vo" secondAttribute="leading" id="G9A-FW-qp9"/>
                             <constraint firstItem="AEP-UJ-U3x" firstAttribute="top" secondItem="NFf-eO-xmu" secondAttribute="bottom" constant="17" id="Kmz-wA-JDn"/>
-                            <constraint firstItem="OtQ-HQ-af8" firstAttribute="top" secondItem="Pwd-uw-CfO" secondAttribute="top" id="NV5-Jw-v24"/>
                             <constraint firstItem="Cie-9B-2a9" firstAttribute="bottom" secondItem="NFf-eO-xmu" secondAttribute="bottom" id="S3o-ru-Bkd"/>
-                            <constraint firstItem="OtQ-HQ-af8" firstAttribute="leading" secondItem="GpJ-vn-8vo" secondAttribute="leading" id="VZe-IT-pV2"/>
-                            <constraint firstItem="OtQ-HQ-af8" firstAttribute="trailing" secondItem="GpJ-vn-8vo" secondAttribute="trailing" id="XAQ-WX-9cH"/>
-                            <constraint firstAttribute="bottom" secondItem="OtQ-HQ-af8" secondAttribute="bottom" id="XK8-yC-hcH"/>
                             <constraint firstItem="inF-f8-Cgx" firstAttribute="top" secondItem="AEP-UJ-U3x" secondAttribute="bottom" constant="23" id="ZSm-Vf-Fna"/>
+                            <constraint firstAttribute="trailing" secondItem="UpN-Cr-dJZ" secondAttribute="trailing" id="a6v-Nh-q0G"/>
                             <constraint firstItem="inF-f8-Cgx" firstAttribute="top" secondItem="NFf-eO-xmu" secondAttribute="bottom" constant="70" id="bWX-ni-UXE"/>
                             <constraint firstItem="AEP-UJ-U3x" firstAttribute="centerX" secondItem="inF-f8-Cgx" secondAttribute="centerX" id="cz5-fO-Exq"/>
+                            <constraint firstItem="UpN-Cr-dJZ" firstAttribute="leading" secondItem="Pwd-uw-CfO" secondAttribute="leading" id="d4m-fc-AIA"/>
                             <constraint firstItem="inF-f8-Cgx" firstAttribute="trailing" secondItem="GpJ-vn-8vo" secondAttribute="trailing" id="k2J-2C-YJ9"/>
                             <constraint firstItem="Cie-9B-2a9" firstAttribute="leading" secondItem="NFf-eO-xmu" secondAttribute="trailing" constant="10" id="oTJ-6D-0rS"/>
+                            <constraint firstItem="UpN-Cr-dJZ" firstAttribute="top" secondItem="Pwd-uw-CfO" secondAttribute="top" id="rmO-Ku-Gnb"/>
                             <constraint firstItem="NFf-eO-xmu" firstAttribute="top" secondItem="GpJ-vn-8vo" secondAttribute="top" constant="10" id="sVc-5V-QGu"/>
                             <constraint firstItem="NFf-eO-xmu" firstAttribute="leading" secondItem="GpJ-vn-8vo" secondAttribute="leading" constant="30" id="spT-Cl-vev"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="backGroundView" destination="OtQ-HQ-af8" id="vO5-wS-2ZP"/>
+                        <outlet property="backGroundView" destination="UpN-Cr-dJZ" id="nzL-qG-epZ"/>
                         <outlet property="personNameTextField" destination="NFf-eO-xmu" id="8yr-M9-ceb"/>
                         <outlet property="personsBigPhotoImageView" destination="DpI-18-3yg" id="8Eb-CQ-X94"/>
                         <outlet property="personsSmallPhotoImageView" destination="QEr-Ng-7NB" id="3xt-bb-jlT"/>
