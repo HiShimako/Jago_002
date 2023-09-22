@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="165" width="375" height="613"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EoI-It-hru">
-                                        <rect key="frame" x="0.0" y="50" width="375" height="1000"/>
+                                        <rect key="frame" x="0.0" y="50" width="375" height="920"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DpI-18-3yg">
                                                 <rect key="frame" x="37.666666666666657" y="305" width="300" height="600"/>
@@ -46,7 +46,7 @@
                                         <constraints>
                                             <constraint firstItem="QEr-Ng-7NB" firstAttribute="centerX" secondItem="EoI-It-hru" secondAttribute="centerX" id="85X-om-6Sh"/>
                                             <constraint firstItem="QEr-Ng-7NB" firstAttribute="top" secondItem="EoI-It-hru" secondAttribute="top" constant="50" id="LG6-LQ-tD8"/>
-                                            <constraint firstAttribute="height" constant="1000" id="P3E-dG-Hre"/>
+                                            <constraint firstAttribute="height" constant="920" id="P3E-dG-Hre"/>
                                             <constraint firstItem="DpI-18-3yg" firstAttribute="centerX" secondItem="EoI-It-hru" secondAttribute="centerX" id="fGI-c6-frl"/>
                                             <constraint firstItem="DpI-18-3yg" firstAttribute="top" secondItem="QEr-Ng-7NB" secondAttribute="bottom" constant="5" id="m7O-rX-8oE"/>
                                         </constraints>
