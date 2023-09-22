@@ -264,8 +264,8 @@
                                 <rect key="frame" x="63" y="88" width="250" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title=" "/>
-                                    <segment title=" "/>
+                                    <segment title="" image="2_out001"/>
+                                    <segment title="" image="4_out001"/>
                                 </segments>
                                 <connections>
                                     <action selector="animationSetChanged:" destination="Z9V-qS-bNx" eventType="valueChanged" id="S5l-nG-VYv"/>
@@ -320,6 +320,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="2_out001" width="1080" height="1920"/>
+        <image name="4_out001" width="1080" height="1920"/>
         <image name="ellipsis.message.fill" catalog="system" width="128" height="114"/>
         <image name="person.crop.rectangle.stack.fill" catalog="system" width="128" height="122"/>
         <image name="square.and.arrow.up.fill" catalog="system" width="115" height="128"/>
