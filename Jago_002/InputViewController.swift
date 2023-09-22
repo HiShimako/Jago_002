@@ -87,11 +87,22 @@ class InputViewController: UIViewController {
 struct BackGroundAnimationUtility {
     private static func fetchAnimationImages(withPrefix prefix: String) -> [UIImage] {
         var backGroundImageArray: [UIImage] = []
-        var index = 0
-        while let image = UIImage(named: "\(prefix)\(index)") {
-            backGroundImageArray.append(image)
-            index += 1
-        }
+        var index = 1
+        while true {
+             let imageName = "\(prefix)\(index)"
+             print("Looking for image named: \(imageName)")  // デバッグ用
+             
+             if let image = UIImage(named: imageName) {
+                 backGroundImageArray.append(image)
+                 index += 1
+             } else {
+                 break
+             }
+         }
+//        while let image = UIImage(named: "\(prefix)\(index)") {
+//            backGroundImageArray.append(image)
+//            index += 1
+//        }
         return backGroundImageArray
     }
     static func applyAnimation(on view: UIView, withPrefix prefix: String) {
