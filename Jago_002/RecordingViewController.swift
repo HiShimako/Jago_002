@@ -22,7 +22,6 @@ class RecordingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Loaded \(backGroundImageArray.count) background images.")
         
         if let animationSet = AnimationSet(rawValue: AnimationSet.setOne.rawValue) {
             loadAnimationImages(for: animationSet)
@@ -31,12 +30,10 @@ class RecordingViewController: UIViewController {
         personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] ?? []
         audioEngine = AVAudioEngine()
         
-        // Initialize segments
-        animationSetSelector.setTitle(" ", forSegmentAt: 0)
-        animationSetSelector.setTitle(" ", forSegmentAt: 1)
-        animationSetSelector.setImage(AnimationSet.setOne.firstImage, forSegmentAt: 0)
-        animationSetSelector.setImage(AnimationSet.setTwo.firstImage, forSegmentAt: 1)
-        
+    
+        animationSetSelector.setImage(AnimationSet.setOne.firstbackGroundImage, forSegmentAt: 0)
+        animationSetSelector.setImage(AnimationSet.setTwo.firstbackGroundImage, forSegmentAt: 1)
+
         
         if let segmentTitle = animationSetSelector.titleForSegment(at: animationSetSelector.selectedSegmentIndex),
            let animationSet = AnimationSet(rawValue: segmentTitle) {
@@ -69,8 +66,14 @@ class RecordingViewController: UIViewController {
         case setOne = "2_out00"
         case setTwo = "4_out00"
         
-        var firstImage: UIImage? {
-            return UIImage(named: "\(self.rawValue)1")
+        var firstbackGroundImage: UIImage? {
+                return UIImage(named: "\(self.rawValue)1")
+            }
+        var forSegmentButtonImage: UIImage? {
+            let originalImage = UIImage(named: "\(self.rawValue)1")
+            let cropRect = CGRect(x: 0, y: 0, width: 50, height: 50)
+            let imageRef = originalImage?.cgImage?.cropping(to: cropRect)
+            return imageRef != nil ? UIImage(cgImage: imageRef!) : nil
         }
     }
     
@@ -95,10 +98,13 @@ class RecordingViewController: UIViewController {
         while let backgroundImage = UIImage(named: "\(set.rawValue)\(backGroundImageArray.count+1)") {
             backGroundImageArray.append(backgroundImage)
         }
+        print("Loaded \(backGroundImageArray.count) background images.")
         backGroundView.animationImages = backGroundImageArray
         backGroundView.animationDuration = 1.0 // 1秒
         backGroundView.animationRepeatCount = 0 // 無限
         backGroundView.startAnimating()
+        
+   
     }
     
     func stopLiveTranscription() {

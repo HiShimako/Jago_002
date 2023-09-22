@@ -252,20 +252,26 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="recordingView" translatesAutoresizingMaskIntoConstraints="NO" id="HcM-vb-Ekp">
-                                <rect key="frame" x="30" y="137" width="315" height="579"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="recordingView" translatesAutoresizingMaskIntoConstraints="NO" id="HcM-vb-Ekp">
+                                <rect key="frame" x="37.666666666666657" y="156" width="300" height="600"/>
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="600" id="RZZ-Ej-GKH"/>
+                                    <constraint firstAttribute="width" constant="300" id="spu-iW-qMe"/>
+                                </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="JIj-fe-nkn" appends="YES" id="RLG-4W-2XI"/>
                                 </connections>
                             </imageView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Za0-Wv-oRN">
-                                <rect key="frame" x="63" y="88" width="250" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segmentedControl opaque="NO" contentMode="center" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Za0-Wv-oRN">
+                                <rect key="frame" x="112.66666666666669" y="90" width="150" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="5a5-qE-Nhe"/>
+                                    <constraint firstAttribute="width" constant="150" id="tRr-ox-nVG"/>
+                                </constraints>
                                 <segments>
-                                    <segment title="" image="2_out001"/>
-                                    <segment title="" image="4_out001"/>
+                                    <segment title=""/>
+                                    <segment title=""/>
                                 </segments>
                                 <connections>
                                     <action selector="animationSetChanged:" destination="Z9V-qS-bNx" eventType="valueChanged" id="S5l-nG-VYv"/>
@@ -276,9 +282,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="7hK-12-XPK" firstAttribute="top" secondItem="b0p-QB-S9F" secondAttribute="top" id="63P-Rr-BfD"/>
+                            <constraint firstItem="Za0-Wv-oRN" firstAttribute="top" secondItem="b0p-QB-S9F" secondAttribute="top" constant="90" id="FRT-tu-Vwg"/>
+                            <constraint firstItem="Za0-Wv-oRN" firstAttribute="centerX" secondItem="b0p-QB-S9F" secondAttribute="centerX" id="Guu-Op-z1J"/>
                             <constraint firstAttribute="trailing" secondItem="7hK-12-XPK" secondAttribute="trailing" id="Uvn-qH-3LN"/>
                             <constraint firstAttribute="bottom" secondItem="7hK-12-XPK" secondAttribute="bottom" id="X8Z-24-wVk"/>
                             <constraint firstItem="7hK-12-XPK" firstAttribute="leading" secondItem="b0p-QB-S9F" secondAttribute="leading" id="bEJ-Fy-By1"/>
+                            <constraint firstItem="HcM-vb-Ekp" firstAttribute="centerY" secondItem="b0p-QB-S9F" secondAttribute="centerY" constant="50" id="iQM-Ne-xA9"/>
+                            <constraint firstItem="HcM-vb-Ekp" firstAttribute="centerX" secondItem="b0p-QB-S9F" secondAttribute="centerX" id="zta-bg-aeX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="kGY-2F-ndG"/>
@@ -320,8 +330,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="2_out001" width="1080" height="1920"/>
-        <image name="4_out001" width="1080" height="1920"/>
         <image name="ellipsis.message.fill" catalog="system" width="128" height="114"/>
         <image name="person.crop.rectangle.stack.fill" catalog="system" width="128" height="122"/>
         <image name="square.and.arrow.up.fill" catalog="system" width="115" height="128"/>
