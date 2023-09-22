@@ -16,6 +16,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OtQ-HQ-af8">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="inF-f8-Cgx">
                                 <rect key="frame" x="0.0" y="165" width="375" height="613"/>
                                 <subviews>
@@ -53,8 +57,6 @@
                                     <constraint firstItem="EoI-It-hru" firstAttribute="trailing" secondItem="io0-FH-1JJ" secondAttribute="trailing" id="0jH-wD-9Ri"/>
                                     <constraint firstItem="EoI-It-hru" firstAttribute="bottom" secondItem="io0-FH-1JJ" secondAttribute="bottom" id="CWD-RS-hQM"/>
                                     <constraint firstItem="EoI-It-hru" firstAttribute="leading" secondItem="io0-FH-1JJ" secondAttribute="leading" id="ECd-3a-rQK"/>
-                                    <constraint firstItem="EoI-It-hru" firstAttribute="top" secondItem="io0-FH-1JJ" secondAttribute="top" id="NtO-2e-gQV"/>
-                                    <constraint firstItem="EoI-It-hru" firstAttribute="top" secondItem="io0-FH-1JJ" secondAttribute="top" constant="10" id="OgW-gW-SlC"/>
                                     <constraint firstItem="EoI-It-hru" firstAttribute="top" secondItem="io0-FH-1JJ" secondAttribute="top" constant="50" id="e1D-bd-OCZ"/>
                                     <constraint firstItem="EoI-It-hru" firstAttribute="width" secondItem="bcc-04-sTz" secondAttribute="width" id="r7C-oJ-YUb"/>
                                 </constraints>
@@ -77,9 +79,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AEP-UJ-U3x">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AEP-UJ-U3x">
                                 <rect key="frame" x="122" y="112" width="131" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="First"/>
                                     <segment title="Second"/>
@@ -92,12 +93,21 @@
                         <viewLayoutGuide key="safeArea" id="GpJ-vn-8vo"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="OtQ-HQ-af8" firstAttribute="leading" secondItem="Pwd-uw-CfO" secondAttribute="leading" id="440-Jn-OsM"/>
+                            <constraint firstAttribute="trailing" secondItem="OtQ-HQ-af8" secondAttribute="trailing" id="5g9-mE-4Nz"/>
                             <constraint firstItem="Cie-9B-2a9" firstAttribute="top" secondItem="NFf-eO-xmu" secondAttribute="top" id="9bO-eA-aNC"/>
                             <constraint firstItem="inF-f8-Cgx" firstAttribute="bottom" secondItem="GpJ-vn-8vo" secondAttribute="bottom" id="9t6-p3-vRa"/>
                             <constraint firstItem="GpJ-vn-8vo" firstAttribute="trailing" secondItem="Cie-9B-2a9" secondAttribute="trailing" constant="20" id="AhI-se-LYn"/>
                             <constraint firstItem="inF-f8-Cgx" firstAttribute="leading" secondItem="GpJ-vn-8vo" secondAttribute="leading" id="G9A-FW-qp9"/>
+                            <constraint firstItem="AEP-UJ-U3x" firstAttribute="top" secondItem="NFf-eO-xmu" secondAttribute="bottom" constant="17" id="Kmz-wA-JDn"/>
+                            <constraint firstItem="OtQ-HQ-af8" firstAttribute="top" secondItem="Pwd-uw-CfO" secondAttribute="top" id="NV5-Jw-v24"/>
                             <constraint firstItem="Cie-9B-2a9" firstAttribute="bottom" secondItem="NFf-eO-xmu" secondAttribute="bottom" id="S3o-ru-Bkd"/>
+                            <constraint firstItem="OtQ-HQ-af8" firstAttribute="leading" secondItem="GpJ-vn-8vo" secondAttribute="leading" id="VZe-IT-pV2"/>
+                            <constraint firstItem="OtQ-HQ-af8" firstAttribute="trailing" secondItem="GpJ-vn-8vo" secondAttribute="trailing" id="XAQ-WX-9cH"/>
+                            <constraint firstAttribute="bottom" secondItem="OtQ-HQ-af8" secondAttribute="bottom" id="XK8-yC-hcH"/>
+                            <constraint firstItem="inF-f8-Cgx" firstAttribute="top" secondItem="AEP-UJ-U3x" secondAttribute="bottom" constant="23" id="ZSm-Vf-Fna"/>
                             <constraint firstItem="inF-f8-Cgx" firstAttribute="top" secondItem="NFf-eO-xmu" secondAttribute="bottom" constant="70" id="bWX-ni-UXE"/>
+                            <constraint firstItem="AEP-UJ-U3x" firstAttribute="centerX" secondItem="inF-f8-Cgx" secondAttribute="centerX" id="cz5-fO-Exq"/>
                             <constraint firstItem="inF-f8-Cgx" firstAttribute="trailing" secondItem="GpJ-vn-8vo" secondAttribute="trailing" id="k2J-2C-YJ9"/>
                             <constraint firstItem="Cie-9B-2a9" firstAttribute="leading" secondItem="NFf-eO-xmu" secondAttribute="trailing" constant="10" id="oTJ-6D-0rS"/>
                             <constraint firstItem="NFf-eO-xmu" firstAttribute="top" secondItem="GpJ-vn-8vo" secondAttribute="top" constant="10" id="sVc-5V-QGu"/>
@@ -105,6 +115,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backGroundView" destination="OtQ-HQ-af8" id="vO5-wS-2ZP"/>
                         <outlet property="personNameTextField" destination="NFf-eO-xmu" id="8yr-M9-ceb"/>
                         <outlet property="personsBigPhotoImageView" destination="DpI-18-3yg" id="8Eb-CQ-X94"/>
                         <outlet property="personsSmallPhotoImageView" destination="QEr-Ng-7NB" id="3xt-bb-jlT"/>

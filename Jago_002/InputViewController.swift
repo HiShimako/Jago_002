@@ -6,6 +6,11 @@
 //
 import UIKit
 
+enum AnimationSet: String {
+    case firstSet = "2_out00"
+    case secondSet = "4_out00"
+}
+
 class InputViewController: UIViewController {
     
     // MARK: - Properties
@@ -19,7 +24,9 @@ class InputViewController: UIViewController {
     @IBOutlet weak var personsBigPhotoImageView: UIImageView!
     @IBOutlet weak var selectBackGroundViewSegment: UISegmentedControl!
     @IBAction func selectBackGroundViewAction(_ sender: Any) {
+        
     }
+    @IBOutlet weak var backGroundView: UIView!
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
@@ -34,6 +41,7 @@ class InputViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func postAction(_ sender: Any) {
+        
         guard let personDict = createPersonDict() else { return }
         
         var personsArray = fetchPersonsArray()
@@ -51,12 +59,13 @@ class InputViewController: UIViewController {
               let bigImageData = personsBigPhotoImageView.image?.jpegData(compressionQuality: 0.01) else {
             return nil
         }
-        
+        let selectedIndex = selectBackGroundViewSegment.selectedSegmentIndex
         return [
             "personName": personName,
             "smallImage": smallImageData,
             "bigImage": bigImageData,
-            "comments": []
+            "comments": [] as [[String: Any]],
+            "backgroundViewIndex": selectedIndex
         ]
     }
     
