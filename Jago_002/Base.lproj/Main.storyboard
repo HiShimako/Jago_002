@@ -22,7 +22,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EoI-It-hru">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="920"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UpN-Cr-dJZ">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UpN-Cr-dJZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="920"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DpI-18-3yg">
@@ -46,11 +46,11 @@
                                         <constraints>
                                             <constraint firstItem="QEr-Ng-7NB" firstAttribute="centerX" secondItem="EoI-It-hru" secondAttribute="centerX" id="85X-om-6Sh"/>
                                             <constraint firstItem="QEr-Ng-7NB" firstAttribute="top" secondItem="EoI-It-hru" secondAttribute="top" constant="20" id="DJb-PF-YMF"/>
+                                            <constraint firstItem="UpN-Cr-dJZ" firstAttribute="top" secondItem="EoI-It-hru" secondAttribute="top" id="O8R-Td-XXl"/>
                                             <constraint firstAttribute="height" constant="920" id="P3E-dG-Hre"/>
                                             <constraint firstAttribute="trailing" secondItem="UpN-Cr-dJZ" secondAttribute="trailing" id="SNK-Xb-Kvk"/>
-                                            <constraint firstAttribute="bottom" secondItem="UpN-Cr-dJZ" secondAttribute="bottom" id="W5f-lp-0X0"/>
-                                            <constraint firstItem="UpN-Cr-dJZ" firstAttribute="top" secondItem="EoI-It-hru" secondAttribute="top" id="eEw-bH-6xj"/>
                                             <constraint firstItem="DpI-18-3yg" firstAttribute="centerX" secondItem="EoI-It-hru" secondAttribute="centerX" id="fGI-c6-frl"/>
+                                            <constraint firstAttribute="bottom" secondItem="UpN-Cr-dJZ" secondAttribute="bottom" id="jvY-ja-XJU"/>
                                             <constraint firstItem="UpN-Cr-dJZ" firstAttribute="leading" secondItem="EoI-It-hru" secondAttribute="leading" id="quA-xe-etC"/>
                                             <constraint firstItem="DpI-18-3yg" firstAttribute="top" secondItem="QEr-Ng-7NB" secondAttribute="bottom" constant="10" id="sVW-j5-N7M"/>
                                         </constraints>
