@@ -64,6 +64,7 @@ class InputViewController: UIViewController {
     @IBAction func postAction(_ sender: Any) {
         guard let personDict = createPersonDict() else { return }
         saveNewPerson(personDict)
+        printSavedPersons() 
         navigationController?.popViewController(animated: true)
     }
     
@@ -93,6 +94,19 @@ class InputViewController: UIViewController {
         var personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] ?? []
         personsArray.append(personDict)
         UserDefaults.standard.setValue(personsArray, forKey: "personsArray")
+    }
+    private func printSavedPersons() {
+        if let personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
+            print("Saved Persons:")
+            for (index, personDict) in personsArray.enumerated() {
+                if let name = personDict["personName"] as? String,
+                   let backgroundViewIndex = personDict["backgroundViewIndex"] as? Int {
+                    print("Person \(index+1): \(name), BackgroundViewIndex: \(backgroundViewIndex)")
+                }
+            }
+        } else {
+            print("No persons saved in UserDefaults.")
+        }
     }
 }
 

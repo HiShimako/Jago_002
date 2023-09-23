@@ -258,7 +258,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="recordingView" translatesAutoresizingMaskIntoConstraints="NO" id="HcM-vb-Ekp">
-                                <rect key="frame" x="37.666666666666657" y="156" width="300" height="600"/>
+                                <rect key="frame" x="37.666666666666657" y="106" width="300" height="600"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="600" id="RZZ-Ej-GKH"/>
@@ -276,7 +276,7 @@
                             <constraint firstAttribute="trailing" secondItem="7hK-12-XPK" secondAttribute="trailing" id="Uvn-qH-3LN"/>
                             <constraint firstAttribute="bottom" secondItem="7hK-12-XPK" secondAttribute="bottom" id="X8Z-24-wVk"/>
                             <constraint firstItem="7hK-12-XPK" firstAttribute="leading" secondItem="b0p-QB-S9F" secondAttribute="leading" id="bEJ-Fy-By1"/>
-                            <constraint firstItem="HcM-vb-Ekp" firstAttribute="centerY" secondItem="b0p-QB-S9F" secondAttribute="centerY" constant="50" id="iQM-Ne-xA9"/>
+                            <constraint firstItem="HcM-vb-Ekp" firstAttribute="centerY" secondItem="b0p-QB-S9F" secondAttribute="centerY" id="iQM-Ne-xA9"/>
                             <constraint firstItem="HcM-vb-Ekp" firstAttribute="centerX" secondItem="b0p-QB-S9F" secondAttribute="centerX" id="zta-bg-aeX"/>
                         </constraints>
                     </view>
