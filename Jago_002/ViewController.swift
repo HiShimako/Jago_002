@@ -14,8 +14,6 @@ class ViewController: UIViewController,
                       UITableViewDataSource,
                       UIImagePickerControllerDelegate,
                       UINavigationControllerDelegate,
-                      SFSpeechRecognizerDelegate,
-                      UIGestureRecognizerDelegate,
                       CatchProtocol {
     
     // MARK: - Variables
@@ -28,15 +26,12 @@ class ViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        loadSavedPersons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let userDefaults = UserDefaults.standard
-        if let perArray = userDefaults.object(forKey: "personsArray") as? [[String: Any]] {
-            personsArray = perArray
-        }
+//        let userDefaults = UserDefaults.standard
+        loadSavedPersons()
         personListTableView.reloadData()
     }
     
@@ -79,14 +74,6 @@ class ViewController: UIViewController,
         return self.view.frame.height * 1 / 3
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cellData = personsArray[indexPath.row]
-        if let imageData = cellData["bigImage"] as? Data,
-           let image = UIImage(data: imageData) {
-            performSegue(withIdentifier: "showRecordingViewController", sender: (image, indexPath))
-        }
-    }
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             personsArray.remove(at: indexPath.row)
@@ -99,11 +86,7 @@ class ViewController: UIViewController,
     @IBAction func addPerson(_ sender: Any) {
         showAlert()
     }
-    
-    @IBAction func tapComment(_ sender: UIButton) {
-        debugPrint(sender)
-    }
-    
+ 
     // MARK: - Custom Methods
     func showAlert() {
         let alertController = UIAlertController(title: "選択", message: "どちらを使用しますか", preferredStyle: .actionSheet)
