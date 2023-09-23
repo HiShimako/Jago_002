@@ -34,6 +34,23 @@ class InputViewController: UIViewController {
         super.viewDidLoad()
         setupInitialImages()
         setupInitialAnimation()
+        // Segmented Controlのサイズを取得（仮定）
+        let segmentSize = CGSize(width: 150, height: 30) // 適切な値に調整してください
+        
+        // クロップする範囲を計算
+        let cropRect = CGRect(x: 0, y: 0, width: segmentSize.width, height: segmentSize.height)
+        
+        // 1枚目の画像をクロップしてセット
+        if let originalImage1 = UIImage(named: "\(AnimationSet.caseOne.rawValue)1"),
+           let croppedImage1 = originalImage1.cropped(to: cropRect) {
+            selectBackGroundViewSegment.setImage(croppedImage1, forSegmentAt: 0)
+        }
+        
+        // 2枚目の画像をクロップしてセット
+        if let originalImage2 = UIImage(named: "\(AnimationSet.caseTwo.rawValue)1"),
+           let croppedImage2 = originalImage2.cropped(to: cropRect) {
+            selectBackGroundViewSegment.setImage(croppedImage2, forSegmentAt: 1)
+        }
     }
     
     // MARK: - Initialization Methods
@@ -88,6 +105,7 @@ class InputViewController: UIViewController {
         personsArray.append(personDict)
         UserDefaults.standard.setValue(personsArray, forKey: "personsArray")
     }
+    
 }
 
 // MARK: - BackGroundAnimationUtility
@@ -124,6 +142,13 @@ struct BackGroundAnimationUtility {
         imageView.animationDuration = 1.0
         imageView.animationRepeatCount = 0
         imageView.startAnimating()
+    }
+}
+
+extension UIImage {
+    func cropped(to rect: CGRect) -> UIImage? {
+        guard let cgImage = self.cgImage?.cropping(to: rect) else { return nil }
+        return UIImage(cgImage: cgImage)
     }
 }
 
