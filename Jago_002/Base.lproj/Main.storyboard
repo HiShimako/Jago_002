@@ -121,7 +121,6 @@
                         <outlet property="personNameTextField" destination="NFf-eO-xmu" id="8yr-M9-ceb"/>
                         <outlet property="personsBigPhotoImageView" destination="DpI-18-3yg" id="8Eb-CQ-X94"/>
                         <outlet property="personsSmallPhotoImageView" destination="QEr-Ng-7NB" id="3xt-bb-jlT"/>
-                        <outlet property="scrollView" destination="inF-f8-Cgx" id="R0s-95-nvW"/>
                         <outlet property="selectBackGroundViewSegment" destination="AEP-UJ-U3x" id="iko-xm-4zP"/>
                     </connections>
                 </viewController>

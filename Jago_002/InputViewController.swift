@@ -1,4 +1,3 @@
-//
 //  InputViewController.swift
 //  Jago_002
 //
@@ -17,43 +16,27 @@ class InputViewController: UIViewController {
     var personName: String?
     var smallImage: UIImage?
     var bigImage: UIImage?
-
+    
     // MARK: - Outlets
     @IBOutlet weak var personNameTextField: UITextField!
     @IBOutlet weak var personsSmallPhotoImageView: UIImageView!
     @IBOutlet weak var personsBigPhotoImageView: UIImageView!
     @IBOutlet weak var selectBackGroundViewSegment: UISegmentedControl!
     @IBOutlet weak var backGroundView: UIImageView!
-    @IBOutlet weak var scrollView: UIScrollView!
-    
-    
-    
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupInitialImages()
-        setupInitialAnimation()
-        // Segmented Controlのサイズを取得（仮定）
-        let segmentSize = CGSize(width: 150, height: 30) // 適切な値に調整してください
-        
-        // クロップする範囲を計算
-        let cropRect = CGRect(x: 0, y: 0, width: segmentSize.width, height: segmentSize.height)
-        
-        // 1枚目の画像をクロップしてセット
-        if let originalImage1 = UIImage(named: "\(AnimationSet.caseOne.rawValue)1"),
-           let croppedImage1 = originalImage1.cropped(to: cropRect) {
-            selectBackGroundViewSegment.setImage(croppedImage1, forSegmentAt: 0)
-        }
-        
-        // 2枚目の画像をクロップしてセット
-        if let originalImage2 = UIImage(named: "\(AnimationSet.caseTwo.rawValue)1"),
-           let croppedImage2 = originalImage2.cropped(to: cropRect) {
-            selectBackGroundViewSegment.setImage(croppedImage2, forSegmentAt: 1)
-        }
+        setupInitialStates()
     }
     
     // MARK: - Initialization Methods
+    private func setupInitialStates() {
+        setupInitialImages()
+        setupInitialAnimation()
+        setupSegmentedControl()
+    }
+    
     private func setupInitialImages() {
         personsSmallPhotoImageView.image = smallImage
         personsBigPhotoImageView.image = bigImage
@@ -61,6 +44,16 @@ class InputViewController: UIViewController {
     
     private func setupInitialAnimation() {
         applyAnimationBasedOnSegmentIndex(selectBackGroundViewSegment.selectedSegmentIndex)
+    }
+    
+    private func setupSegmentedControl() {
+        if let originalImage1 = UIImage(named: "\(AnimationSet.caseOne.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
+            selectBackGroundViewSegment.setImage(originalImage1, forSegmentAt: 0)
+        }
+        
+        if let originalImage2 = UIImage(named: "\(AnimationSet.caseTwo.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
+            selectBackGroundViewSegment.setImage(originalImage2, forSegmentAt: 1)
+        }
     }
     
     // MARK: - Actions
@@ -76,7 +69,7 @@ class InputViewController: UIViewController {
     
     // MARK: - Helper Functions
     private func applyAnimationBasedOnSegmentIndex(_ index: Int) {
-        let animationSet: AnimationSet = index == 0 ? .caseOne : .caseTwo
+        let animationSet = (index == 0) ? AnimationSet.caseOne : AnimationSet.caseTwo
         BackGroundAnimationUtility.applyAnimation(on: backGroundView, withPrefix: animationSet.rawValue)
     }
     
@@ -96,45 +89,19 @@ class InputViewController: UIViewController {
         ]
     }
     
-    private func fetchPersonsArray() -> [[String: Any]] {
-        return UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] ?? []
-    }
-    
     private func saveNewPerson(_ personDict: [String: Any]) {
-        var personsArray = fetchPersonsArray()
+        var personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] ?? []
         personsArray.append(personDict)
         UserDefaults.standard.setValue(personsArray, forKey: "personsArray")
     }
-    
 }
 
 // MARK: - BackGroundAnimationUtility
 struct BackGroundAnimationUtility {
-    private static func fetchAnimationImages(withPrefix prefix: String) -> [UIImage] {
-        var backGroundImageArray: [UIImage] = []
-        var index = 1
-        while true {
-            let imageName = "\(prefix)\(index)"
-            if let image = UIImage(named: imageName) {
-                backGroundImageArray.append(image)
-                index += 1
-            } else {
-                break
-            }
-        }
-        return backGroundImageArray
-    }
-    
     static func applyAnimation(on view: UIView, withPrefix prefix: String) {
-        guard let imageView = view as? UIImageView else {
-            print("The provided view is not an UIImageView.")
-            return
-        }
-        
-        let animationImages = fetchAnimationImages(withPrefix: prefix)
-        
-        if animationImages.isEmpty {
-            print("No animation images found.")
+        guard let imageView = view as? UIImageView,
+              let animationImages = fetchAnimationImages(withPrefix: prefix), !animationImages.isEmpty else {
+            print("Either the view is not an UIImageView or no animation images found.")
             return
         }
         
@@ -142,6 +109,16 @@ struct BackGroundAnimationUtility {
         imageView.animationDuration = 1.0
         imageView.animationRepeatCount = 0
         imageView.startAnimating()
+    }
+    
+    private static func fetchAnimationImages(withPrefix prefix: String) -> [UIImage]? {
+        var backGroundImageArray: [UIImage] = []
+        var index = 1
+        while let image = UIImage(named: "\(prefix)\(index)") {
+            backGroundImageArray.append(image)
+            index += 1
+        }
+        return backGroundImageArray.isEmpty ? nil : backGroundImageArray
     }
 }
 
