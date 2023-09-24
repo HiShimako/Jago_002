@@ -41,6 +41,20 @@
                                                     <constraint firstAttribute="width" secondItem="QEr-Ng-7NB" secondAttribute="height" multiplier="1:1" id="wyV-RN-zLR"/>
                                                 </constraints>
                                             </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DAN-me-SVu">
+                                                <rect key="frame" x="62.666666666666657" y="20" width="55" height="35"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="6BY-pR-HRo"/>
+                                                    <constraint firstAttribute="width" constant="55" id="FyC-qR-3v0"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="arrowshape.turn.up.backward.circle.fill" catalog="system" title="">
+                                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="editPersonImageTapped:" destination="oqg-At-So7" eventType="touchUpInside" id="7jU-Rh-gav"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -49,10 +63,12 @@
                                             <constraint firstItem="UpN-Cr-dJZ" firstAttribute="top" secondItem="EoI-It-hru" secondAttribute="top" id="O8R-Td-XXl"/>
                                             <constraint firstAttribute="height" constant="920" id="P3E-dG-Hre"/>
                                             <constraint firstAttribute="trailing" secondItem="UpN-Cr-dJZ" secondAttribute="trailing" id="SNK-Xb-Kvk"/>
+                                            <constraint firstItem="QEr-Ng-7NB" firstAttribute="leading" secondItem="DAN-me-SVu" secondAttribute="leading" id="cgc-tw-1tv"/>
                                             <constraint firstItem="DpI-18-3yg" firstAttribute="centerX" secondItem="EoI-It-hru" secondAttribute="centerX" id="fGI-c6-frl"/>
                                             <constraint firstAttribute="bottom" secondItem="UpN-Cr-dJZ" secondAttribute="bottom" id="jvY-ja-XJU"/>
                                             <constraint firstItem="UpN-Cr-dJZ" firstAttribute="leading" secondItem="EoI-It-hru" secondAttribute="leading" id="quA-xe-etC"/>
                                             <constraint firstItem="DpI-18-3yg" firstAttribute="top" secondItem="QEr-Ng-7NB" secondAttribute="bottom" constant="10" id="sVW-j5-N7M"/>
+                                            <constraint firstItem="QEr-Ng-7NB" firstAttribute="top" secondItem="DAN-me-SVu" secondAttribute="top" id="uN9-BI-0yb"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -126,7 +142,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3yf-l0-HGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-26.399999999999999" y="690.88669950738915"/>
+            <point key="canvasLocation" x="49" y="691"/>
         </scene>
         <!--Recorded View Controller-->
         <scene sceneID="Z3Q-Ml-JJp">

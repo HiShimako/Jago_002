@@ -10,7 +10,7 @@ enum AnimationSet: String {
     case caseTwo = "4_out00"
 }
 
-class InputViewController: UIViewController {
+class InputViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: - Properties
     var personName: String?
@@ -67,6 +67,9 @@ class InputViewController: UIViewController {
         printSavedPersons() 
         navigationController?.popViewController(animated: true)
     }
+    @IBAction func editPersonImageTapped(_ sender: Any) {
+        selectImageUtility.showAlert(self)
+    }
     
     // MARK: - Helper Functions
     private func applyAnimationBasedOnSegmentIndex(_ index: Int) {
@@ -108,6 +111,18 @@ class InputViewController: UIViewController {
             print("No persons saved in UserDefaults.")
         }
     }
+    // MARK: - UIImagePickerControllerDelegate Methods
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.editedImage] as? UIImage {
+            
+            smallImage = selectedImage
+            bigImage = selectedImage
+            
+            personsSmallPhotoImageView.image = smallImage
+            personsBigPhotoImageView.image = bigImage
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - BackGroundAnimationUtility
@@ -115,7 +130,6 @@ struct BackGroundAnimationUtility {
     static func applyAnimation(on view: UIView, withPrefix prefix: String) {
         guard let imageView = view as? UIImageView,
               let animationImages = fetchAnimationImages(withPrefix: prefix), !animationImages.isEmpty else {
-            print("Either the view is not an UIImageView or no animation images found.")
             return
         }
         

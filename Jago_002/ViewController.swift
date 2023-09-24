@@ -109,50 +109,51 @@ class ViewController: UIViewController,
     }
     // MARK: - IBActions
     @IBAction func addPerson(_ sender: Any) {
-        showAlert()
+        selectImageUtility.showAlert(self)
+//        showAlert()
     }
     
     // MARK: - Custom Methods
-    private func showAlert() {
-        let alertController = UIAlertController(title: "選択", message: "どちらを使用しますか", preferredStyle: .actionSheet)
-        
-        let cameraAction = UIAlertAction(title: "カメラ", style: .default) { _ in
-            self.checkCamera()
-        }
-        
-        let albumAction = UIAlertAction(title: "アルバム", style: .default) { _ in
-            self.checkAlbam()
-        }
-        
-        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
-        
-        alertController.addAction(cameraAction)
-        alertController.addAction(albumAction)
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true)
-    }
-    
-    private func checkCamera() {
-        let sourceType: UIImagePickerController.SourceType = .camera
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let cameraPicker = UIImagePickerController()
-            cameraPicker.allowsEditing = true
-            cameraPicker.sourceType = sourceType
-            cameraPicker.delegate = self
-            present(cameraPicker, animated: true)
-        }
-    }
-    
-    private func checkAlbam() {
-        let sourceType: UIImagePickerController.SourceType = .photoLibrary
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            let albumPicker = UIImagePickerController()
-            albumPicker.allowsEditing = true
-            albumPicker.sourceType = sourceType
-            albumPicker.delegate = self
-            present(albumPicker, animated: true)
-        }
-    }
+//    private func showAlert() {
+//        let alertController = UIAlertController(title: "選択", message: "どちらを使用しますか", preferredStyle: .actionSheet)
+//        
+//        let cameraAction = UIAlertAction(title: "カメラ", style: .default) { _ in
+//            self.checkCamera()
+//        }
+//        
+//        let albumAction = UIAlertAction(title: "アルバム", style: .default) { _ in
+//            self.checkAlbam()
+//        }
+//        
+//        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+//        
+//        alertController.addAction(cameraAction)
+//        alertController.addAction(albumAction)
+//        alertController.addAction(cancelAction)
+//        present(alertController, animated: true)
+//    }
+//    
+//    private func checkCamera() {
+//        let sourceType: UIImagePickerController.SourceType = .camera
+//        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+//            let cameraPicker = UIImagePickerController()
+//            cameraPicker.allowsEditing = true
+//            cameraPicker.sourceType = sourceType
+//            cameraPicker.delegate = self
+//            present(cameraPicker, animated: true)
+//        }
+//    }
+//    
+//    private func checkAlbam() {
+//        let sourceType: UIImagePickerController.SourceType = .photoLibrary
+//        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+//            let albumPicker = UIImagePickerController()
+//            albumPicker.allowsEditing = true
+//            albumPicker.sourceType = sourceType
+//            albumPicker.delegate = self
+//            present(albumPicker, animated: true)
+//        }
+//    }
     
     // MARK: - UIImagePickerControllerDelegate Methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
