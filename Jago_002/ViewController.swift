@@ -30,18 +30,17 @@ class ViewController: UIViewController,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        let userDefaults = UserDefaults.standard
         loadSavedPersons()
         personListTableView.reloadData()
     }
     
     // MARK: - Setup
-    func setupTableView() {
+    private func setupTableView() {
         personListTableView.delegate = self
         personListTableView.dataSource = self
     }
     
-    func loadSavedPersons() {
+    private func loadSavedPersons() {
         if let savedPersonsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
             personsArray = savedPersonsArray
         }
@@ -63,9 +62,19 @@ class ViewController: UIViewController,
            let image = UIImage(data: data) {
             cell.personImageView.image = image
         }
+        
+        if let backgroundViewIndex = personsArray[indexPath.row]["backgroundViewIndex"] as? Int {
+            let animationSet: AnimationSet = (backgroundViewIndex == 0) ? .caseOne : .caseTwo
+            
+            if let backgroundImage = UIImage(named: "\(animationSet.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
+                cell.backgroundImageView.image = backgroundImage
+            }
+        }
+
         cell.delegate = self
         cell.smallImageButton.tag = indexPath.row
         cell.commentButton.tag = indexPath.row
+        
         return cell
     }
     
@@ -86,9 +95,9 @@ class ViewController: UIViewController,
     @IBAction func addPerson(_ sender: Any) {
         showAlert()
     }
- 
+    
     // MARK: - Custom Methods
-    func showAlert() {
+    private func showAlert() {
         let alertController = UIAlertController(title: "選択", message: "どちらを使用しますか", preferredStyle: .actionSheet)
         
         let cameraAction = UIAlertAction(title: "カメラ", style: .default) { _ in
@@ -104,31 +113,32 @@ class ViewController: UIViewController,
         alertController.addAction(cameraAction)
         alertController.addAction(albumAction)
         alertController.addAction(cancelAction)
-        present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true)
     }
     
-    func checkCamera() {
+    private func checkCamera() {
         let sourceType: UIImagePickerController.SourceType = .camera
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let cameraPicker = UIImagePickerController()
             cameraPicker.allowsEditing = true
             cameraPicker.sourceType = sourceType
             cameraPicker.delegate = self
-            present(cameraPicker, animated: true, completion: nil)
+            present(cameraPicker, animated: true)
         }
     }
     
-    func checkAlbam() {
+    private func checkAlbam() {
         let sourceType: UIImagePickerController.SourceType = .photoLibrary
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let albumPicker = UIImagePickerController()
             albumPicker.allowsEditing = true
             albumPicker.sourceType = sourceType
             albumPicker.delegate = self
-            present(albumPicker, animated: true, completion: nil)
+            present(albumPicker, animated: true)
         }
     }
     
+    // MARK: - UIImagePickerControllerDelegate Methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.editedImage] as? UIImage,
            let originalImage = info[.originalImage] as? UIImage {
@@ -136,15 +146,15 @@ class ViewController: UIViewController,
             editPostVC.smallImage = selectedImage
             editPostVC.bigImage = originalImage
             self.navigationController?.pushViewController(editPostVC, animated: true)
-            picker.dismiss(animated: true, completion: nil)
+            picker.dismiss(animated: true)
         }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true)
     }
     
-    // MARK: - Protocol Implementations (CatchProtocol etc.)
+    // MARK: - CatchProtocol Implementations
     func tapSmallImage(id: Int) {
         let VC = self.storyboard?.instantiateViewController(identifier: "RecordingVC") as! RecordingViewController
         VC.receivedRow = id
@@ -157,3 +167,4 @@ class ViewController: UIViewController,
         self.navigationController?.pushViewController(VC, animated: true)
     }
 }
+

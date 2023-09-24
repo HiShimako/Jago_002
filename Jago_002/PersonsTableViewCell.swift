@@ -22,7 +22,8 @@ class PersonsTableViewCell: UITableViewCell, UINavigationControllerDelegate {
     @IBOutlet weak var smallImageButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
     
-
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    
 
     var delegate : CatchProtocol?
     override func awakeFromNib() {
