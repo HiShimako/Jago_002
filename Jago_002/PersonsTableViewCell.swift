@@ -11,6 +11,7 @@ import UIKit
 protocol CatchProtocol {
     func tapSmallImage(id: Int)
     func tapCommentButton(id: Int)
+    func tapEditButton(id: Int) 
 }
 
 // MARK: - PersonsTableViewCell
@@ -23,6 +24,11 @@ class PersonsTableViewCell: UITableViewCell {
     @IBOutlet weak var backgroundImageView: UIImageView!
     
     @IBOutlet weak var editButton: UIButton!
+    
+    @IBAction func editButtonTapped(_ sender: UIButton) {
+        delegate?.tapEditButton(id: sender.tag)
+    }
+    
     
     
     // MARK: - Properties

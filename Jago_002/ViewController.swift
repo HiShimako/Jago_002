@@ -56,6 +56,9 @@ class ViewController: UIViewController,
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PersonsTableViewCell
+//            cell.delegate = self
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PersonsTableViewCell
         
         if let data = personsArray[indexPath.row]["smallImage"] as? Data,
@@ -74,7 +77,7 @@ class ViewController: UIViewController,
         cell.delegate = self
         cell.smallImageButton.tag = indexPath.row
         cell.commentButton.tag = indexPath.row
-        
+        cell.editButton.tag = indexPath.row
         return cell
     }
     
@@ -90,7 +93,20 @@ class ViewController: UIViewController,
             tableView.reloadData()
         }
     }
-    
+    func tapEditButton(id: Int) {
+        let editVC = self.storyboard?.instantiateViewController(identifier: "EditAndPost") as! InputViewController
+        let personDict = personsArray[id]
+        editVC.personName = personDict["personName"] as? String
+        if let smallImageData = personDict["smallImage"] as? Data,
+           let smallImage = UIImage(data: smallImageData) {
+            editVC.smallImage = smallImage
+        }
+        if let bigImageData = personDict["bigImage"] as? Data,
+           let bigImage = UIImage(data: bigImageData) {
+            editVC.bigImage = bigImage
+        }
+        self.navigationController?.pushViewController(editVC, animated: true)
+    }
     // MARK: - IBActions
     @IBAction func addPerson(_ sender: Any) {
         showAlert()

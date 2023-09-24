@@ -243,7 +243,7 @@
                                                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </buttonConfiguration>
                                                     <connections>
-                                                        <action selector="commentButton:" destination="cgi-8x-LHR" eventType="touchUpInside" id="GYN-x0-aKv"/>
+                                                        <action selector="editButtonTapped:" destination="cgi-8x-LHR" eventType="touchUpInside" id="StH-FM-Ujh"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -275,7 +275,7 @@
                                         <connections>
                                             <outlet property="backgroundImageView" destination="8PG-no-h5x" id="Zhe-ND-tt1"/>
                                             <outlet property="commentButton" destination="lTT-sJ-ToV" id="lS6-3Y-g9n"/>
-                                            <outlet property="editButton" destination="7U7-co-9rc" id="RFn-3W-W46"/>
+                                            <outlet property="editButton" destination="7U7-co-9rc" id="KCQ-uL-uCF"/>
                                             <outlet property="personImageView" destination="3Yq-Ek-Mvu" id="nUH-m3-UZI"/>
                                             <outlet property="smallImageButton" destination="xVE-0j-XMs" id="PYS-so-oVv"/>
                                         </connections>
