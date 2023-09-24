@@ -7,37 +7,37 @@
 
 import UIKit
 
+// MARK: - CatchProtocol
 protocol CatchProtocol {
-    func tapSmallImage(id:Int)
-    func tapCommentButton(id:Int)
+    func tapSmallImage(id: Int)
+    func tapCommentButton(id: Int)
 }
 
+// MARK: - PersonsTableViewCell
+class PersonsTableViewCell: UITableViewCell {
 
-class PersonsTableViewCell: UITableViewCell, UINavigationControllerDelegate {
-
-    
-    
-//
+    // MARK: - IBOutlets
     @IBOutlet weak var personImageView: UIImageView!
     @IBOutlet weak var smallImageButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
-    
     @IBOutlet weak var backgroundImageView: UIImageView!
     
-
-    var delegate : CatchProtocol?
+    @IBOutlet weak var editButton: UIButton!
+    
+    
+    // MARK: - Properties
+    var delegate: CatchProtocol?
+    
+    // MARK: - Lifecycle Methods
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    // MARK: - Action
-
-    
-    
+    // MARK: - IBActions
     @IBAction func smallImageButton(_ sender: UIButton) {
         delegate?.tapSmallImage(id: sender.tag)
     }
@@ -45,7 +45,4 @@ class PersonsTableViewCell: UITableViewCell, UINavigationControllerDelegate {
     @IBAction func commentButton(_ sender: UIButton) {
         delegate?.tapCommentButton(id: sender.tag)
     }
-    
-    
-    
 }
