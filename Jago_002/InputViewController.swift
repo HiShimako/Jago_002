@@ -1,7 +1,7 @@
-//  InputViewController.swift
-//  Jago_002
+// InputViewController.swift
+// Jago_002
 //
-//  Created by user on 2023/09/11.
+// Created by user on 2023/09/11.
 //
 import UIKit
 
@@ -16,9 +16,9 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     var personName: String?
     var smallImage: UIImage?
     var bigImage: UIImage?
-    var isNewPerson: Bool = true // デフォルトはtrue
-    var editingPersonID: Int? // 編集するPersonのID（既存のPersonの場合のみ設定）
-    
+    var isNewPerson: Bool = true
+    var editingPersonID: Int?
+
     // MARK: - Outlets
     @IBOutlet weak var personNameTextField: UITextField!
     @IBOutlet weak var personsSmallPhotoImageView: UIImageView!
@@ -26,7 +26,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     @IBOutlet weak var selectBackGroundViewSegment: UISegmentedControl!
     @IBOutlet weak var backGroundView: UIImageView!
     
-    // MARK: - Lifecycle Methods
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInitialStates()
@@ -38,7 +38,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
         setupInitialAnimation()
         setupSegmentedControl()
     }
-    
+
     private func setupInitialImages() {
         personsSmallPhotoImageView.image = smallImage
         personsBigPhotoImageView.image = bigImage
@@ -49,12 +49,15 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     private func setupSegmentedControl() {
-        if let originalImage1 = UIImage(named: "\(AnimationSet.caseOne.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
-            selectBackGroundViewSegment.setImage(originalImage1, forSegmentAt: 0)
-        }
+        let originalImages = [
+            AnimationSet.caseOne.rawValue,
+            AnimationSet.caseTwo.rawValue
+        ]
         
-        if let originalImage2 = UIImage(named: "\(AnimationSet.caseTwo.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
-            selectBackGroundViewSegment.setImage(originalImage2, forSegmentAt: 1)
+        for (index, imageName) in originalImages.enumerated() {
+            if let image = UIImage(named: "\(imageName)1")?.withRenderingMode(.alwaysOriginal) {
+                selectBackGroundViewSegment.setImage(image, forSegmentAt: index)
+            }
         }
     }
     
@@ -65,19 +68,11 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     @IBAction func postAction(_ sender: Any) {
         guard let personDict = createPersonDict() else { return }
-        if isNewPerson {
-             // 新規のPersonを追加
-             saveNewPerson(personDict)
-         } else {
-             // 既存のPersonを編集
-             if let id = editingPersonID {
-                 updateExistingPerson(id, with: personDict)
-             }
-         }
-//        saveNewPerson(personDict)
-        printSavedPersons() 
+        isNewPerson ? saveNewPerson(personDict) : updateExistingPerson(editingPersonID, with: personDict)
+        printSavedPersons()
         navigationController?.popViewController(animated: true)
     }
+
     @IBAction func editPersonImageTapped(_ sender: Any) {
         selectImageUtility.showAlert(self)
     }
@@ -91,9 +86,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     private func createPersonDict() -> [String: Any]? {
         guard let personName = personNameTextField.text,
               let smallImageData = personsSmallPhotoImageView.image?.jpegData(compressionQuality: 0.01),
-              let bigImageData = personsBigPhotoImageView.image?.jpegData(compressionQuality: 0.01) else {
-            return nil
-        }
+              let bigImageData = personsBigPhotoImageView.image?.jpegData(compressionQuality: 0.01) else { return nil }
         
         return [
             "personName": personName,
@@ -109,6 +102,20 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
         personsArray.append(personDict)
         UserDefaults.standard.setValue(personsArray, forKey: "personsArray")
     }
+
+    private func updateExistingPerson(_ id: Int?, with personDict: [String: Any]) {
+        guard let id = id else { return }
+        var personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] ?? []
+        if id < personsArray.count {
+            var updatedPersonDict = personDict
+            if let existingComments = personsArray[id]["comments"] as? [[String: Any]] {
+                updatedPersonDict["comments"] = existingComments
+            }
+            personsArray[id] = updatedPersonDict
+            UserDefaults.standard.setValue(personsArray, forKey: "personsArray")
+        }
+    }
+
     private func printSavedPersons() {
         if let personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
             print("Saved Persons:")
@@ -122,25 +129,12 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
             print("No persons saved in UserDefaults.")
         }
     }
-    private func updateExistingPerson(_ id: Int, with personDict: [String: Any]) {
-        var personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] ?? []
-        if id < personsArray.count {
-            var updatedPersonDict = personDict
-            if let existingComments = personsArray[id]["comments"] as? [[String: Any]] {
-                updatedPersonDict["comments"] = existingComments
-            }
-            personsArray[id] = updatedPersonDict
-            UserDefaults.standard.setValue(personsArray, forKey: "personsArray")
-        }
-    }
 
     // MARK: - UIImagePickerControllerDelegate Methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.editedImage] as? UIImage {
-            
             smallImage = selectedImage
             bigImage = selectedImage
-            
             personsSmallPhotoImageView.image = smallImage
             personsBigPhotoImageView.image = bigImage
         }
@@ -152,7 +146,8 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
 struct BackGroundAnimationUtility {
     static func applyAnimation(on view: UIView, withPrefix prefix: String) {
         guard let imageView = view as? UIImageView,
-              let animationImages = fetchAnimationImages(withPrefix: prefix), !animationImages.isEmpty else {
+              let animationImages = fetchAnimationImages(withPrefix: prefix),
+              !animationImages.isEmpty else {
             return
         }
         
@@ -173,10 +168,10 @@ struct BackGroundAnimationUtility {
     }
 }
 
+// MARK: - UIImage Extension
 extension UIImage {
     func cropped(to rect: CGRect) -> UIImage? {
         guard let cgImage = self.cgImage?.cropping(to: rect) else { return nil }
         return UIImage(cgImage: cgImage)
     }
 }
-

@@ -19,6 +19,7 @@
 		CE2753BB2AAEFE91006D8DD2 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753BA2AAEFE91006D8DD2 /* FirebaseDatabase */; };
 		CE2753BD2AAEFE91006D8DD2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753BC2AAEFE91006D8DD2 /* FirebaseStorage */; };
 		CE5C0CF12AC024E600DF7403 /* selectImageUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C0CF02AC024E600DF7403 /* selectImageUtility.swift */; };
+		CE5C0CF42AC122B400DF7403 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE5C0CF32AC122B400DF7403 /* RealmSwift */; };
 		CE886E972AB525A300021DD8 /* RecordedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE886E962AB525A300021DD8 /* RecordedViewController.swift */; };
 		CE886E9B2AB581C000021DD8 /* PersonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE886E9A2AB581C000021DD8 /* PersonsTableViewCell.swift */; };
 		CE88DBAF2AB1522900409880 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE88DBAE2AB1522900409880 /* RecordingViewController.swift */; };
@@ -49,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE5C0CF42AC122B400DF7403 /* RealmSwift in Frameworks */,
 				CE2753B32AAEFDD4006D8DD2 /* Kingfisher in Frameworks */,
 				CE2753B92AAEFE91006D8DD2 /* FirebaseAuth in Frameworks */,
 				CE2753BB2AAEFE91006D8DD2 /* FirebaseDatabase in Frameworks */,
@@ -118,6 +120,7 @@
 				CE2753B82AAEFE91006D8DD2 /* FirebaseAuth */,
 				CE2753BA2AAEFE91006D8DD2 /* FirebaseDatabase */,
 				CE2753BC2AAEFE91006D8DD2 /* FirebaseStorage */,
+				CE5C0CF32AC122B400DF7403 /* RealmSwift */,
 			);
 			productName = Jago_002;
 			productReference = CE27538C2AAEDF43006D8DD2 /* Jago_002.app */;
@@ -151,6 +154,7 @@
 				CE2753B12AAEFDD4006D8DD2 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				CE2753B42AAEFDF7006D8DD2 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 				CE2753B72AAEFE91006D8DD2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CE5C0CF22AC122B400DF7403 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 			);
 			productRefGroup = CE27538D2AAEDF43006D8DD2 /* Products */;
 			projectDirPath = "";
@@ -432,6 +436,14 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		CE5C0CF22AC122B400DF7403 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -459,6 +471,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE2753B72AAEFE91006D8DD2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		CE5C0CF32AC122B400DF7403 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE5C0CF22AC122B400DF7403 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
