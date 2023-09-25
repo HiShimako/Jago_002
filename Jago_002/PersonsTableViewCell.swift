@@ -22,14 +22,12 @@ class PersonsTableViewCell: UITableViewCell {
     @IBOutlet weak var smallImageButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var backgroundImageView: UIImageView!
-    
     @IBOutlet weak var editButton: UIButton!
     
     @IBAction func editButtonTapped(_ sender: UIButton) {
+        
         delegate?.tapEditButton(id: sender.tag)
     }
-    
-    
     
     // MARK: - Properties
     var delegate: CatchProtocol?

@@ -16,6 +16,8 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     var personName: String?
     var smallImage: UIImage?
     var bigImage: UIImage?
+    var isNewPerson: Bool = true // デフォルトはtrue
+    var editingPersonID: Int? // 編集するPersonのID（既存のPersonの場合のみ設定）
     
     // MARK: - Outlets
     @IBOutlet weak var personNameTextField: UITextField!
@@ -63,7 +65,16 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     @IBAction func postAction(_ sender: Any) {
         guard let personDict = createPersonDict() else { return }
-        saveNewPerson(personDict)
+        if isNewPerson {
+             // 新規のPersonを追加
+             saveNewPerson(personDict)
+         } else {
+             // 既存のPersonを編集
+             if let id = editingPersonID {
+                 updateExistingPerson(id, with: personDict)
+             }
+         }
+//        saveNewPerson(personDict)
         printSavedPersons() 
         navigationController?.popViewController(animated: true)
     }
@@ -111,6 +122,18 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
             print("No persons saved in UserDefaults.")
         }
     }
+    private func updateExistingPerson(_ id: Int, with personDict: [String: Any]) {
+        var personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] ?? []
+        if id < personsArray.count {
+            var updatedPersonDict = personDict
+            if let existingComments = personsArray[id]["comments"] as? [[String: Any]] {
+                updatedPersonDict["comments"] = existingComments
+            }
+            personsArray[id] = updatedPersonDict
+            UserDefaults.standard.setValue(personsArray, forKey: "personsArray")
+        }
+    }
+
     // MARK: - UIImagePickerControllerDelegate Methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.editedImage] as? UIImage {
