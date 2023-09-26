@@ -37,8 +37,24 @@ class RecordingViewController: UIViewController {
         // Apply background animation based on selected index
         if let receivedRow = receivedRow,
            let backgroundViewIndex = personsArray[receivedRow]["backgroundViewIndex"] as? Int {
-            let animationSet = (backgroundViewIndex == 0) ? AnimationSet.caseOne : AnimationSet.caseTwo
+            let animationSet: AnimationSet
+            switch backgroundViewIndex {
+            case 0:
+                animationSet = .case0
+            case 1:
+                animationSet = .case1
+            case 2:
+                animationSet = .case2
+            case 3:
+                animationSet = .case3
+            case 4:
+                animationSet = .case4
+            default:
+                animationSet = .case4
+            }
+            // Apply the background animation using the decided AnimationSet
             BackGroundAnimationUtility.applyAnimation(on: backGroundView, withPrefix: animationSet.rawValue)
+        
         }
     }
     

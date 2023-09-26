@@ -6,8 +6,11 @@
 import UIKit
 
 enum AnimationSet: String {
-    case caseOne = "2_out00"
-    case caseTwo = "4_out00"
+    case case0 = "2_out00"
+    case case1 = "4_out00"
+    case case2 = "6_out00"
+    case case3 = "ezgif-frame-0"
+    case case4 = "ezgif-frame-1"
 }
 
 class InputViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -50,8 +53,11 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     private func setupSegmentedControl() {
         let originalImages = [
-            AnimationSet.caseOne.rawValue,
-            AnimationSet.caseTwo.rawValue
+            AnimationSet.case0.rawValue,
+            AnimationSet.case1.rawValue,
+            AnimationSet.case2.rawValue,
+            AnimationSet.case3.rawValue,
+            AnimationSet.case4.rawValue
         ]
         
         for (index, imageName) in originalImages.enumerated() {
@@ -79,7 +85,21 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     // MARK: - Helper Functions
     private func applyAnimationBasedOnSegmentIndex(_ index: Int) {
-        let animationSet = (index == 0) ? AnimationSet.caseOne : AnimationSet.caseTwo
+        let animationSet: AnimationSet
+        switch index {
+        case 0:
+            animationSet = .case0
+        case 1:
+            animationSet = .case1
+        case 2:
+            animationSet = .case2
+        case 3:
+            animationSet = .case3
+        case 4:
+            animationSet = .case4
+        default:
+            animationSet = .case4
+        }
         BackGroundAnimationUtility.applyAnimation(on: backGroundView, withPrefix: animationSet.rawValue)
     }
     

@@ -66,7 +66,20 @@ class ViewController: UIViewController,
         }
         
         if let backgroundViewIndex = personsArray[indexPath.row]["backgroundViewIndex"] as? Int {
-            let animationSet: AnimationSet = (backgroundViewIndex == 0) ? .caseOne : .caseTwo
+            let animationSet: AnimationSet
+            switch backgroundViewIndex {
+            case 0:
+                animationSet = .case0
+            case 1:
+                animationSet = .case1
+            case 2:
+                animationSet = .case2
+            case 3:
+                animationSet = .case3
+            case 4:
+                animationSet = .case4
+            default:
+                animationSet = .case4            }
             
             if let backgroundImage = UIImage(named: "\(animationSet.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
                 cell.backgroundImageView.image = backgroundImage
