@@ -154,10 +154,14 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.editedImage] as? UIImage {
             smallImage = selectedImage
-            bigImage = selectedImage
             personsSmallPhotoImageView.image = smallImage
+        }
+
+        if let originalImage = info[.originalImage] as? UIImage {
+            bigImage = originalImage
             personsBigPhotoImageView.image = bigImage
         }
+
         picker.dismiss(animated: true, completion: nil)
     }
 }
