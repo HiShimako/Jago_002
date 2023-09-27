@@ -20,6 +20,7 @@
 		CE2753BD2AAEFE91006D8DD2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753BC2AAEFE91006D8DD2 /* FirebaseStorage */; };
 		CE5C0CF12AC024E600DF7403 /* selectImageUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C0CF02AC024E600DF7403 /* selectImageUtility.swift */; };
 		CE5C0CF42AC122B400DF7403 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE5C0CF32AC122B400DF7403 /* RealmSwift */; };
+		CE5C0CF62AC3C41800DF7403 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C0CF52AC3C41700DF7403 /* Models.swift */; };
 		CE886E972AB525A300021DD8 /* RecordedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE886E962AB525A300021DD8 /* RecordedViewController.swift */; };
 		CE886E9B2AB581C000021DD8 /* PersonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE886E9A2AB581C000021DD8 /* PersonsTableViewCell.swift */; };
 		CE88DBAF2AB1522900409880 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE88DBAE2AB1522900409880 /* RecordingViewController.swift */; };
@@ -38,6 +39,7 @@
 		CE27539B2AAEDF45006D8DD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE27539D2AAEDF45006D8DD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE5C0CF02AC024E600DF7403 /* selectImageUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectImageUtility.swift; sourceTree = "<group>"; };
+		CE5C0CF52AC3C41700DF7403 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		CE886E962AB525A300021DD8 /* RecordedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordedViewController.swift; sourceTree = "<group>"; };
 		CE886E9A2AB581C000021DD8 /* PersonsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonsTableViewCell.swift; sourceTree = "<group>"; };
 		CE88DBAE2AB1522900409880 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				CE88DBAE2AB1522900409880 /* RecordingViewController.swift */,
 				CE5C0CF02AC024E600DF7403 /* selectImageUtility.swift */,
 				CE886E962AB525A300021DD8 /* RecordedViewController.swift */,
+				CE5C0CF52AC3C41700DF7403 /* Models.swift */,
 				CE2753952AAEDF43006D8DD2 /* Main.storyboard */,
 				CE2753982AAEDF45006D8DD2 /* Assets.xcassets */,
 				CE27539A2AAEDF45006D8DD2 /* LaunchScreen.storyboard */,
@@ -190,6 +193,7 @@
 				CE886E972AB525A300021DD8 /* RecordedViewController.swift in Sources */,
 				CE2753902AAEDF43006D8DD2 /* AppDelegate.swift in Sources */,
 				CE88DBAF2AB1522900409880 /* RecordingViewController.swift in Sources */,
+				CE5C0CF62AC3C41800DF7403 /* Models.swift in Sources */,
 				CE2753922AAEDF43006D8DD2 /* SceneDelegate.swift in Sources */,
 				CE886E9B2AB581C000021DD8 /* PersonsTableViewCell.swift in Sources */,
 			);

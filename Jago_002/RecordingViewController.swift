@@ -3,9 +3,11 @@
 //
 //  Created by user on 2023/09/12.
 //
+
 import UIKit
 import AVFoundation
 import Speech
+import RealmSwift
 
 class RecordingViewController: UIViewController {
     
@@ -15,67 +17,78 @@ class RecordingViewController: UIViewController {
     var audioEngine: AVAudioEngine!
     var recognitionReq: SFSpeechAudioBufferRecognitionRequest?
     var recognitionTask: SFSpeechRecognitionTask?
+    var person: Person?
+    var receivedPerson: Person?
+    var receivedPersonID: Int?
+    
     
     // MARK: - IBOutlets
     @IBOutlet weak var recordingView: UIImageView!
     @IBOutlet weak var backGroundView: UIImageView!
     
     // MARK: - Variables
-    var personsArray: [[String: Any]]!
     var receivedRow: Int?
-    var comments: [[String: Any]] = []
     var bestTranscriptionString: String?
     
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Initialize properties
-        personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] ?? []
-        audioEngine = AVAudioEngine()
-        
-        // Apply background animation based on selected index
-        if let receivedRow = receivedRow,
-           let backgroundViewIndex = personsArray[receivedRow]["backgroundViewIndex"] as? Int {
-            let animationSet: AnimationSet
-            switch backgroundViewIndex {
-            case 0:
-                animationSet = .case0
-            case 1:
-                animationSet = .case1
-            case 2:
-                animationSet = .case2
-            case 3:
-                animationSet = .case3
-            case 4:
-                animationSet = .case4
-            default:
-                animationSet = .case4
-            }
-            // Apply the background animation using the decided AnimationSet
-            BackGroundAnimationUtility.applyAnimation(on: backGroundView, withPrefix: animationSet.rawValue)
-        
+        print("🌝 Current receivedRow: \(String(describing: receivedRow))")
+        guard let realm = try? Realm() else {
+            print("🌝Failed to initialize Realm")
+            return
         }
+        
+        if let receivedID = receivedPersonID {
+            person = realm.object(ofType: Person.self, forPrimaryKey: receivedID)
+            
+            print("🌝Loaded personName: \(person?.personName ?? "nil")")
+            
+            if let personUnwrapped = person {
+                // bigImageをrecordingViewに設定
+                if let bigImageData = personUnwrapped.bigImage {
+                    recordingView.image = UIImage(data: bigImageData)
+                } else {
+                    print("🌝bigImageData is nil")
+                }
+                
+                // backgroundViewIndexをもとに背景アニメーションを設定
+                let backgroundViewIndex = personUnwrapped.backgroundViewIndex
+                let animationSet: AnimationSet
+                switch backgroundViewIndex {
+                case 0:
+                    animationSet = .case0
+                case 1:
+                    animationSet = .case1
+                case 2:
+                    animationSet = .case2
+                case 3:
+                    animationSet = .case3
+                case 4:
+                    animationSet = .case4
+                default:
+                    animationSet = .case4
+                }
+                BackGroundAnimationUtility.applyAnimation(on: backGroundView, withPrefix: animationSet.rawValue)
+                print("Applying animation for backgroundViewIndex: \(backgroundViewIndex)")
+            } else {
+                //                    print("🌝No person object found for receivedRow: \(receivedRow)")
+            }
+        } else {
+            print("🌝receivedRow is nil")
+        }
+        
+        audioEngine = AVAudioEngine()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Load recorded image if available
-        if let receivedRow = receivedRow,
-           let imageData = personsArray[receivedRow]["bigImage"] as? Data,
-           receivedRow < personsArray.count {
-            recordingView.image = UIImage(data: imageData)
-        }
-        
-        // Start live transcription
         try? startLiveTranscription()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // Request speech recognition authorization
         SFSpeechRecognizer.requestAuthorization { _ in }
     }
     
@@ -126,31 +139,46 @@ class RecordingViewController: UIViewController {
     
     @IBAction func stopRecording(_ sender: Any) {
         stopLiveTranscription()
-        
-        // Save transcription as comment if available
-        if let receivedRow = receivedRow {
-            let commentDict = createCommentDict(comment: bestTranscriptionString ?? "")
             
-            // Fetch existing comments and append new one
-            if let existingComments = personsArray[receivedRow]["comments"] as? [[String: Any]] {
-                comments = existingComments
+        if let receivedID = receivedPersonID, let commentText = bestTranscriptionString {
+            let comment = createComment(commentText: commentText)
+            if let validReceivedRow = receivedRow {
+                saveCommentToPerson(comment: comment, id: validReceivedRow)
             }
-            comments.append(commentDict)
-            personsArray[receivedRow].updateValue(comments, forKey: "comments")
-            
-            // Update UserDefaults
-            UserDefaults.standard.set(personsArray, forKey: "personsArray")
-            
-            // Navigate back
-            self.navigationController?.popViewController(animated: true)
         }
+            
+        self.navigationController?.popViewController(animated: true)
     }
-    
-    func createCommentDict(comment: String) -> [String: Any] {
+
+    func createComment(commentText: String) -> Comment {
+        let comment = Comment()
         let currentDate = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm"
-        let currentDateString = formatter.string(from: currentDate)
-        return ["time": currentDateString, "comment": comment]
+        comment.time = formatter.string(from: currentDate)
+        comment.commentText = commentText
+        return comment
     }
+    
+    func saveCommentToPerson(comment: Comment, id: Int)  {
+        guard let realm = try? Realm() else {
+            print("Error initializing Realm")
+            return
+        }
+        
+        if let receivedID = receivedPersonID {
+            person = realm.object(ofType: Person.self, forPrimaryKey: receivedID)
+        }
+        
+        if let receivedID = receivedPersonID, let commentText = bestTranscriptionString {
+            let comment = createComment(commentText: commentText)
+            if let person = realm.object(ofType: Person.self, forPrimaryKey: receivedID) {
+                try? realm.write {
+                    person.comments.append(comment)
+                }
+            }
+        }
+        
+    }
+    
 }

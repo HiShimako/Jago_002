@@ -11,7 +11,9 @@ class RecordedViewController: UIViewController {
     
 //    var receivedIndexPath: IndexPath! = [0]
     var receivedRow: Int!
+    var receivedPersonID: Int?
 
+    
     @IBOutlet weak var commentView: UITextView!
     @IBOutlet weak var personName: UITextField!
     

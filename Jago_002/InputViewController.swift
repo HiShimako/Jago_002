@@ -3,7 +3,9 @@
 //
 // Created by user on 2023/09/11.
 //
+
 import UIKit
+import RealmSwift
 
 enum AnimationSet: String {
     case case0 = "2_out00"
@@ -21,6 +23,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     var bigImage: UIImage?
     var isNewPerson: Bool = true
     var editingPersonID: Int?
+    var backgroundViewIndex: Int?
 
     // MARK: - Outlets
     @IBOutlet weak var personNameTextField: UITextField!
@@ -34,17 +37,26 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
         super.viewDidLoad()
         setupInitialStates()
     }
-    
+
+ 
     // MARK: - Initialization Methods
     private func setupInitialStates() {
         setupInitialImages()
+        
+        if let bgIndex = backgroundViewIndex {
+            selectBackGroundViewSegment.selectedSegmentIndex = bgIndex
+        }
+        
         setupInitialAnimation()
         setupSegmentedControl()
+
     }
 
     private func setupInitialImages() {
         personsSmallPhotoImageView.image = smallImage
         personsBigPhotoImageView.image = bigImage
+        print("setupInitialImages called.")
+        print("bigImage size: \(bigImage?.size ?? CGSize.zero)")
     }
     
     private func setupInitialAnimation() {
@@ -68,19 +80,70 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     // MARK: - Actions
-    @IBAction func selectBackGroundViewAction(_ sender: Any) {
-        applyAnimationBasedOnSegmentIndex(selectBackGroundViewSegment.selectedSegmentIndex)
+    
+    @IBAction func selectBackGroundViewSegmentChanged(_ sender: Any) {
+        applyAnimationBasedOnSegmentIndex((sender as AnyObject).selectedSegmentIndex)
+        selectBackGroundViewSegment.addTarget(self, action: #selector(selectBackGroundViewSegmentChanged(_:)), for: .valueChanged)
+
     }
     
+    
     @IBAction func postAction(_ sender: Any) {
-        guard let personDict = createPersonDict() else { return }
-        isNewPerson ? saveNewPerson(personDict) : updateExistingPerson(editingPersonID, with: personDict)
-        printSavedPersons()
-        navigationController?.popViewController(animated: true)
+        // Realmの初期化
+        let realm = try! Realm()
+
+        // 新規追加か既存データの更新かを判断
+        if isNewPerson {
+            // 新しいPersonのインスタンスを作成
+            let newPerson = Person()
+            newPerson.id = (realm.objects(Person.self).max(ofProperty: "id") as Int? ?? 0) + 1
+            newPerson.personName = personNameTextField.text
+            newPerson.smallImage = smallImage?.jpegData(compressionQuality: 0.01)
+            newPerson.bigImage = bigImage?.jpegData(compressionQuality: 0.01)
+            newPerson.backgroundViewIndex = selectBackGroundViewSegment.selectedSegmentIndex
+
+            // Realmに新しいPersonを追加
+            do {
+                try realm.write {
+                    realm.add(newPerson)
+                }
+                print("Successfully saved new person to Realm.")
+            } catch {
+                print("Error saving new person to Realm: \(error)")
+            }
+
+        } else {
+            guard let id = editingPersonID, let personToUpdate = realm.object(ofType: Person.self, forPrimaryKey: id) else {
+                print("Error: editingPersonID is nil or person not found.")
+                return
+            }
+
+            // 既存のデータを更新
+            do {
+                try realm.write {
+                    personToUpdate.personName = personNameTextField.text
+                    personToUpdate.smallImage = smallImage?.jpegData(compressionQuality: 0.01)
+                    personToUpdate.bigImage = bigImage?.jpegData(compressionQuality: 0.01)
+                    personToUpdate.backgroundViewIndex = selectBackGroundViewSegment.selectedSegmentIndex
+                }
+                print("Successfully updated the person in Realm.")
+            } catch {
+                print("Error updating the person in Realm: \(error)")
+            }
+        }
+
+        if let navController = navigationController {
+            navController.popViewController(animated: true)
+        } else {
+            print("The view controller is not part of a navigation controller.")
+        }
     }
+
+
 
     @IBAction func editPersonImageTapped(_ sender: Any) {
         selectImageUtility.showAlert(self)
+
     }
     
     // MARK: - Helper Functions
@@ -103,51 +166,30 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
         BackGroundAnimationUtility.applyAnimation(on: backGroundView, withPrefix: animationSet.rawValue)
     }
     
-    private func createPersonDict() -> [String: Any]? {
-        guard let personName = personNameTextField.text,
-              let smallImageData = personsSmallPhotoImageView.image?.jpegData(compressionQuality: 0.01),
-              let bigImageData = personsBigPhotoImageView.image?.jpegData(compressionQuality: 0.01) else { return nil }
-        
-        return [
-            "personName": personName,
-            "smallImage": smallImageData,
-            "bigImage": bigImageData,
-            "comments": [] as [[String: Any]],
-            "backgroundViewIndex": selectBackGroundViewSegment.selectedSegmentIndex
-        ]
-    }
-    
-    private func saveNewPerson(_ personDict: [String: Any]) {
-        var personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] ?? []
-        personsArray.append(personDict)
-        UserDefaults.standard.setValue(personsArray, forKey: "personsArray")
-    }
 
-    private func updateExistingPerson(_ id: Int?, with personDict: [String: Any]) {
-        guard let id = id else { return }
-        var personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] ?? []
-        if id < personsArray.count {
-            var updatedPersonDict = personDict
-            if let existingComments = personsArray[id]["comments"] as? [[String: Any]] {
-                updatedPersonDict["comments"] = existingComments
+
+    private func updateExistingPerson(_ id: Int?, with personDataDict: [String: Any]) {
+        let realm = try? Realm()
+              
+        if let person = realm?.object(ofType: Person.self, forPrimaryKey: id) {
+            try? realm?.write {
+                person.personName = personDataDict["personName"] as? String
+                person.smallImage = personDataDict["smallImage"] as? Data
+                person.bigImage = personDataDict["bigImage"] as? Data
+                person.backgroundViewIndex = personDataDict["backgroundViewIndex"] as? Int ?? 0
             }
-            personsArray[id] = updatedPersonDict
-            UserDefaults.standard.setValue(personsArray, forKey: "personsArray")
         }
     }
 
     private func printSavedPersons() {
-        if let personsArray = UserDefaults.standard.array(forKey: "personsArray") as? [[String: Any]] {
-            print("Saved Persons:")
-            for (index, personDict) in personsArray.enumerated() {
-                if let name = personDict["personName"] as? String,
-                   let backgroundViewIndex = personDict["backgroundViewIndex"] as? Int {
-                    print("Person \(index+1): \(name), BackgroundViewIndex: \(backgroundViewIndex)")
-                }
-            }
-        } else {
-            print("No persons saved in UserDefaults.")
+        let realm = try? Realm()
+        let savedPersons = realm?.objects(Person.self)
+        
+        print("Saved Persons:")
+        for (index, person) in savedPersons!.enumerated() {
+            print("Person \(index+1): \(person.personName ?? ""), BackgroundViewIndex: \(person.backgroundViewIndex)")
         }
+
     }
 
     // MARK: - UIImagePickerControllerDelegate Methods
@@ -161,7 +203,8 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
             bigImage = originalImage
             personsBigPhotoImageView.image = bigImage
         }
-
+        print("imagePickerController called.")
+        print("bigImage size: \(bigImage?.size ?? CGSize.zero)")
         picker.dismiss(animated: true, completion: nil)
     }
 }

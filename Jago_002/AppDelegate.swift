@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,9 +15,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        FirebaseApp.configure()
+        let config = Realm.Configuration(
+               // 今回の変更では、最初のマイグレーションなので、バージョン番号を1に設定します。
+               schemaVersion: 1,
+
+               // バージョン番号が以前のバージョンよりも大きい場合に、マイグレーションブロックを設定します。
+               migrationBlock: { migration, oldSchemaVersion in
+                   // マイグレーションの内容を記述する
+                   // 今回はスキーマが変更されたが、特に既存データの移行が必要ない場合、ここは空のままでも問題ありません。
+               })
+
+           // デフォルトの Realm に新しい設定を適用する
+           Realm.Configuration.defaultConfiguration = config
+
+           // マイグレーションを強制的に実行する
+           let _ = try! Realm()
+
+      
         return true
+        
     }
 
     // MARK: UISceneSession Lifecycle
