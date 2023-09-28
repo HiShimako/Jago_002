@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: - CatchProtocol
-protocol CatchProtocol {
+protocol CatchProtocol: AnyObject  {
     func tapSmallImage(id: Int)
     func tapCommentButton(id: Int)
     func tapEditButton(id: Int) 
@@ -16,7 +16,8 @@ protocol CatchProtocol {
 
 // MARK: - PersonsTableViewCell
 class PersonsTableViewCell: UITableViewCell {
-
+  
+    weak var cellDelegate: CatchProtocol?
     // MARK: - IBOutlets
     @IBOutlet weak var personImageView: UIImageView!
     @IBOutlet weak var smallImageButton: UIButton!
@@ -24,10 +25,7 @@ class PersonsTableViewCell: UITableViewCell {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var editButton: UIButton!
     
-    @IBAction func editButtonTapped(_ sender: UIButton) {
-        
-        delegate?.tapEditButton(id: sender.tag)
-    }
+
     
     // MARK: - Properties
     var delegate: CatchProtocol?
@@ -43,10 +41,13 @@ class PersonsTableViewCell: UITableViewCell {
     
     // MARK: - IBActions
     @IBAction func smallImageButton(_ sender: UIButton) {
-        delegate?.tapSmallImage(id: sender.tag)
+        cellDelegate?.tapSmallImage(id: sender.tag)
     }
     
     @IBAction func commentButton(_ sender: UIButton) {
-        delegate?.tapCommentButton(id: sender.tag)
+        cellDelegate?.tapCommentButton(id: sender.tag)
     }
+    @IBAction func editButtonTapped(_ sender: UIButton) {
+           cellDelegate?.tapEditButton(id: sender.tag)
+       }
 }

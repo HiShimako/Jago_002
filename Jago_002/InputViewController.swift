@@ -12,7 +12,32 @@ enum AnimationSet: String {
     case case2 = "6_out00"
     case case3 = "ezgif-frame-0"
     case case4 = "ezgif-frame-1"
+    
+    static var allCases: [AnimationSet] {
+        return [.case0, .case1, .case2, .case3, .case4]
+    }
+    
+    static func from(backgroundViewIndex: Int) -> AnimationSet? {
+        guard backgroundViewIndex >= 0, backgroundViewIndex < allCases.count else {
+            return nil
+        }
+        return allCases[backgroundViewIndex]
+    }
+    
 }
+//extension AnimationSet {
+//    init?(backgroundViewIndex: Int) {
+//        // リスト内のすべてのAnimationSetを取得
+//        let allSets = AnimationSet.allCases
+//
+//        // インデックスの値を基に、適切なAnimationSetを取得
+//        guard backgroundViewIndex >= 0, backgroundViewIndex < allSets.count else {
+//            return nil
+//        }
+//
+//        self = allSets[backgroundViewIndex]
+//    }
+//}
 
 class InputViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -39,43 +64,68 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
 
     // MARK: - Initialization Methods
     private func setupInitialStates() {
-        setupInitialImages()
-        if let bgIndex = backgroundViewIndex {
-            selectBackGroundViewSegment.selectedSegmentIndex = bgIndex
-        }
-        setupInitialAnimation()
-        setupSegmentedControl()
-    }
-
-    private func setupInitialImages() {
         personsSmallPhotoImageView.image = smallImage
         personsBigPhotoImageView.image = bigImage
-    }
-    
-    private func setupInitialAnimation() {
-        applyAnimationBasedOnSegmentIndex(selectBackGroundViewSegment.selectedSegmentIndex)
+
+        if let personID = editingPersonID {
+            // 編集モードの場合
+            let realm = try! Realm()
+            if let personToEdit = realm.object(ofType: Person.self, forPrimaryKey: personID) {
+                // 対応するbackgroundViewIndexをRealmから取得し、セグメントコントロールにセットします。
+                selectBackGroundViewSegment.selectedSegmentIndex = personToEdit.backgroundViewIndex
+            }
+        } else if selectBackGroundViewSegment.selectedSegmentIndex == UISegmentedControl.noSegment {
+            // 新規追加モードの場合、セグメントコントロールの初期選択がなければ0をセットします。
+            selectBackGroundViewSegment.selectedSegmentIndex = 0
+        }
+
+        AnimationUtility.applyAnimation(on: backGroundView, forBackgroundViewIndex: selectBackGroundViewSegment.selectedSegmentIndex)
+         
+        setupSegmentedControl()
     }
     
     private func setupSegmentedControl() {
-        let originalImages = [
-            AnimationSet.case0.rawValue,
-            AnimationSet.case1.rawValue,
-            AnimationSet.case2.rawValue,
-            AnimationSet.case3.rawValue,
-            AnimationSet.case4.rawValue
-        ]
-        
-        for (index, imageName) in originalImages.enumerated() {
-            if let image = UIImage(named: "\(imageName)1")?.withRenderingMode(.alwaysOriginal) {
-                selectBackGroundViewSegment.setImage(image, forSegmentAt: index)
+        for index in 0..<selectBackGroundViewSegment.numberOfSegments {
+            if let animationSet = AnimationSet.from(backgroundViewIndex: index) {
+                if let image = UIImage(named: "\(animationSet.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
+                    selectBackGroundViewSegment.setImage(image, forSegmentAt: index)
+                }
             }
         }
     }
+//    private func setupSegmentedControl() {
+//        for index in 0..<selectBackGroundViewSegment.numberOfSegments {
+//             if let animationSet = AnimationSet(backgroundViewIndex: index) {  // AnimationSet.from を AnimationSet.init? に変更
+//                 if let image = UIImage(named: "\(animationSet.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
+//                     selectBackGroundViewSegment.setImage(image, forSegmentAt: index)
+//                 }
+//             }
+//         }
+//    }
+
+//    private func setupSegmentedControl() {
+//        let originalImages = [
+//            AnimationSet.case0.rawValue,
+//            AnimationSet.case1.rawValue,
+//            AnimationSet.case2.rawValue,
+//            AnimationSet.case3.rawValue,
+//            AnimationSet.case4.rawValue
+//        ]
+//
+//        for (index, imageName) in originalImages.enumerated() {
+//            if let image = UIImage(named: "\(imageName)1")?.withRenderingMode(.alwaysOriginal) {
+//                selectBackGroundViewSegment.setImage(image, forSegmentAt: index)
+//            }
+//        }
+//    }
     
     // MARK: - Actions
     @IBAction func selectBackGroundViewSegmentChanged(_ sender: Any) {
-        applyAnimationBasedOnSegmentIndex((sender as AnyObject).selectedSegmentIndex)
-        selectBackGroundViewSegment.addTarget(self, action: #selector(selectBackGroundViewSegmentChanged(_:)), for: .valueChanged)
+        if let segmentControl = sender as? UISegmentedControl {
+            AnimationUtility.applyAnimation(on: backGroundView, forBackgroundViewIndex: segmentControl.selectedSegmentIndex)
+        }
+//        applyAnimationBasedOnSegmentIndex((sender as AnyObject).selectedSegmentIndex)
+//        selectBackGroundViewSegment.addTarget(self, action: #selector(selectBackGroundViewSegmentChanged(_:)), for: .valueChanged)
     }
     
     @IBAction func postAction(_ sender: Any) {
@@ -120,23 +170,11 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     // MARK: - Helper Functions
     private func applyAnimationBasedOnSegmentIndex(_ index: Int) {
-        let animationSet: AnimationSet
-        switch index {
-        case 0:
-            animationSet = .case0
-        case 1:
-            animationSet = .case1
-        case 2:
-            animationSet = .case2
-        case 3:
-            animationSet = .case3
-        case 4:
-            animationSet = .case4
-        default:
-            animationSet = .case4
+        if let animationSet = AnimationSet.from(backgroundViewIndex: index) {
+            BackGroundAnimationUtility.applyAnimation(on: backGroundView, withPrefix: animationSet.rawValue)
         }
-        BackGroundAnimationUtility.applyAnimation(on: backGroundView, withPrefix: animationSet.rawValue)
     }
+
 
     // MARK: - UIImagePickerControllerDelegate Methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -178,7 +216,29 @@ struct BackGroundAnimationUtility {
         return backGroundImageArray.isEmpty ? nil : backGroundImageArray
     }
 }
-
+struct AnimationUtility {
+    static func animationSetFrom(backgroundViewIndex: Int) -> AnimationSet {
+        switch backgroundViewIndex {
+        case 0:
+            return .case0
+        case 1:
+            return .case1
+        case 2:
+            return .case2
+        case 3:
+            return .case3
+        case 4:
+            return .case4
+        default:
+            return .case4
+        }
+    }
+    
+    static func applyAnimation(on view: UIImageView, forBackgroundViewIndex index: Int) {
+        let animationSet = self.animationSetFrom(backgroundViewIndex: index)
+        BackGroundAnimationUtility.applyAnimation(on: view, withPrefix: animationSet.rawValue)
+    }
+}
 // MARK: - UIImage Extension
 extension UIImage {
     func cropped(to rect: CGRect) -> UIImage? {
