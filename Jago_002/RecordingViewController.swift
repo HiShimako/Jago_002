@@ -42,7 +42,8 @@ class RecordingViewController: UIViewController {
         if let receivedID = receivedPersonID {
             person = realm.object(ofType: Person.self, forPrimaryKey: receivedID)
             
-            print("🌝Loaded personName: \(person?.personName ?? "nil")")
+            print("🌝🌝🌝🌝🌝Loaded personName for ID \(receivedID): \(person?.personName ?? "nil")")
+            
             
             if let personUnwrapped = person {
                 // bigImageをrecordingViewに設定

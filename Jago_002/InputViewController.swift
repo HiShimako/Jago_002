@@ -97,10 +97,16 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
             // 新しいPersonのインスタンスを作成
             let newPerson = Person()
             newPerson.id = (realm.objects(Person.self).max(ofProperty: "id") as Int? ?? 0) + 1
+            
+            print("🌝 Saving new person with name from text field: \(personNameTextField.text ?? "nil")")
+
+            
             newPerson.personName = personNameTextField.text
             newPerson.smallImage = smallImage?.jpegData(compressionQuality: 0.01)
             newPerson.bigImage = bigImage?.jpegData(compressionQuality: 0.01)
             newPerson.backgroundViewIndex = selectBackGroundViewSegment.selectedSegmentIndex
+
+            print("🌝 New Person Details: ID: \(newPerson.id), Name: \(newPerson.personName ?? "nil")")
 
             // Realmに新しいPersonを追加
             do {
@@ -117,6 +123,8 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
                 print("Error: editingPersonID is nil or person not found.")
                 return
             }
+            print("🌝 Updating person with ID: \(id) with name from text field: \(personNameTextField.text ?? "nil")")
+
 
             // 既存のデータを更新
             do {
@@ -126,6 +134,8 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
                     personToUpdate.bigImage = bigImage?.jpegData(compressionQuality: 0.01)
                     personToUpdate.backgroundViewIndex = selectBackGroundViewSegment.selectedSegmentIndex
                 }
+                print("🌝 Updated Person Details: ID: \(personToUpdate.id), Name: \(personToUpdate.personName ?? "nil")")
+                 
                 print("Successfully updated the person in Realm.")
             } catch {
                 print("Error updating the person in Realm: \(error)")

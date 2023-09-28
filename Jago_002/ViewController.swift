@@ -66,8 +66,8 @@ class ViewController: UIViewController,
         }
         
         cell.smallImageButton.tag = person.id
-           cell.commentButton.tag = person.id
-           cell.editButton.tag = person.id
+        cell.commentButton.tag = person.id
+        cell.editButton.tag = person.id
         
         let backgroundViewIndex = person.backgroundViewIndex
         let animationSet: AnimationSet
@@ -121,43 +121,21 @@ class ViewController: UIViewController,
         let person = persons[id]
         editVC.editingPersonID = person.id
         editVC.personName = person.personName
-        editVC.backgroundViewIndex = person.backgroundViewIndex 
+        editVC.backgroundViewIndex = person.backgroundViewIndex
         if let smallImageData = person.smallImage,
            let smallImg = UIImage(data: smallImageData) {
             editVC.smallImage = smallImg
         }
-
+        
         if let bigImageData = person.bigImage,
            let bigImg = UIImage(data: bigImageData) {
             editVC.bigImage = bigImg
         }
-
+        
         self.navigationController?.pushViewController(editVC, animated: true)
     }
-
-//    func tapEditButton(id: Int) {
-//        let editVC = self.storyboard?.instantiateViewController(identifier: "EditAndPost") as! InputViewController
-//        editVC.isNewPerson = false
-//        editVC.editingPersonID = id
-//        //        let person = personsArray[id]
-//        //        editVC.personName = person.personName
-//        //
-//
-//        if let person = persons?.first(where: { $0.id == id }) {
-//            editVC.personName = person.personName
-//            if let smallImageData = person.smallImage,
-//               let smallImg = UIImage(data: smallImageData) {
-//                editVC.smallImage = smallImg
-//            }
-//
-//            if let bigImageData = person.bigImage,
-//               let bigImg = UIImage(data: bigImageData) {
-//                editVC.bigImage = bigImg
-//            }
-//
-//            self.navigationController?.pushViewController(editVC, animated: true)
-//        }
-//    }
+    
+    
     
     // MARK: - IBActions
     @IBAction func addPerson(_ sender: Any) {
@@ -184,17 +162,20 @@ class ViewController: UIViewController,
     }
     
     // MARK: - CatchProtocol Implementations
+    
     func tapSmallImage(id: Int) {
         let recordingVC = self.storyboard?.instantiateViewController(identifier: "RecordingVC") as! RecordingViewController
-        recordingVC.receivedPersonID = id
+        let person = persons[id]
+        recordingVC.receivedPersonID = person.id
+        print("🌝 Set receivedPersonID: \(person.id)")
         self.navigationController?.pushViewController(recordingVC, animated: true)
     }
-
+    
     func tapCommentButton(id: Int) {
         let recordedVC = self.storyboard?.instantiateViewController(identifier: "RecordedViewController") as! RecordedViewController
         recordedVC.receivedPersonID = id
         self.navigationController?.pushViewController(recordedVC, animated: true)
     }
-
+    
 }
 
