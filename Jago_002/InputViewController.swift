@@ -2,7 +2,6 @@
 // Jago_002
 //
 // Created by user on 2023/09/11.
-//
 
 import UIKit
 import RealmSwift
@@ -38,25 +37,19 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
         setupInitialStates()
     }
 
- 
     // MARK: - Initialization Methods
     private func setupInitialStates() {
         setupInitialImages()
-        
         if let bgIndex = backgroundViewIndex {
             selectBackGroundViewSegment.selectedSegmentIndex = bgIndex
         }
-        
         setupInitialAnimation()
         setupSegmentedControl()
-
     }
 
     private func setupInitialImages() {
         personsSmallPhotoImageView.image = smallImage
         personsBigPhotoImageView.image = bigImage
-        print("setupInitialImages called.")
-        print("bigImage size: \(bigImage?.size ?? CGSize.zero)")
     }
     
     private func setupInitialAnimation() {
@@ -80,53 +73,31 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     // MARK: - Actions
-    
     @IBAction func selectBackGroundViewSegmentChanged(_ sender: Any) {
         applyAnimationBasedOnSegmentIndex((sender as AnyObject).selectedSegmentIndex)
         selectBackGroundViewSegment.addTarget(self, action: #selector(selectBackGroundViewSegmentChanged(_:)), for: .valueChanged)
-
     }
     
-    
     @IBAction func postAction(_ sender: Any) {
-        // Realmの初期化
         let realm = try! Realm()
-
-        // 新規追加か既存データの更新かを判断
         if isNewPerson {
-            // 新しいPersonのインスタンスを作成
             let newPerson = Person()
             newPerson.id = (realm.objects(Person.self).max(ofProperty: "id") as Int? ?? 0) + 1
-            
-            print("🌝 Saving new person with name from text field: \(personNameTextField.text ?? "nil")")
-
-            
             newPerson.personName = personNameTextField.text
             newPerson.smallImage = smallImage?.jpegData(compressionQuality: 0.01)
             newPerson.bigImage = bigImage?.jpegData(compressionQuality: 0.01)
             newPerson.backgroundViewIndex = selectBackGroundViewSegment.selectedSegmentIndex
-
-            print("🌝 New Person Details: ID: \(newPerson.id), Name: \(newPerson.personName ?? "nil")")
-
-            // Realmに新しいPersonを追加
             do {
                 try realm.write {
                     realm.add(newPerson)
                 }
-                print("Successfully saved new person to Realm.")
             } catch {
                 print("Error saving new person to Realm: \(error)")
             }
-
         } else {
             guard let id = editingPersonID, let personToUpdate = realm.object(ofType: Person.self, forPrimaryKey: id) else {
-                print("Error: editingPersonID is nil or person not found.")
                 return
             }
-            print("🌝 Updating person with ID: \(id) with name from text field: \(personNameTextField.text ?? "nil")")
-
-
-            // 既存のデータを更新
             do {
                 try realm.write {
                     personToUpdate.personName = personNameTextField.text
@@ -134,26 +105,17 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
                     personToUpdate.bigImage = bigImage?.jpegData(compressionQuality: 0.01)
                     personToUpdate.backgroundViewIndex = selectBackGroundViewSegment.selectedSegmentIndex
                 }
-                print("🌝 Updated Person Details: ID: \(personToUpdate.id), Name: \(personToUpdate.personName ?? "nil")")
-                 
-                print("Successfully updated the person in Realm.")
             } catch {
                 print("Error updating the person in Realm: \(error)")
             }
         }
-
         if let navController = navigationController {
             navController.popViewController(animated: true)
-        } else {
-            print("The view controller is not part of a navigation controller.")
         }
     }
 
-
-
     @IBAction func editPersonImageTapped(_ sender: Any) {
         selectImageUtility.showAlert(self)
-
     }
     
     // MARK: - Helper Functions
@@ -175,32 +137,6 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
         BackGroundAnimationUtility.applyAnimation(on: backGroundView, withPrefix: animationSet.rawValue)
     }
-    
-
-
-    private func updateExistingPerson(_ id: Int?, with personDataDict: [String: Any]) {
-        let realm = try? Realm()
-              
-        if let person = realm?.object(ofType: Person.self, forPrimaryKey: id) {
-            try? realm?.write {
-                person.personName = personDataDict["personName"] as? String
-                person.smallImage = personDataDict["smallImage"] as? Data
-                person.bigImage = personDataDict["bigImage"] as? Data
-                person.backgroundViewIndex = personDataDict["backgroundViewIndex"] as? Int ?? 0
-            }
-        }
-    }
-
-    private func printSavedPersons() {
-        let realm = try? Realm()
-        let savedPersons = realm?.objects(Person.self)
-        
-        print("Saved Persons:")
-        for (index, person) in savedPersons!.enumerated() {
-            print("Person \(index+1): \(person.personName ?? ""), BackgroundViewIndex: \(person.backgroundViewIndex)")
-        }
-
-    }
 
     // MARK: - UIImagePickerControllerDelegate Methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -213,8 +149,6 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
             bigImage = originalImage
             personsBigPhotoImageView.image = bigImage
         }
-        print("imagePickerController called.")
-        print("bigImage size: \(bigImage?.size ?? CGSize.zero)")
         picker.dismiss(animated: true, completion: nil)
     }
 }
@@ -252,3 +186,4 @@ extension UIImage {
         return UIImage(cgImage: cgImage)
     }
 }
+
