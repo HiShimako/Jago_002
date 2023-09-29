@@ -150,7 +150,7 @@ func applyAnimation(on view: UIImageView, forBackgroundViewIndex index: Int) {
     applyBackgroundAnimation(on: view, withPrefix: animationSet.rawValue)
 }
 
-private func applyBackgroundAnimation(on view: UIView, withPrefix prefix: String) {
+func applyBackgroundAnimation(on view: UIView, withPrefix prefix: String) {
     guard let imageView = view as? UIImageView,
           let animationImages = fetchAnimationImages(withPrefix: prefix),
           !animationImages.isEmpty else {
@@ -163,7 +163,7 @@ private func applyBackgroundAnimation(on view: UIView, withPrefix prefix: String
     imageView.startAnimating()
 }
 
-private func fetchAnimationImages(withPrefix prefix: String) -> [UIImage]? {
+func fetchAnimationImages(withPrefix prefix: String) -> [UIImage]? {
     var backGroundImageArray: [UIImage] = []
     var index = 1
     while let image = UIImage(named: "\(prefix)\(index)") {

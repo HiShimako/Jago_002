@@ -135,7 +135,7 @@ class ViewController: UIViewController,
     
     func tapSmallImage(id: Int) {
         let recordingVC = self.storyboard?.instantiateViewController(identifier: "RecordingVC") as! RecordingViewController
-        recordingVC.receivedPersonID = id
+        recordingVC.id =  id
         self.navigationController?.pushViewController(recordingVC, animated: true)
     }
 
