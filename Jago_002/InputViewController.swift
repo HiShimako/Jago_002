@@ -41,31 +41,37 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("🌝Before setupInitialStates -> Small Image: \(String(describing: smallImage)), Big Image: \(String(describing: bigImage))")
         setupInitialStates()
     }
 
     // MARK: - Initialization Methods
     private func setupInitialStates() {
-        personsSmallPhotoImageView.image = smallImage
-        personsBigPhotoImageView.image = bigImage
+        // ImageViewのnilチェック
+        personsSmallPhotoImageView?.image = smallImage
+        personsBigPhotoImageView?.image = bigImage
 
         if let personID = editingPersonID {
             // 編集モードの場合
             let realm = try! Realm()
-            if let personToEdit = realm.object(ofType: Person.self, forPrimaryKey: personID) {
+            if let personToEdit = realm.object(ofType: Person.self, forPrimaryKey: personID),
+               let segmentControl = selectBackGroundViewSegment {
                 // 対応するbackgroundViewIndexをRealmから取得し、セグメントコントロールにセットします。
-                selectBackGroundViewSegment.selectedSegmentIndex = personToEdit.backgroundViewIndex
+                segmentControl.selectedSegmentIndex = personToEdit.backgroundViewIndex
             }
-        } else if selectBackGroundViewSegment.selectedSegmentIndex == UISegmentedControl.noSegment {
+        } else if selectBackGroundViewSegment?.selectedSegmentIndex == UISegmentedControl.noSegment {
             // 新規追加モードの場合、セグメントコントロールの初期選択がなければ0をセットします。
-            selectBackGroundViewSegment.selectedSegmentIndex = 0
+            selectBackGroundViewSegment?.selectedSegmentIndex = 0
         }
 
-        applyAnimation(on: backGroundView, forBackgroundViewIndex: selectBackGroundViewSegment.selectedSegmentIndex)
-         
+        // selectBackGroundViewSegmentがnilでないことを確認してからapplyAnimationを呼び出す
+        if let segmentIndex = selectBackGroundViewSegment?.selectedSegmentIndex {
+            applyAnimation(on: backGroundView, forBackgroundViewIndex: segmentIndex)
+        }
+        
         setupSegmentedControl()
+        print("After setupInitialStates -> Small Image: \(String(describing: smallImage)), Big Image: \(String(describing: bigImage))")
     }
-    
     private func setupSegmentedControl() {
         for index in 0..<selectBackGroundViewSegment.numberOfSegments {
             let animationSet = animationSetFrom(backgroundViewIndex: index)
@@ -94,7 +100,8 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
 
             if isNewPerson {
                 let newPerson = Person()
-                newPerson.id = realm.objects(Person.self).max(ofProperty: "id") ?? -1 + 1
+                // 下記の行を修正
+                newPerson.id = (realm.objects(Person.self).max(ofProperty: "id") ?? -1) + 1
                 newPerson.personName = personNameTextField.text
                 newPerson.smallImage = smallImageData
                 newPerson.bigImage = bigImageData
@@ -123,6 +130,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
 
     @IBAction func editPersonImageTapped(_ sender: Any) {
         selectImageUtility.showAlert(self)
+        
     }
     
     // MARK: - UIImagePickerControllerDelegate Methods
@@ -139,6 +147,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
         picker.dismiss(animated: true, completion: nil)
     }
 }
+
 
 // MARK: - BackGroundAnimationUtility
 func animationSetFrom(backgroundViewIndex: Int) -> AnimationSet {

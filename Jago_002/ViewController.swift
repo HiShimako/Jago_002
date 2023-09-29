@@ -113,13 +113,14 @@ class ViewController: UIViewController,
     
     
     // MARK: - UIImagePickerControllerDelegate Methods
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let editPostVC = self.storyboard?.instantiateViewController(identifier: "EditAndPost") as! InputViewController
-        self.navigationController?.pushViewController(editPostVC, animated: true)
-        picker.dismiss(animated: true)
-    }
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        let editPostVC = self.storyboard?.instantiateViewController(identifier: "EditAndPost") as! InputViewController
+//        self.navigationController?.pushViewController(editPostVC, animated: true)
+//        picker.dismiss(animated: true)
+//    }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("🌞Image picker delegate method called!")
         picker.dismiss(animated: true)
     }
     
