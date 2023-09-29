@@ -25,19 +25,8 @@ class PersonsTableViewCell: UITableViewCell {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var editButton: UIButton!
     
-
-    
     // MARK: - Properties
     var delegate: CatchProtocol?
-    
-    // MARK: - Lifecycle Methods
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
     // MARK: - IBActions
     @IBAction func smallImageButton(_ sender: UIButton) {

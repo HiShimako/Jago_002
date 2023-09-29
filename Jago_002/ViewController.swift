@@ -82,9 +82,6 @@ class ViewController: UIViewController,
         cell.cellDelegate = self 
         return cell
     }
-    
-
-    
     // MARK: - TableView Delegate Methods
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.view.frame.height * 1 / 3
