@@ -28,7 +28,11 @@ class ViewController: UIViewController,
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupTableView()
+        
+        let realm = try! Realm()
+         persons = realm.objects(Person.self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,18 +52,14 @@ class ViewController: UIViewController,
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let realm = try! Realm()
-        return realm.objects(Person.self).count
+        return persons.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PersonsTableViewCell
-
-        let realm = try! Realm()
-        let persons = realm.objects(Person.self)
-        
-        if indexPath.row < persons.count {
-            let person = persons[indexPath.row]
+          
+          if indexPath.row < persons.count {
+              let person = persons[indexPath.row]
 
             // Load the smallImage for the current row
             if let data = person.smallImage, let image = UIImage(data: data) {
@@ -92,9 +92,13 @@ class ViewController: UIViewController,
             if let personToDelete = persons?[indexPath.row] {
                 try! realm.write {
                     realm.delete(personToDelete)
+
+                    // データベースの変更後にpersonsを再取得
+                    persons = realm.objects(Person.self)
+                    
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
                 }
             }
-            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
     let selectImageUtility = SelectImageUtility()

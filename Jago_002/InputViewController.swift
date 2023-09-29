@@ -40,6 +40,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadEditingPersonData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,6 +82,25 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
                     selectBackGroundViewSegment.setImage(image, forSegmentAt: index)
                 }
             
+        }
+    }
+
+    private func loadEditingPersonData() {
+        guard let id = editingPersonID else { return }
+        
+        let realm = try! Realm()
+        if let personToEdit = realm.object(ofType: Person.self, forPrimaryKey: id) {
+            // 小さな画像と大きな画像を取得
+            if let smallImageData = personToEdit.smallImage {
+                self.smallImage = UIImage(data: smallImageData)
+            }
+            
+            if let bigImageData = personToEdit.bigImage {
+                self.bigImage = UIImage(data: bigImageData)
+            }
+            
+            // backgroundViewIndexを取得
+            self.backgroundViewIndex = personToEdit.backgroundViewIndex
         }
     }
 
