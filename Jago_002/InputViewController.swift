@@ -72,7 +72,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
         
         setupSegmentedControl()
-        print("After setupInitialStates -> Small Image: \(String(describing: smallImage)), Big Image: \(String(describing: bigImage))")
+  
     }
     private func setupSegmentedControl() {
         for index in 0..<selectBackGroundViewSegment.numberOfSegments {
@@ -131,6 +131,8 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
 
     let selectImageUtility = SelectImageUtility()
     @IBAction func editPersonImageTapped(_ sender: Any) {
+        print("🔍 editPersonImageTapped triggered")
+           selectImageUtility.delegate = self
         selectImageUtility.showAlert(from: self)
         
     }
@@ -138,6 +140,8 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
 }
 extension InputViewController: SelectImageUtilityDelegate {
     func didPickImages(smallImage: UIImage?, bigImage: UIImage?) {
+        print("🔍 Received Small Image: \(String(describing: smallImage))")
+           print("🔍 Received Big Image: \(String(describing: bigImage))")
         self.smallImage = smallImage
         self.bigImage = bigImage
         personsSmallPhotoImageView.image = smallImage

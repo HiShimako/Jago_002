@@ -16,6 +16,7 @@ class ViewController: UIViewController,
                       UITableViewDataSource,
                       UIImagePickerControllerDelegate,
                       UINavigationControllerDelegate,
+                      SelectImageUtilityDelegate,
                       CatchProtocol {
     
     // MARK: - Variables
@@ -108,21 +109,9 @@ class ViewController: UIViewController,
     
     // MARK: - IBActions
     @IBAction func addPerson(_ sender: Any) {
+        selectImageUtility.delegate = self
         selectImageUtility.showAlert(from: self)
     }
-    
-    
-    // MARK: - UIImagePickerControllerDelegate Methods
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        let editPostVC = self.storyboard?.instantiateViewController(identifier: "EditAndPost") as! InputViewController
-//        self.navigationController?.pushViewController(editPostVC, animated: true)
-//        picker.dismiss(animated: true)
-//    }
-
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        print("🌞Image picker delegate method called!")
-//        picker.dismiss(animated: true)
-//    }
     
     // MARK: - CatchProtocol Implementations
     
@@ -139,4 +128,14 @@ class ViewController: UIViewController,
     }
     
 }
+extension ViewController {
+    func didPickImages(smallImage: UIImage?, bigImage: UIImage?) {
+        let inputVC = self.storyboard?.instantiateViewController(identifier: "EditAndPost") as! InputViewController
+        inputVC.isNewPerson = true
+        inputVC.smallImage = smallImage
+        inputVC.bigImage = bigImage
+        self.navigationController?.pushViewController(inputVC, animated: true)
+    }
+}
+
 

@@ -31,7 +31,7 @@ class RecordingViewController: UIViewController {
         super.viewDidLoad()
 
         guard let realm = try? Realm() else {
-            print("🌝Failed to initialize Realm")
+
             return
         }
         

@@ -56,6 +56,10 @@ class SelectImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigatio
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let smallImg = info[.editedImage] as? UIImage
         let bigImg = info[.originalImage] as? UIImage
+        
+        print("🔍 Selected Small Image: \(String(describing: smallImg))")
+         print("🔍 Selected Big Image: \(String(describing: bigImg))")
+
 
         delegate?.didPickImages(smallImage: smallImg, bigImage: bigImg)
         picker.dismiss(animated: true, completion: nil)
