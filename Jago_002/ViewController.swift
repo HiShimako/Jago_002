@@ -75,8 +75,8 @@ class ViewController: UIViewController,
         
         // Load the background based on the backgroundViewIndex
         let backgroundViewIndex = person.backgroundViewIndex
-        if let animationSet = AnimationSet.from(backgroundViewIndex: backgroundViewIndex),
-           let backgroundImage = UIImage(named: "\(animationSet.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
+        let animationSet = animationSetFrom(backgroundViewIndex: backgroundViewIndex)
+        if let backgroundImage = UIImage(named: "\(animationSet.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
             cell.backgroundImageView.image = backgroundImage
         }
         cell.cellDelegate = self 
