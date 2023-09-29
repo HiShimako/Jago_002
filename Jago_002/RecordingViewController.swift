@@ -103,12 +103,12 @@ class RecordingViewController: UIViewController {
     // MARK: - IBActions
     @IBAction func stopRecording(_ sender: Any) {
         stopLiveTranscription()
-        
+
         if let currentID = id, let commentText = bestTranscriptionString {
             let comment = createComment(commentText: commentText)
             saveCommentToPerson(comment: comment, id: currentID)
         }
-        
+
         self.navigationController?.popViewController(animated: true)
     }
 
@@ -134,6 +134,7 @@ class RecordingViewController: UIViewController {
             }
         }
     }
+
 
 }
 
