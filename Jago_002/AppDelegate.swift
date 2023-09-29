@@ -12,9 +12,9 @@ import RealmSwift
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
+// アプリのアップグレード時にユーザーが作成したrealm情報を維持する為のコード
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         let config = Realm.Configuration(
                // 今回の変更では、最初のマイグレーションなので、バージョン番号を1に設定します。
                schemaVersion: 1,
@@ -27,9 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
            // デフォルトの Realm に新しい設定を適用する
            Realm.Configuration.defaultConfiguration = config
-
-           // マイグレーションを強制的に実行する
-           let _ = try! Realm()
 
       
         return true

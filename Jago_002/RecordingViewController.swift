@@ -28,30 +28,27 @@ class RecordingViewController: UIViewController {
     
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
-           super.viewDidLoad()
+        super.viewDidLoad()
 
-           guard let realm = try? Realm() else {
-               print("🌝Failed to initialize Realm")
-               return
-           }
-           
-           if let currentID = id {
-               person = realm.object(ofType: Person.self, forPrimaryKey: currentID)
-               
-               if let personUnwrapped = person {
-                   // bigImageをrecordingViewに設定
-                   if let bigImageData = personUnwrapped.bigImage {
-                       recordingView.image = UIImage(data: bigImageData)
-                   }
-                   
-                   // backgroundViewIndexをもとに背景アニメーションを設定
-                   let backgroundViewIndex = personUnwrapped.backgroundViewIndex
-                   applyAnimation(on: backGroundView, forBackgroundViewIndex: backgroundViewIndex)
-               }
-           }
-           
-           audioEngine = AVAudioEngine()
-       }
+        guard let realm = try? Realm() else {
+            print("🌝Failed to initialize Realm")
+            return
+        }
+        
+        if let person = realm.object(ofType: Person.self, forPrimaryKey: id) {
+            // bigImageをrecordingViewに設定
+            if let bigImageData = person.bigImage {
+                recordingView.image = UIImage(data: bigImageData)
+            }
+            
+            // backgroundViewIndexをもとに背景アニメーションを設定
+            let backgroundViewIndex = person.backgroundViewIndex
+            applyAnimation(on: backGroundView, forBackgroundViewIndex: backgroundViewIndex)
+        }
+        
+        audioEngine = AVAudioEngine()
+    }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

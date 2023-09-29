@@ -38,6 +38,9 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         setupInitialStates()
     }
 
@@ -91,7 +94,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
 
             if isNewPerson {
                 let newPerson = Person()
-                newPerson.id = (realm.objects(Person.self).max(ofProperty: "id") as Int? ?? 0) + 1
+                newPerson.id = realm.objects(Person.self).max(ofProperty: "id") ?? -1 + 1
                 newPerson.personName = personNameTextField.text
                 newPerson.smallImage = smallImageData
                 newPerson.bigImage = bigImageData

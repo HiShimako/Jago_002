@@ -28,13 +28,11 @@ class ViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        loadSavedPersons()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadSavedPersons()
+
         personListTableView.reloadData()
     }
     
@@ -44,42 +42,42 @@ class ViewController: UIViewController,
         personListTableView.dataSource = self
     }
     
-    private func loadSavedPersons() {
-        let realm = try! Realm()
-        persons = realm.objects(Person.self)
-    }
     
     // MARK: - TableView DataSource Methods
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return persons.count
+        let realm = try! Realm()
+        return realm.objects(Person.self).count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PersonsTableViewCell
+
+        let realm = try! Realm()
+        let persons = realm.objects(Person.self)
         
-        let person = persons[indexPath.row]
-        
-        // Load the smallImage for the current row
-        if let data = person.smallImage, let image = UIImage(data: data) {
-            cell.personImageView.image = image
+        if indexPath.row < persons.count {
+            let person = persons[indexPath.row]
+
+            // Load the smallImage for the current row
+            if let data = person.smallImage, let image = UIImage(data: data) {
+                cell.personImageView.image = image
+            }
+            
+            // Setup buttons with the id of the person
+            cell.smallImageButton.tag = indexPath.row
+            cell.commentButton.tag = indexPath.row
+            cell.editButton.tag = indexPath.row
+            
+            // Load the background based on the backgroundViewIndex
+            let backgroundViewIndex = person.backgroundViewIndex
+            let animationSet = animationSetFrom(backgroundViewIndex: backgroundViewIndex)
+            if let backgroundImage = UIImage(named: "\(animationSet.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
+                cell.backgroundImageView.image = backgroundImage
+            }
+            cell.cellDelegate = self
         }
-        
-        // Setup buttons with the id of the person
-        cell.smallImageButton.tag = indexPath.row
-        cell.commentButton.tag = indexPath.row
-        cell.editButton.tag = indexPath.row
-        
-        // Load the background based on the backgroundViewIndex
-        let backgroundViewIndex = person.backgroundViewIndex
-        let animationSet = animationSetFrom(backgroundViewIndex: backgroundViewIndex)
-        if let backgroundImage = UIImage(named: "\(animationSet.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
-            cell.backgroundImageView.image = backgroundImage
-        }
-        cell.cellDelegate = self 
         return cell
     }
     // MARK: - TableView Delegate Methods
@@ -102,10 +100,7 @@ class ViewController: UIViewController,
     func tapEditButton(id: Int) {
         let editVC = self.storyboard?.instantiateViewController(identifier: "EditAndPost") as! InputViewController
         editVC.isNewPerson = false
-        
-        let person = persons[id]
-        editVC.editingPersonID = person.id
-        
+        editVC.editingPersonID = id
         self.navigationController?.pushViewController(editVC, animated: true)
     }
 
@@ -117,8 +112,6 @@ class ViewController: UIViewController,
     }
     
     
-    
-    
     // MARK: - UIImagePickerControllerDelegate Methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let editPostVC = self.storyboard?.instantiateViewController(identifier: "EditAndPost") as! InputViewController
@@ -126,7 +119,6 @@ class ViewController: UIViewController,
         picker.dismiss(animated: true)
     }
 
-    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
