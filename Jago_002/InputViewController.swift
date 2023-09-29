@@ -17,7 +17,9 @@ enum AnimationSet: String {
         return [.case0, .case1, .case2, .case3, .case4]
     }
 }
-
+protocol SelectImageUtilityDelegate: AnyObject {
+    func didPickImages(smallImage: UIImage?, bigImage: UIImage?)
+}
 class InputViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: - Properties
@@ -127,27 +129,21 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
     }
 
-
+    let selectImageUtility = SelectImageUtility()
     @IBAction func editPersonImageTapped(_ sender: Any) {
-        selectImageUtility.showAlert(self)
+        selectImageUtility.showAlert(from: self)
         
     }
     
-    // MARK: - UIImagePickerControllerDelegate Methods
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let selectedImage = info[.editedImage] as? UIImage {
-            smallImage = selectedImage
-            personsSmallPhotoImageView.image = smallImage
-        }
-
-        if let originalImage = info[.originalImage] as? UIImage {
-            bigImage = originalImage
-            personsBigPhotoImageView.image = bigImage
-        }
-        picker.dismiss(animated: true, completion: nil)
+}
+extension InputViewController: SelectImageUtilityDelegate {
+    func didPickImages(smallImage: UIImage?, bigImage: UIImage?) {
+        self.smallImage = smallImage
+        self.bigImage = bigImage
+        personsSmallPhotoImageView.image = smallImage
+        personsBigPhotoImageView.image = bigImage
     }
 }
-
 
 // MARK: - BackGroundAnimationUtility
 func animationSetFrom(backgroundViewIndex: Int) -> AnimationSet {

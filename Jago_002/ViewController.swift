@@ -96,7 +96,7 @@ class ViewController: UIViewController,
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
-    
+    let selectImageUtility = SelectImageUtility()
     func tapEditButton(id: Int) {
         let editVC = self.storyboard?.instantiateViewController(identifier: "EditAndPost") as! InputViewController
         editVC.isNewPerson = false
@@ -108,7 +108,7 @@ class ViewController: UIViewController,
     
     // MARK: - IBActions
     @IBAction func addPerson(_ sender: Any) {
-        selectImageUtility.showAlert(self)
+        selectImageUtility.showAlert(from: self)
     }
     
     
@@ -119,10 +119,10 @@ class ViewController: UIViewController,
 //        picker.dismiss(animated: true)
 //    }
 
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        print("🌞Image picker delegate method called!")
-        picker.dismiss(animated: true)
-    }
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        print("🌞Image picker delegate method called!")
+//        picker.dismiss(animated: true)
+//    }
     
     // MARK: - CatchProtocol Implementations
     

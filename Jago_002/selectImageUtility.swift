@@ -6,19 +6,22 @@
 //
 
 import UIKit
-
-import UIKit
-
-class selectImageUtility {
-    static func showAlert(_ viewController: UIViewController) {
+class SelectImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    weak var delegate: SelectImageUtilityDelegate?
+    
+    var smallImage: UIImage?
+    var bigImage: UIImage?
+    
+    func showAlert(from viewController: UIViewController) {
         let alertController = UIAlertController(title: "選択", message: "どちらを使用しますか", preferredStyle: .actionSheet)
         
         let cameraAction = UIAlertAction(title: "カメラ", style: .default) { _ in
-            checkCamera(viewController)
+            self.checkCamera(from: viewController)
         }
         
         let albumAction = UIAlertAction(title: "アルバム", style: .default) { _ in
-            checkAlbum(viewController)
+            self.checkAlbum(from: viewController)
         }
         
         let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
@@ -29,27 +32,43 @@ class selectImageUtility {
         viewController.present(alertController, animated: true)
     }
     
-    static func checkCamera(_ viewController: UIViewController) {
-        let sourceType: UIImagePickerController.SourceType = .camera
+    private func checkCamera(from viewController: UIViewController) {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let cameraPicker = UIImagePickerController()
             cameraPicker.allowsEditing = true
-            cameraPicker.sourceType = sourceType
-            cameraPicker.delegate = viewController as? (UIImagePickerControllerDelegate & UINavigationControllerDelegate)
+            cameraPicker.sourceType = .camera
+            cameraPicker.delegate = self
             viewController.present(cameraPicker, animated: true)
         }
     }
     
-    static func checkAlbum(_ viewController: UIViewController) {
-        let sourceType: UIImagePickerController.SourceType = .photoLibrary
+    private func checkAlbum(from viewController: UIViewController) {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let albumPicker = UIImagePickerController()
             albumPicker.allowsEditing = true
-            albumPicker.sourceType = sourceType
-            albumPicker.delegate = viewController as? (UIImagePickerControllerDelegate & UINavigationControllerDelegate)
+            albumPicker.sourceType = .photoLibrary
+            albumPicker.delegate = self
             viewController.present(albumPicker, animated: true)
         }
     }
+    
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let smallImg = info[.editedImage] as? UIImage
+        let bigImg = info[.originalImage] as? UIImage
+
+        delegate?.didPickImages(smallImage: smallImg, bigImage: bigImg)
+        picker.dismiss(animated: true, completion: nil)
+    }
+
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+  
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+   
 }
+
 
 
