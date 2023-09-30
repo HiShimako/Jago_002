@@ -2,7 +2,7 @@ import UIKit
 
 class SelectImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    // クロージャを用意します。画像が選択された後にこのクロージャが呼び出されます。
+    
     var didPickImages: ((UIImage?, UIImage?) -> Void)?
     
     func showAlert(from viewController: UIViewController) {
