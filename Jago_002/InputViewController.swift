@@ -7,11 +7,11 @@ import UIKit
 import RealmSwift
 
 enum AnimationSet: String {
-    case case0 = "2_out00"
-    case case1 = "4_out00"
-    case case2 = "6_out00"
-    case case3 = "ezgif-frame-0"
-    case case4 = "ezgif-frame-1"
+    case case0 = "4_out00"
+    case case1 = "6_out00"
+    case case2 = "frame_apngframe2"
+    case case3 = "frame_apngframe3"
+    case case4 = "frame_apngframe0"
     
     static var allCases: [AnimationSet] {
         return [.case0, .case1, .case2, .case3, .case4]
@@ -44,7 +44,6 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("🌝Before setupInitialStates -> Small Image: \(String(describing: smallImage)), Big Image: \(String(describing: bigImage))")
         setupInitialStates()
     }
 

@@ -36,7 +36,7 @@ class RecordingViewController: UIViewController {
         }
         
         if let person = realm.object(ofType: Person.self, forPrimaryKey: id) {
-            // bigImageをrecordingViewに設定
+          
             if let bigImageData = person.bigImage {
                 recordingView.image = UIImage(data: bigImageData)
             }
