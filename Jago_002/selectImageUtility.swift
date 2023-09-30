@@ -1,17 +1,9 @@
-//
-//  selectImageUtility.swift
-//  Jago_002
-//
-//  Created by user on 2023/09/24.
-//
-
 import UIKit
+
 class SelectImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    weak var delegate: SelectImageUtilityDelegate?
-    
-    var smallImage: UIImage?
-    var bigImage: UIImage?
+    // クロージャを用意します。画像が選択された後にこのクロージャが呼び出されます。
+    var didPickImages: ((UIImage?, UIImage?) -> Void)?
     
     func showAlert(from viewController: UIViewController) {
         let alertController = UIAlertController(title: "選択", message: "どちらを使用しますか", preferredStyle: .actionSheet)
@@ -51,28 +43,17 @@ class SelectImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigatio
             viewController.present(albumPicker, animated: true)
         }
     }
-    
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let smallImg = info[.editedImage] as? UIImage
         let bigImg = info[.originalImage] as? UIImage
-        
-        print("🔍 Selected Small Image: \(String(describing: smallImg))")
-         print("🔍 Selected Big Image: \(String(describing: bigImg))")
 
-
-        delegate?.didPickImages(smallImage: smallImg, bigImage: bigImg)
+        // 画像が選択された後にクロージャを呼び出します。
+        didPickImages?(smallImg, bigImg)
         picker.dismiss(animated: true, completion: nil)
     }
 
-    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-  
         picker.dismiss(animated: true, completion: nil)
     }
-    
-   
 }
-
-
-

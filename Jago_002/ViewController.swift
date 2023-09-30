@@ -16,9 +16,8 @@ class ViewController: UIViewController,
                       UITableViewDataSource,
                       UIImagePickerControllerDelegate,
                       UINavigationControllerDelegate,
-                      SelectImageUtilityDelegate,
                       CatchProtocol {
-    
+
     // MARK: - Variables
     var persons: Results<Person>!
     
@@ -113,9 +112,16 @@ class ViewController: UIViewController,
     
     // MARK: - IBActions
     @IBAction func addPerson(_ sender: Any) {
-        selectImageUtility.delegate = self
-        selectImageUtility.showAlert(from: self)
-    }
+        selectImageUtility.didPickImages = { [weak self] smallImg, bigImg in
+              guard let self = self else { return }
+              let inputVC = self.storyboard?.instantiateViewController(identifier: "EditAndPost") as! InputViewController
+              inputVC.isNewPerson = true
+              inputVC.smallImage = smallImg
+              inputVC.bigImage = bigImg
+              self.navigationController?.pushViewController(inputVC, animated: true)
+          }
+          selectImageUtility.showAlert(from: self)
+      }
     
     // MARK: - CatchProtocol Implementations
     

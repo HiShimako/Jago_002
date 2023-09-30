@@ -150,11 +150,15 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
 
     let selectImageUtility = SelectImageUtility()
+
     @IBAction func editPersonImageTapped(_ sender: Any) {
-        print("🔍 editPersonImageTapped triggered")
-           selectImageUtility.delegate = self
+        selectImageUtility.didPickImages = { [weak self] smallImg, bigImg in
+            self?.smallImage = smallImg
+            self?.bigImage = bigImg
+            self?.personsSmallPhotoImageView.image = smallImg
+            self?.personsBigPhotoImageView.image = bigImg
+        }
         selectImageUtility.showAlert(from: self)
-        
     }
     
 }
