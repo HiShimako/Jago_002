@@ -29,6 +29,9 @@ class RecordingViewController: UIViewController {
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        recordingView.layer.cornerRadius = recordingView.frame.width * 0.10
+            recordingView.clipsToBounds = true
 
         guard let realm = try? Realm() else {
 

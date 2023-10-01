@@ -40,6 +40,12 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        personsSmallPhotoImageView.layer.cornerRadius = personsSmallPhotoImageView.frame.width * 0.10
+        personsSmallPhotoImageView.clipsToBounds = true
+        
+        personsBigPhotoImageView.layer.cornerRadius = personsBigPhotoImageView.frame.width * 0.10
+        personsBigPhotoImageView.clipsToBounds = true
+        
         loadEditingPersonData()
     }
     

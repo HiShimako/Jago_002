@@ -24,6 +24,15 @@ class PersonsTableViewCell: UITableViewCell {
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var editButton: UIButton!
+ 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        smallImageButton.layer.cornerRadius = smallImageButton.frame.height * 0.1
+        smallImageButton.clipsToBounds = true
+
+        backgroundImageView.layer.cornerRadius = backgroundImageView.frame.width * 0.1
+        backgroundImageView.clipsToBounds = true
+    }
     
     // MARK: - Properties
     var delegate: CatchProtocol?
