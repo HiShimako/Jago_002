@@ -43,16 +43,16 @@ class SelectImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigatio
             viewController.present(albumPicker, animated: true)
         }
     }
-
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let smallImg = info[.editedImage] as? UIImage
         let bigImg = info[.originalImage] as? UIImage
-
+        
         // 画像が選択された後にクロージャを呼び出します。
         didPickImages?(smallImg, bigImg)
         picker.dismiss(animated: true, completion: nil)
     }
-
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }

@@ -29,7 +29,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     var isNewPerson: Bool = true
     var editingPersonID: Int?
     var backgroundViewIndex: Int?
-
+    
     // MARK: - Outlets
     @IBOutlet weak var personNameTextField: UITextField!
     @IBOutlet weak var personsSmallPhotoImageView: UIImageView!
@@ -52,15 +52,15 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     override func viewWillAppear(_ animated: Bool) {
         setupInitialStates()
     }
-
+    
     // MARK: - Initialization Methods
     private func setupInitialStates() {
-     
+        
         personsSmallPhotoImageView?.image = smallImage
         personsBigPhotoImageView?.image = bigImage
-
+        
         if let personID = editingPersonID {
-
+            
             let realm = try! Realm()
             if let personToEdit = realm.object(ofType: Person.self, forPrimaryKey: personID),
                let segmentControl = selectBackGroundViewSegment {
@@ -69,25 +69,25 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
         } else if selectBackGroundViewSegment?.selectedSegmentIndex == UISegmentedControl.noSegment {
             selectBackGroundViewSegment?.selectedSegmentIndex = 0
         }
-
+        
         // selectBackGroundViewSegmentがnilでないことを確認してからapplyAnimationを呼び出す
         if let segmentIndex = selectBackGroundViewSegment?.selectedSegmentIndex {
             applyAnimation(on: backGroundView, forBackgroundViewIndex: segmentIndex)
         }
         
         setupSegmentedControl()
-  
+        
     }
     private func setupSegmentedControl() {
         for index in 0..<selectBackGroundViewSegment.numberOfSegments {
             let animationSet = animationSetFrom(backgroundViewIndex: index)
-                if let image = UIImage(named: "\(animationSet.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
-                    selectBackGroundViewSegment.setImage(image, forSegmentAt: index)
-                }
+            if let image = UIImage(named: "\(animationSet.rawValue)1")?.withRenderingMode(.alwaysOriginal) {
+                selectBackGroundViewSegment.setImage(image, forSegmentAt: index)
+            }
             
         }
     }
-
+    
     private func loadEditingPersonData() {
         guard let id = editingPersonID else { return }
         
@@ -106,14 +106,14 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
             self.backgroundViewIndex = personToEdit.backgroundViewIndex
         }
     }
-
+    
     
     // MARK: - Actions
     @IBAction func selectBackGroundViewSegmentChanged(_ sender: Any) {
         if let segmentControl = sender as? UISegmentedControl {
             applyAnimation(on: backGroundView, forBackgroundViewIndex: segmentControl.selectedSegmentIndex)
         }
-
+        
     }
     
     @IBAction func postAction(_ sender: Any) {
@@ -122,7 +122,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
             let smallImageData = smallImage?.jpegData(compressionQuality: 0.01)
             let bigImageData = bigImage?.jpegData(compressionQuality: 0.01)
             let backgroundIndex = selectBackGroundViewSegment.selectedSegmentIndex
-
+            
             if isNewPerson {
                 let newPerson = Person()
                 // 下記の行を修正
@@ -131,7 +131,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
                 newPerson.smallImage = smallImageData
                 newPerson.bigImage = bigImageData
                 newPerson.backgroundViewIndex = backgroundIndex
-
+                
                 try realm.write {
                     realm.add(newPerson)
                 }
@@ -143,7 +143,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
                     personToUpdate.backgroundViewIndex = backgroundIndex
                 }
             }
-
+            
             if let navController = navigationController {
                 navController.popViewController(animated: true)
             }
@@ -151,9 +151,9 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
             print("Error with Realm operation: \(error)")
         }
     }
-
+    
     let selectImageUtility = SelectImageUtility()
-
+    
     @IBAction func editPersonImageTapped(_ sender: Any) {
         selectImageUtility.didPickImages = { [weak self] smallImg, bigImg in
             self?.smallImage = smallImg
@@ -168,7 +168,7 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
 extension InputViewController: SelectImageUtilityDelegate {
     func didPickImages(smallImage: UIImage?, bigImage: UIImage?) {
         print("🔍 Received Small Image: \(String(describing: smallImage))")
-           print("🔍 Received Big Image: \(String(describing: bigImage))")
+        print("🔍 Received Big Image: \(String(describing: bigImage))")
         self.smallImage = smallImage
         self.bigImage = bigImage
         personsSmallPhotoImageView.image = smallImage

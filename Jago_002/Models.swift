@@ -15,7 +15,7 @@ class Person: Object {
     @objc dynamic var bigImage: Data?
     @objc dynamic var backgroundViewIndex: Int = 0
     let comments = List<Comment>()
-
+    
     override static func primaryKey() -> String? {
         return "id"
     }

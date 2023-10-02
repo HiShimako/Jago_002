@@ -31,15 +31,15 @@ class RecordingViewController: UIViewController {
         super.viewDidLoad()
         
         recordingView.layer.cornerRadius = recordingView.frame.width * 0.10
-            recordingView.clipsToBounds = true
-
+        recordingView.clipsToBounds = true
+        
         guard let realm = try? Realm() else {
-
+            
             return
         }
         
         if let person = realm.object(ofType: Person.self, forPrimaryKey: id) {
-          
+            
             if let bigImageData = person.bigImage {
                 recordingView.image = UIImage(data: bigImageData)
             }
@@ -52,25 +52,25 @@ class RecordingViewController: UIViewController {
         audioEngine = AVAudioEngine()
         try? startLiveTranscription()
     }
-
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
+        
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         SFSpeechRecognizer.requestAuthorization { _ in }
     }
-
+    
     // MARK: - Helper Functions
     func stopLiveTranscription() {
         audioEngine.stop()
         audioEngine.inputNode.removeTap(onBus: 0)
         recognitionReq?.endAudio()
     }
-
+    
     func startLiveTranscription() throws {
         if let recognitionTask = self.recognitionTask {
             recognitionTask.cancel()
@@ -100,19 +100,19 @@ class RecordingViewController: UIViewController {
             }
         }
     }
-
+    
     // MARK: - IBActions
     @IBAction func stopRecording(_ sender: Any) {
         stopLiveTranscription()
-
+        
         if let currentID = id, let commentText = bestTranscriptionString {
             let comment = createComment(commentText: commentText)
             saveCommentToPerson(comment: comment, id: currentID)
         }
-
+        
         self.navigationController?.popViewController(animated: true)
     }
-
+    
     func createComment(commentText: String) -> Comment {
         let comment = Comment()
         let currentDate = Date()
@@ -122,20 +122,20 @@ class RecordingViewController: UIViewController {
         comment.commentText = commentText
         return comment
     }
-
+    
     func saveCommentToPerson(comment: Comment, id: Int) {
         guard let realm = try? Realm() else {
             print("Error initializing Realm")
             return
         }
-
+        
         if let person = realm.object(ofType: Person.self, forPrimaryKey: id) {
             try? realm.write {
                 person.comments.append(comment)
             }
         }
     }
-
-
+    
+    
 }
 
