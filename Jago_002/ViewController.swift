@@ -138,11 +138,12 @@ class ViewController: UIViewController,
     }
     
     @IBAction func tutorialButtonTapped(_ sender: Any) {
- 
-        self.performSegue(withIdentifier: "showTutorial", sender: nil)
-
-        
+        print("Button tapped") // このメッセージがコンソールに表示されるか確認
+        let tutorialVC = self.storyboard?.instantiateViewController(identifier: "TutorialViewController") as! TutorialViewController
+        self.present(tutorialVC, animated: true, completion: nil)
     }
+
+
     
 }
 extension ViewController {
