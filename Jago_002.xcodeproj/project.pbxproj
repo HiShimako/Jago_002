@@ -18,6 +18,7 @@
 		CE2753B92AAEFE91006D8DD2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753B82AAEFE91006D8DD2 /* FirebaseAuth */; };
 		CE2753BB2AAEFE91006D8DD2 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753BA2AAEFE91006D8DD2 /* FirebaseDatabase */; };
 		CE2753BD2AAEFE91006D8DD2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CE2753BC2AAEFE91006D8DD2 /* FirebaseStorage */; };
+		CE58E9B62ACAA51D00A6DA7E /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE58E9B52ACAA51D00A6DA7E /* TutorialViewController.swift */; };
 		CE5C0CF12AC024E600DF7403 /* selectImageUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C0CF02AC024E600DF7403 /* selectImageUtility.swift */; };
 		CE5C0CF42AC122B400DF7403 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE5C0CF32AC122B400DF7403 /* RealmSwift */; };
 		CE5C0CF62AC3C41800DF7403 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C0CF52AC3C41700DF7403 /* Models.swift */; };
@@ -38,6 +39,7 @@
 		CE2753982AAEDF45006D8DD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE27539B2AAEDF45006D8DD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE27539D2AAEDF45006D8DD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE58E9B52ACAA51D00A6DA7E /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		CE5C0CF02AC024E600DF7403 /* selectImageUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectImageUtility.swift; sourceTree = "<group>"; };
 		CE5C0CF52AC3C41700DF7403 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		CE886E962AB525A300021DD8 /* RecordedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordedViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				CE88DBAE2AB1522900409880 /* RecordingViewController.swift */,
 				CE5C0CF02AC024E600DF7403 /* selectImageUtility.swift */,
 				CE886E962AB525A300021DD8 /* RecordedViewController.swift */,
+				CE58E9B52ACAA51D00A6DA7E /* TutorialViewController.swift */,
 				CE5C0CF52AC3C41700DF7403 /* Models.swift */,
 				CE2753952AAEDF43006D8DD2 /* Main.storyboard */,
 				CE2753982AAEDF45006D8DD2 /* Assets.xcassets */,
@@ -189,6 +192,7 @@
 			files = (
 				CEC987CB2AAFF773006B9820 /* InputViewController.swift in Sources */,
 				CE2753942AAEDF43006D8DD2 /* ViewController.swift in Sources */,
+				CE58E9B62ACAA51D00A6DA7E /* TutorialViewController.swift in Sources */,
 				CE5C0CF12AC024E600DF7403 /* selectImageUtility.swift in Sources */,
 				CE886E972AB525A300021DD8 /* RecordedViewController.swift in Sources */,
 				CE2753902AAEDF43006D8DD2 /* AppDelegate.swift in Sources */,

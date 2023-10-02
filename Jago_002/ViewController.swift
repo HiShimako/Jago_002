@@ -137,6 +137,13 @@ class ViewController: UIViewController,
         self.navigationController?.pushViewController(recordedVC, animated: true)
     }
     
+    @IBAction func tutorialButtonTapped(_ sender: Any) {
+ 
+        self.performSegue(withIdentifier: "showTutorial", sender: nil)
+
+        
+    }
+    
 }
 extension ViewController {
     func didPickImages(smallImage: UIImage?, bigImage: UIImage?) {
