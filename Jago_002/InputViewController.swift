@@ -55,20 +55,18 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
 
     // MARK: - Initialization Methods
     private func setupInitialStates() {
-        // ImageViewのnilチェック
+     
         personsSmallPhotoImageView?.image = smallImage
         personsBigPhotoImageView?.image = bigImage
 
         if let personID = editingPersonID {
-            // 編集モードの場合
+
             let realm = try! Realm()
             if let personToEdit = realm.object(ofType: Person.self, forPrimaryKey: personID),
                let segmentControl = selectBackGroundViewSegment {
-                // 対応するbackgroundViewIndexをRealmから取得し、セグメントコントロールにセットします。
                 segmentControl.selectedSegmentIndex = personToEdit.backgroundViewIndex
             }
         } else if selectBackGroundViewSegment?.selectedSegmentIndex == UISegmentedControl.noSegment {
-            // 新規追加モードの場合、セグメントコントロールの初期選択がなければ0をセットします。
             selectBackGroundViewSegment?.selectedSegmentIndex = 0
         }
 

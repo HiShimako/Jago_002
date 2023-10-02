@@ -50,12 +50,13 @@ class RecordingViewController: UIViewController {
         }
         
         audioEngine = AVAudioEngine()
+        try? startLiveTranscription()
     }
 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        try? startLiveTranscription()
+       
     }
 
     override func viewDidAppear(_ animated: Bool) {

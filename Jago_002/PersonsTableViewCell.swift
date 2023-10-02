@@ -27,8 +27,8 @@ class PersonsTableViewCell: UITableViewCell {
  
     override func layoutSubviews() {
         super.layoutSubviews()
-        smallImageButton.layer.cornerRadius = smallImageButton.frame.height * 0.1
-        smallImageButton.clipsToBounds = true
+        personImageView.layer.cornerRadius = personImageView.frame.height * 0.1
+        personImageView.clipsToBounds = true
 
         backgroundImageView.layer.cornerRadius = backgroundImageView.frame.width * 0.1
         backgroundImageView.clipsToBounds = true
