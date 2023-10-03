@@ -45,8 +45,8 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
         let imageView = UIImageView(image: logo)
         imageView.contentMode = .scaleAspectFit
         self.navigationItem.titleView = imageView
-
-
+        
+        
         personsSmallPhotoImageView.layer.cornerRadius = personsSmallPhotoImageView.frame.width * 0.10
         personsSmallPhotoImageView.clipsToBounds = true
         

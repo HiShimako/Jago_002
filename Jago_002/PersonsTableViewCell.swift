@@ -30,7 +30,7 @@ class PersonsTableViewCell: UITableViewCell {
         personImageView.layer.cornerRadius = personImageView.frame.height * 0.1
         personImageView.clipsToBounds = true
 
-        backgroundImageView.layer.cornerRadius = backgroundImageView.frame.width * 0.1
+        backgroundImageView.layer.cornerRadius = backgroundImageView.frame.width * 0.05
         backgroundImageView.clipsToBounds = true
     }
     

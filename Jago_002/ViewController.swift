@@ -98,7 +98,6 @@ class ViewController: UIViewController,
                 try! realm.write {
                     realm.delete(personToDelete)
 
-                    // データベースの変更後にpersonsを再取得
                     persons = realm.objects(Person.self)
                     
                     tableView.deleteRows(at: [indexPath], with: .automatic)

@@ -8,7 +8,7 @@
 import UIKit
 
 class TutorialViewController: UIViewController {
-
+    
     
     
     override func viewDidLoad() {
@@ -18,10 +18,10 @@ class TutorialViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         self.navigationItem.titleView = imageView
     }
-
+    
     @IBAction func back(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
-
+        
     }
     
 }

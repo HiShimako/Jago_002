@@ -48,7 +48,7 @@ class RecordingViewController: UIViewController {
                 recordingView.image = UIImage(data: bigImageData)
             }
             
-           
+            
             let backgroundViewIndex = person.backgroundViewIndex
             applyAnimation(on: backGroundView, forBackgroundViewIndex: backgroundViewIndex)
         }
