@@ -22,12 +22,18 @@ class ViewController: UIViewController,
     var persons: Results<Person>!
     
     // MARK: - IBOutlets
+    
     @IBOutlet weak var personListTableView: UITableView!
+    
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let logo = UIImage(named: "LOGO")
+        let imageView = UIImageView(image: logo)
+        imageView.contentMode = .scaleAspectFit
+        self.navigationItem.titleView = imageView
+     
         setupTableView()
         
         let realm = try! Realm()
@@ -138,7 +144,7 @@ class ViewController: UIViewController,
     }
     
     @IBAction func tutorialButtonTapped(_ sender: Any) {
-        print("Button tapped") // このメッセージがコンソールに表示されるか確認
+        print("Button tapped")
         let tutorialVC = self.storyboard?.instantiateViewController(identifier: "TutorialViewController") as! TutorialViewController
         self.present(tutorialVC, animated: true, completion: nil)
     }
