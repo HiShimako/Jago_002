@@ -146,7 +146,8 @@ class ViewController: UIViewController,
     @IBAction func tutorialButtonTapped(_ sender: Any) {
         print("Button tapped")
         let tutorialVC = self.storyboard?.instantiateViewController(identifier: "TutorialViewController") as! TutorialViewController
-        self.present(tutorialVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(tutorialVC, animated: true)
+
     }
 
 

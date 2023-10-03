@@ -40,6 +40,13 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        let logo = UIImage(named: "LOGO")
+        let imageView = UIImageView(image: logo)
+        imageView.contentMode = .scaleAspectFit
+        self.navigationItem.titleView = imageView
+
+
         personsSmallPhotoImageView.layer.cornerRadius = personsSmallPhotoImageView.frame.width * 0.10
         personsSmallPhotoImageView.clipsToBounds = true
         
@@ -116,6 +123,9 @@ class InputViewController: UIViewController, UIImagePickerControllerDelegate, UI
         
     }
     
+    @IBAction func back(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func postAction(_ sender: Any) {
         do {
             let realm = try Realm()

@@ -17,7 +17,10 @@ class RecordedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let logo = UIImage(named: "LOGO")
+           let imageView = UIImageView(image: logo)
+           imageView.contentMode = .scaleAspectFit
+           self.navigationItem.titleView = imageView
         // Realmから指定したIDのPersonを取得
         let realm = try! Realm()
         if let personID = receivedPersonID,
@@ -31,6 +34,19 @@ class RecordedViewController: UIViewController {
             }
             
             commentView.text = displayText
+       
+            
+
+        
+
+            
         }
     }
+    
+    @IBAction func back(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+
+  
+    }
+    
 }

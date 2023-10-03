@@ -29,6 +29,10 @@ class RecordingViewController: UIViewController {
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        let logo = UIImage(named: "LOGO")
+        let imageView = UIImageView(image: logo)
+        imageView.contentMode = .scaleAspectFit
+        self.navigationItem.titleView = imageView
         
         recordingView.layer.cornerRadius = recordingView.frame.width * 0.10
         recordingView.clipsToBounds = true
@@ -44,7 +48,7 @@ class RecordingViewController: UIViewController {
                 recordingView.image = UIImage(data: bigImageData)
             }
             
-            // backgroundViewIndexをもとに背景アニメーションを設定
+           
             let backgroundViewIndex = person.backgroundViewIndex
             applyAnimation(on: backGroundView, forBackgroundViewIndex: backgroundViewIndex)
         }
@@ -113,6 +117,9 @@ class RecordingViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func back(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     func createComment(commentText: String) -> Comment {
         let comment = Comment()
         let currentDate = Date()

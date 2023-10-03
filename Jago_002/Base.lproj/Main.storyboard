@@ -17,33 +17,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6k5-MP-kCI">
-                                <rect key="frame" x="0.0" y="94" width="375" height="684"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="728"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1FH-nP-keq" userLabel="ContentsView">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1710"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1820"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="51d-JI-YWt">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="342"/>
+                                                <rect key="frame" x="0.0" y="50" width="375" height="364"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="2" translatesAutoresizingMaskIntoConstraints="NO" id="dgj-ah-ghf">
-                                                <rect key="frame" x="0.0" y="392" width="375" height="342"/>
+                                                <rect key="frame" x="0.0" y="464" width="375" height="364"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="3" translatesAutoresizingMaskIntoConstraints="NO" id="Nka-p7-0Tv">
-                                                <rect key="frame" x="0.0" y="784" width="375" height="342"/>
+                                                <rect key="frame" x="0.0" y="878" width="375" height="364"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="edit" translatesAutoresizingMaskIntoConstraints="NO" id="a4C-xk-6Fr">
-                                                <rect key="frame" x="0.0" y="1176" width="375" height="478.66666666666674"/>
+                                                <rect key="frame" x="0.0" y="1292" width="375" height="509.66666666666674"/>
                                             </imageView>
                                         </subviews>
                                         <viewLayoutGuide key="safeArea" id="nBQ-us-c8s"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="dgj-ah-ghf" firstAttribute="top" secondItem="51d-JI-YWt" secondAttribute="bottom" constant="50" id="4hm-8k-4Gz"/>
-                                            <constraint firstItem="51d-JI-YWt" firstAttribute="top" secondItem="1FH-nP-keq" secondAttribute="top" id="Sag-i1-VWY"/>
+                                            <constraint firstItem="51d-JI-YWt" firstAttribute="top" secondItem="nBQ-us-c8s" secondAttribute="top" constant="50" id="Sag-i1-VWY"/>
                                             <constraint firstItem="a4C-xk-6Fr" firstAttribute="top" secondItem="Nka-p7-0Tv" secondAttribute="bottom" constant="50" id="WzB-KX-2tp"/>
                                             <constraint firstItem="51d-JI-YWt" firstAttribute="centerX" secondItem="1FH-nP-keq" secondAttribute="centerX" id="b9w-4D-lmG"/>
                                             <constraint firstItem="Nka-p7-0Tv" firstAttribute="top" secondItem="dgj-ah-ghf" secondAttribute="bottom" constant="50" id="bsn-Ng-CCH"/>
-                                            <constraint firstItem="51d-JI-YWt" firstAttribute="width" secondItem="1FH-nP-keq" secondAttribute="width" id="mTh-Q5-t9v"/>
+                                            <constraint firstItem="51d-JI-YWt" firstAttribute="width" secondItem="nBQ-us-c8s" secondAttribute="width" id="mTh-Q5-t9v"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -72,19 +72,39 @@
                         <constraints>
                             <constraint firstItem="6k5-MP-kCI" firstAttribute="leading" secondItem="Oo8-xS-cYI" secondAttribute="leading" id="Bib-pn-ij6"/>
                             <constraint firstItem="dgj-ah-ghf" firstAttribute="height" secondItem="Oo8-xS-cYI" secondAttribute="height" multiplier="0.5" id="IRZ-3e-2kO"/>
+                            <constraint firstItem="6k5-MP-kCI" firstAttribute="top" secondItem="Oo8-xS-cYI" secondAttribute="top" id="RBw-0h-5xL"/>
                             <constraint firstItem="6k5-MP-kCI" firstAttribute="trailing" secondItem="Oo8-xS-cYI" secondAttribute="trailing" id="RNZ-53-XmZ"/>
                             <constraint firstItem="a4C-xk-6Fr" firstAttribute="height" secondItem="Oo8-xS-cYI" secondAttribute="height" multiplier="0.7" id="VYS-DB-AKS"/>
                             <constraint firstItem="Nka-p7-0Tv" firstAttribute="height" secondItem="Oo8-xS-cYI" secondAttribute="height" multiplier="0.5" id="ht3-ge-ya1"/>
                             <constraint firstItem="51d-JI-YWt" firstAttribute="height" secondItem="Oo8-xS-cYI" secondAttribute="height" multiplier="0.5" id="il7-Y3-Jt0"/>
-                            <constraint firstItem="6k5-MP-kCI" firstAttribute="top" secondItem="Oo8-xS-cYI" secondAttribute="top" id="m2U-jM-vPv"/>
                             <constraint firstItem="6k5-MP-kCI" firstAttribute="bottom" secondItem="Oo8-xS-cYI" secondAttribute="bottom" id="zf5-bk-iyA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="J1F-jf-Gn9"/>
+                    <navigationItem key="navigationItem" id="J1F-jf-Gn9">
+                        <barButtonItem key="leftBarButtonItem" style="done" id="6f0-7a-FmI">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="0Ae-Mr-L86">
+                                <rect key="frame" x="16" y="5" width="83" height="34.333333333333336"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.backward.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="back:" destination="83p-NE-IBN" eventType="touchUpInside" id="Ko7-Fu-7bC"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" id="WYV-5E-aBZ">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="IaA-p8-x6D">
+                                <rect key="frame" x="276" y="5.6666666666666679" width="83" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cHs-Yz-sPA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-140" y="690.88669950738915"/>
+            <point key="canvasLocation" x="-1082.4000000000001" y="690.88669950738915"/>
         </scene>
         <!--Input View Controller-->
         <scene sceneID="O74-dU-PGl">
@@ -214,6 +234,27 @@
                             <constraint firstItem="Cie-9B-2a9" firstAttribute="centerY" secondItem="NFf-eO-xmu" secondAttribute="centerY" id="xQ6-HL-zXd"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="dJC-mO-Rmb">
+                        <barButtonItem key="leftBarButtonItem" style="done" id="vmO-9f-xQt">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Fab-qq-0bp">
+                                <rect key="frame" x="16" y="5" width="83" height="34.333333333333336"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.backward.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="back:" destination="oqg-At-So7" eventType="touchUpInside" id="Eid-Wb-VAC"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" id="jA2-dm-aRp">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="adN-3T-pgr">
+                                <rect key="frame" x="276" y="5.6666666666666679" width="83" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="backGroundView" destination="UpN-Cr-dJZ" id="nzL-qG-epZ"/>
                         <outlet property="personNameTextField" destination="NFf-eO-xmu" id="8yr-M9-ceb"/>
@@ -223,8 +264,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3yf-l0-HGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="6Bf-pi-faa" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="991.20000000000005" y="690.88669950738915"/>
+            <point key="canvasLocation" x="49" y="691"/>
         </scene>
         <!--Recorded View Controller-->
         <scene sceneID="Z3Q-Ml-JJp">
@@ -235,7 +277,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yeA-Mg-y2v">
-                                <rect key="frame" x="0.0" y="87" width="375" height="728"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="728"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -254,16 +296,38 @@
                         <viewLayoutGuide key="safeArea" id="crf-u0-Abg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="yeA-Mg-y2v" firstAttribute="top" secondItem="QbQ-dl-kcy" secondAttribute="bottom" id="2m4-5A-4oY"/>
                             <constraint firstItem="yeA-Mg-y2v" firstAttribute="centerX" secondItem="FUC-24-ud4" secondAttribute="centerX" id="G1O-Mf-6s4"/>
+                            <constraint firstItem="QbQ-dl-kcy" firstAttribute="top" secondItem="crf-u0-Abg" secondAttribute="top" id="IZj-eW-SpY"/>
                             <constraint firstItem="QbQ-dl-kcy" firstAttribute="centerX" secondItem="FUC-24-ud4" secondAttribute="centerX" id="JvO-At-vrF"/>
                             <constraint firstItem="yeA-Mg-y2v" firstAttribute="width" secondItem="crf-u0-Abg" secondAttribute="width" id="Nfh-Yz-Pcf"/>
-                            <constraint firstItem="QbQ-dl-kcy" firstAttribute="top" secondItem="crf-u0-Abg" secondAttribute="top" id="VTR-gu-ehj"/>
                             <constraint firstItem="yeA-Mg-y2v" firstAttribute="height" secondItem="crf-u0-Abg" secondAttribute="height" id="fH1-6j-cdD"/>
                             <constraint firstItem="QbQ-dl-kcy" firstAttribute="width" secondItem="crf-u0-Abg" secondAttribute="width" multiplier="0.5" id="nYF-Kb-YyQ"/>
-                            <constraint firstAttribute="centerY" secondItem="yeA-Mg-y2v" secondAttribute="centerY" multiplier="0.9" id="ryd-iB-7kf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="0SB-h9-sjt"/>
+                    <navigationItem key="navigationItem" id="pr4-Dh-tA0">
+                        <barButtonItem key="leftBarButtonItem" style="done" id="ake-w0-3kC">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="No7-FM-X7B">
+                                <rect key="frame" x="16" y="5" width="83" height="34.333333333333336"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.backward.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="back:" destination="KJw-RF-WnR" eventType="touchUpInside" id="Ifu-Qe-NYY"/>
+                                </connections>
+                            </button>
+                            <connections>
+                                <action selector="back:" destination="6Bf-pi-faa" id="lWN-t2-N8X"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" id="6x3-ZA-5pT">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="sNz-nG-Ocv">
+                                <rect key="frame" x="276" y="5" width="83" height="34.333333333333336"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="commentView" destination="yeA-Mg-y2v" id="Ry5-s4-T1G"/>
                         <outlet property="personName" destination="QbQ-dl-kcy" id="nmg-Q5-Gpj"/>
@@ -271,7 +335,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="haf-eW-9zU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1876" y="690.88669950738915"/>
+            <point key="canvasLocation" x="1024.8" y="690.88669950738915"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -395,7 +459,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="xDt-eq-lzO">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="HQo-id-j8Z">
+                        <barButtonItem key="leftBarButtonItem" style="done" id="HQo-id-j8Z">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Q9r-jM-EKW">
                                 <rect key="frame" x="16" y="0.0" width="83" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -412,7 +476,7 @@
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="Msa-Ia-FJ9">
+                        <barButtonItem key="rightBarButtonItem" style="done" id="Msa-Ia-FJ9">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="R0M-5y-Uog">
                                 <rect key="frame" x="276" y="0.0" width="83" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -428,7 +492,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="personListTableView" destination="Z73-AC-VXx" id="ad4-of-LL7"/>
-                        <segue destination="Z9V-qS-bNx" kind="show" identifier="showRecordingViewController" id="MXg-O6-8pR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -447,7 +510,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="recordingView" translatesAutoresizingMaskIntoConstraints="NO" id="HcM-vb-Ekp">
-                                <rect key="frame" x="37.666666666666657" y="152" width="300" height="508"/>
+                                <rect key="frame" x="37.666666666666657" y="114.66666666666669" width="300" height="582.66666666666652"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="JIj-fe-nkn" appends="YES" id="RLG-4W-2XI"/>
@@ -467,7 +530,37 @@
                             <constraint firstItem="HcM-vb-Ekp" firstAttribute="height" secondItem="8zu-hb-OsP" secondAttribute="height" multiplier="0.8" id="xWR-sp-vGd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="kGY-2F-ndG"/>
+                    <navigationItem key="navigationItem" id="YUp-LO-U4q">
+                        <barButtonItem key="leftBarButtonItem" style="done" id="sky-nw-SgD">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="h8p-Uc-Nna">
+                                <rect key="frame" x="16" y="0.0" width="83" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="person.crop.circle.fill.badge.plus" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration"/>
+                                </state>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.backward.circle.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="back:" destination="Z9V-qS-bNx" eventType="touchUpInside" id="hYm-Ul-gWG"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" id="BpU-uH-DaF">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="eeh-VC-pjq">
+                                <rect key="frame" x="276" y="0.0" width="83" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="person.crop.circle.fill.badge.plus" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration"/>
+                                </state>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="backGroundView" destination="7hK-12-XPK" id="8XR-yM-b9X"/>
                         <outlet property="recordingView" destination="HcM-vb-Ekp" id="GBA-gJ-t9n"/>
@@ -480,7 +573,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="933.60000000000002" y="-2.2167487684729066"/>
+            <point key="canvasLocation" x="1024.8" y="-2.2167487684729066"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Nor-YH-MPp">
@@ -502,30 +595,13 @@
             </objects>
             <point key="canvasLocation" x="-1082" y="-2"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="2y9-yd-rFN">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="B2w-wH-EfB" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="d0O-bC-Egd">
-                        <rect key="frame" x="0.0" y="50" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="83p-NE-IBN" kind="relationship" relationship="rootViewController" id="UM8-0E-Zgf"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vYv-Yy-4my" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1082.4000000000001" y="690.88669950738915"/>
-        </scene>
     </scenes>
     <resources>
         <image name="1" width="1509" height="3265"/>
         <image name="2" width="1775" height="3144"/>
         <image name="3" width="1364" height="3237"/>
         <image name="arrowshape.turn.up.backward.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="chevron.backward.circle.fill" catalog="system" width="128" height="123"/>
         <image name="edit" width="2809" height="3221"/>
         <image name="ellipsis.message.fill" catalog="system" width="128" height="114"/>
         <image name="person.crop.circle.fill.badge.checkmark" catalog="system" width="128" height="114"/>
